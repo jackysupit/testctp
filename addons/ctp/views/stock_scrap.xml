@@ -1,0 +1,79 @@
+<odoo>
+    <data>
+
+<!--        <record id="stock_scrap_form" model="ir.ui.view">-->
+<!--            <field name="name">stock.scrap.form</field>-->
+<!--            <field name="model">stock.scrap</field>-->
+<!--            <field name="inherit_id" ref="stock.stock_scrap_form_view"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='date_expected']" position="after">-->
+<!--                    <field name="my_location_ids">-->
+<!--                        <tree>-->
+<!--                            <field name="id"/>-->
+<!--                            <field name="display_name"/>-->
+<!--                        </tree>-->
+<!--                    </field>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="stock_scrap_header_form" model="ir.ui.view">
+            <field name="name">berdikari.stock.scrap.header.form</field>
+            <field name="model">berdikari.stock.scrap.header</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_validate" string="Validate" type="object" class="oe_highlight oe_read_only"
+                            attrs="{'invisible':[('state','=','done')]}"/>
+                        <field name="state" widget="statusbar" readonly="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_read_only"/>
+                            <h1><field name="name" placeholder="e.g.Monthly Scrap" attrs="{'readonly':[('state','=','done')]}"/></h1>
+                        </div>
+                        <group string="Scraps">
+                            <field name="stock_scrap_ids" nolabel="1" attrs="{'readonly':[('state','=','done')]}">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="product_id"/>
+                                    <field name="scrap_qty"/>
+                                    <field name="product_uom_id"/>
+                                    <field name="location_id"/>
+                                    <field name="scrap_location_id"/>
+                                    <field name="date_expected"/>
+                                    <field name="origin"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="my_location_ids" invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="stock_scrap_header_tree" model="ir.ui.view">
+            <field name="name">berdikari.stock.scrap.header.tree</field>
+            <field name="model">berdikari.stock.scrap.header</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="stock_scrap_header_list_action">
+            <field name="name">Stock Scrap Header</field>
+            <field name="res_model">berdikari.stock.scrap.header</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+<!--            <field name="inherit_id" ref="master_data_menu"/>-->
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+    </data>
+</odoo>

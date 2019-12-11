@@ -1,0 +1,57 @@
+.logo-bdk {
+	max-height: 65px!important;
+}
+
+.company_address {
+	text-align: center;
+	margin-left: 100px;
+}
+
+.header {
+	margin-bottom: 30px;
+}
+
+.footer {
+	display: none;
+}
+
+.o_main_table, thead, th, td {
+	border: 2px solid black;
+}
+
+.table {
+	margin-bottom: 0px!important;
+}
+
+div[class*='address row'] {
+	display: none;
+}
+
+.payment_sign {
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+.ttd {
+    margin-top: 130px;
+}
+
+.page p:first-of-type {
+    display: none;
+}
+
+div[class*='address row'] {
+    display: none;
+}
+
+.page {
+    margin-top: 50px;
+}
+
+address {
+    float: left;
+}
+
+.company_name {
+	font-size: 20px;
+}

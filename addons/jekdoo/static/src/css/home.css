@@ -1,0 +1,20 @@
+header a.navbar-brand.logo img {
+	height: 150px!important;
+}
+
+.navbar-brand {
+	height: 150px!important;
+}
+
+.pull-right {
+	display: none;
+}
+
+footer {
+	background-color: #38404D;
+	color: #ffffff;
+}
+
+footer h4 {
+	color: #ffffff;
+}

@@ -1,0 +1,178 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.vendor_bill_form_inherit">
+            <field name="name">vendor.bill.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="replace">
+                    <field name="state" widget="statusbar" nolabel="1"
+                           statusbar_visible="draft,verified_document,tax_validate,open,paid"/>
+                </xpath>
+                <xpath expr="//button[@name='action_invoice_open']" position="replace">
+                    <field name="is_amount_gt_max_bill" invisible="1"/>
+                    <field name="is_npwp" invisible="1"/>
+                    <field name="is_account_in_budget" invisible="1"/>
+                    <field name="validate_status" invisible="1"/>
+                    <field name="is_hide_verified_doc" invisible="1"/>
+                    <field name="is_hide_tax_validate" invisible="1"/>
+                    <field name="is_hide_dh_tax_approve" invisible="1"/>
+                    <button name="action_invoice_open" type="object" string="DH Tax Approve" class="oe_highlight oe_read_only"
+                            attrs="{'invisible': [('is_hide_dh_tax_approve','=',True)]}"/>
+                    <button name="action_tax_validate" type="object" string="Tax Validation" class="oe_highlight oe_read_only"
+                            attrs="{'invisible': [('is_hide_tax_validate','=',True)]}"/>
+                    <button name="action_verified_doc" type="object" string="Verified Document"
+                            class="oe_highlight oe_read_only" groups="account.group_account_invoice"
+                            confirm="Untaxed amount more than maximal bill, are you sure to validate?"
+                            attrs="{'invisible': [('validate_status','!=',1)]}"/>
+                    <button name="action_verified_doc" type="object" string="Verified Document"
+                            class="oe_highlight oe_read_only" groups="account.group_account_invoice"
+                            confirm="NPWP not valid, are you sure to validate?"
+                            attrs="{'invisible': [('validate_status','!=',2)]}"/>
+                    <button name="action_verified_doc" type="object" string="Verified Document"
+                            class="oe_highlight oe_read_only" groups="account.group_account_invoice"
+                            confirm="Amount item more than theoritical amount in budget, are you sure to validate?"
+                            attrs="{'invisible': [('validate_status','!=',10)]}"/>
+                    <button name="action_verified_doc" type="object" string="Verified Document"
+                            class="oe_highlight oe_read_only" groups="account.group_account_invoice"
+                            confirm="Invalid Data for: NPWP or Maximal bill or Budget. Are you sure want to validate?"
+                            attrs="{'invisible': [('validate_status','!=',3)]}"/>
+                    <button name="action_verified_doc" type="object" string="Verified Document"
+                            class="oe_highlight oe_read_only" groups="account.group_account_invoice"
+                            attrs="{'invisible': [('validate_status','!=',4)]}"/>
+
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree" position="inside">
+                    <field name="is_ppn_gt_one_million" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree" position="attributes">
+                    <attribute name="decoration-danger">is_ppn_gt_one_million == True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='asset_category_id']" position="after">
+                    <field name="flock_id"/>
+                </xpath>
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="schedule_date" force_save="1" invisible="1"/>
+                    <field name="order_date_po" force_save="1" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='date_invoice']" position="before">
+                    <field name="trans_type"/>
+                    <field name="cash_advance_warning" attrs="{'invisible': [('trans_type','!=','cash advance')]}"/>
+                </xpath>
+
+                <!--                <xpath expr="//field[@name='partner_id']" position="after">-->
+                <!--                    <field name="total_theoritical_amount"/>-->
+                <!--                    <field name="is_ada"/>-->
+                <!--                </xpath>-->
+                <!--                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_id']" position="after">-->
+                <!--                    <field name="total_theoritical_amount"/>-->
+                <!--                </xpath>-->
+                <!--<xpath expr="//field[@name='date_due']" position="after">-->
+                <!--<field name="date_due2" readonly="0"/>-->
+                <!--</xpath>-->
+                <xpath expr="//field[@name='invoice_line_tax_ids']" position="replace">
+                    <field name="invoice_line_tax_ids" widget="many2many_tags" options="{'no_create': True}"
+                           context="{'type':parent.type, 'tree_view_ref': 'account.account_tax_view_tree', 'search_view_ref': 'account.account_tax_view_search'}"
+                           domain="[('type_tax_use','=','purchase'),('company_id', '=', parent.company_id)]"
+                           string="Tax"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="replace">
+                    <field name="amount_untaxed" string="Amount"/>
+                </xpath>
+                <notebook>
+                    <page string="Sources"
+                          attrs="{'invisible':[('purchase_order_id','=',False),('sale_order_id','=',False)]}">
+                        <group>
+                            <field name="purchase_order_id" readonly="1" force_save="1"
+                                   attrs="{'invisible':[('purchase_order_id', '=', False)]}"
+                            />
+                            <field name="sale_order_id" readonly="1" force_save="1"
+                                   attrs="{'invisible':[('sale_order_id', '=', False)]}"
+                            />
+                        </group>
+                    </page>
+                    <page string="Cash Advance &amp; Down Payment">
+                        <group>
+                            <group>
+                                <field name="settle_type" widget="radio" options="{'horizontal': true}"/>
+
+
+                                <field name="trans_type" invisible="0"/>
+
+                                <field name="for_settle_id" attrs="{'invisible':[('trans_type','=','cash_advance')]}"/>
+                                <field name="amount" attrs="{'invisible':[('trans_type','=','cash_advance')]}"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Tax">
+                        <group>
+                            <group>
+                                <!--                                <field name="is_certificate_of_withholding_tax_released" required="1"/>-->
+                                <!--                                <field name="is_ppn_count" required="1"/>-->
+                                <!--                                <field name="is_ppn_credited" required="1"/>-->
+                                <!--                                <field name="is_ppn_paid" required="1"/>-->
+                                <!--                                <field name="tax_date"/>-->
+                                <!--                                &lt;!&ndash;utk vendor refund&ndash;&gt;-->
+                                <!--                                <field name="send_tax_slip" attrs="{'invisible': [('type', '!=', 'in_refund')]}"/>-->
+                                <!--                                <field name="calculated" attrs="{'invisible': [('type', '!=', 'in_refund')]}"/>-->
+                                <!--                            </group>-->
+                                <!--                            <group>-->
+                                <!--                                <field name="vat"/>-->
+                                <!--                                <field name="nego_rate"/>-->
+                                <!--                                <field name="rate" attrs="{'readonly': [('nego_rate','=',False)]}"/>-->
+                                <!--                                <field name="audit_period" required="1"/>-->
+                                <!--&lt;!&ndash;                                <field name="certificate_of_withholding_tax_link" widget="url" string="Bukti Potong"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;                                <field name="vat_number"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;                                <field name="vat_date"/>&ndash;&gt;-->
+                                <separator string="General"/>
+                                <field name="partner_type"/>
+                                <field name="vat"/>
+                                <field name="identification_number"/>
+                                <field name="is_pkp"/>
+
+                                <separator string="VAT"/>
+                                <field name="vat_type"/>
+                                <field name="vat_number"/>
+                                <field name="vat_date"/>
+                                <field name="is_ppn_credited"/>
+                                <field name="file_vat" filename="file_vat_name"/>
+                                <field name="file_vat_name" invisible="1"/>
+                                <field name="is_certificate_of_withholding_tax_released"/>
+                                <field name="is_ppn_count"/>
+                                <field name="is_ppn_paid"/>
+                                <field name="nego_rate"/>
+                                <field name="rate" attrs="{'readonly': [('nego_rate','=',False)]}"/>
+                            </group>
+                            <group>
+                                <separator string="As VAT Collector"/>
+                                <field name="vandor_id"/>
+                                <field name="original_bill_number"/>
+                                <field name="vat_collected_bill"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+
+                <xpath expr="//page[@name='other_info']//field[@name='account_id']" position="attributes">
+                    <attribute name="domain">[('company_id', '=', company_id), ('internal_type','in',
+                        ['payable','receivable']), ('deprecated', '=', False)]
+                    </attribute>
+                </xpath>
+                <xpath expr="//page[@name='other_info']//field[@name='name']" position="after">
+                    <field name="ops_non_ops_id"/>
+                    <field name="audit_period"/>
+                </xpath>
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="operational_id"/>
+                </xpath>
+                <xpath expr="//page[@name='other_info']//field[@name='company_id']" position="after">
+                    <field name="operating_unit_id" readonly="0" force_save="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="department_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

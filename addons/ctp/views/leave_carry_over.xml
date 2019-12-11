@@ -1,0 +1,82 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="leave_carry_over_form_view">
+            <field name="name">leave.carry.over.form</field>
+            <field name="model">berdikari.leave.carry.over</field>
+            <field name="arch" type="xml">
+                <form string="Leave Carry Over">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box" modifiers="{}">
+                            <button name="action_refresh" type="object" class="oe_stat_button"
+                                    icon="fa-refresh"
+                            >
+                                <span>Refresh Leave</span>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="employee_id" readonly="1"/>
+                                <field name="leave_to_carry_over_period" readonly="1" invisible="1"/>
+                                <field name="date_today" readonly="1"/>
+                                <field name="leave_type_id"/>
+                                <field name="leave_period_start"/>
+                                <field name="leave_period_end"/>
+                                <field name="leave_balance" invisible="1"/>
+                                <field name="carry_cut_off_date"/>
+                                <field name="carry_over" readonly="1" force_save="1"/>
+                                <field name="carry_used" readonly="1" force_save="1"/>
+                                <field name="carry_cut_off" readonly="1" force_save="1"/>
+                                <field name="carry_over_balance" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="leave_carry_over_tree">
+            <field name="name">leave.carry.over.tree</field>
+            <field name="model">berdikari.leave.carry.over</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="leave_type_id"/>
+                    <field name="leave_period_start"/>
+                    <field name="leave_period_end"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="leave_carry_over_list_action">
+            <field name="name">Leave Carry Over</field>
+            <field name="res_model">berdikari.leave.carry.over</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="hr_holidays.menu_hr_holidays_my_leaves"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+        <!--        <record model="ir.actions.act_window.view" id="act_open_leave_carry_over_view_tree">-->
+        <!--            <field name="act_window_id" ref="leave_carry_over_list_action"/>-->
+        <!--            <field name="sequence" eval="10"/>-->
+        <!--            <field name="view_mode">tree</field>-->
+        <!--            <field name="view_id" ref="leave_carry_over_tree"/>-->
+        <!--        </record>-->
+
+        <!--        <record model="ir.actions.act_window.view" id="act_open_leave_carry_over_view_form">-->
+        <!--            <field name="act_window_id" ref="leave_carry_over_list_action"/>-->
+        <!--            <field name="sequence" eval="20"/>-->
+        <!--            <field name="view_mode">form</field>-->
+        <!--            <field name="view_id" ref="leave_carry_over_form_view"/>-->
+        <!--        </record>-->
+
+<!--        <menuitem id="leave_carry_over_menu" name="Leave Carry Over" parent="hr_holidays.menu_hr_holidays_my_leaves"-->
+<!--                  sequence="7"-->
+<!--                  action="leave_carry_over_list_action"/>-->
+    </data>
+
+
+</odoo>

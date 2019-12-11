@@ -1,0 +1,178 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="breeding_input_form_view">
+            <field name="name">breeding.input.form</field>
+            <field name="model">berdikari.breeding.input</field>
+            <field name="arch" type="xml">
+                <form string="Breeding Input Form" create="false" edit="false">
+                    <header>
+                        <button name="action_breeding_input_released" string="Released/ Open" type="object"
+                                class="oe_highlight"
+                            invisible="1"
+                        />
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="date"/>
+
+                                <separator/>
+                                <field name="no_bird_female" attrs="{'invisible': [('id', '=', False)]}" />
+                                <field name="no_bird_male" attrs="{'invisible': [('id', '=', False)]}" />
+
+                                <field attrs="{'invisible':[('phase_id','!=','setup_phase_production_id')]}" name="received_qty" readonly="1" force_save="1" />
+                                <field attrs="{'invisible':[('phase_id','!=','setup_phase_production_id')]}" name="total_by_product"  readonly="1" force_save="1"/>
+                                <field attrs="{'invisible':[('phase_id','!=','setup_phase_production_id')]}" name="total_pe" readonly="1" force_save="1"/>
+                                <label for="pe_hh"/>
+                                    <div class="o_row" name="pe_hh">
+                                        <field attrs="{'invisible':[('phase_id','!=','setup_phase_production_id')]}" name="pe_hh" readonly="1" force_save="1"/>
+                                        <span>%</span>
+                                    </div>
+                                <label for="he_hh"/>
+                                    <div class="o_row" name="he_hh">
+                                        <field attrs="{'invisible':[('phase_id','!=','setup_phase_production_id')]}" name="he_hh" readonly="1" force_save="1"/>
+                                        <span>%</span>
+                                    </div>
+                                <separator/>
+                                <field name="total_dead" readonly="1" force_save="1"/>
+                                <field name="total_feed" readonly="1"  force_save="1"/>
+
+
+                                <field name="setup_phase_pertama_id" invisible="0"/>
+                                <field name="setup_phase_production_id" invisible="0"/>
+                                <field name="is_phase_production" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="company_id"  readonly="1"/>
+                                <field name="operating_unit_id"  readonly="1"/>
+                                <field name="flock_id" readonly="1"/>
+                                <field name="work_order_id" readonly="1"/>
+                                <field name="house_id" readonly="1"/>
+<!--                                <field name="fms_hatchery_id" readonly="1"/>-->
+                                <field name="phase_id" readonly="1"/>
+                                <field name="age" readonly="1"/>
+
+                                <separator string="Results"/>
+                                <field name="product_product_id" readonly="1"/>
+                                <field name="uom_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="By Product" attrs="{'invisible':[('is_phase_production','=',False)]}">
+                                <field name="breeding_input_line_product">
+                                    <tree editable="bottom" create="false">
+                                        <field name="product_product_id" visibility="1" readonly="1" force_save="1"/>
+                                        <field name="product_template_id" invisible="1" readonly="1" force_save="1"/>
+                                        <field name="product_template_code" visibility="1" />
+                                        <field name="sex" visibility="1" />
+                                        <field name="uom_id" visibility="1"  force_save="1"/>
+                                        <field name="is_result" visibility="1" force_save="1" readonly="1"/>
+                                        <field name="qty" visibility="1"  force_save="1"/>
+                                        <field name="inv_transfer_id" invisible="1" force_save="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Death">
+                                <field name="breeding_input_line_death">
+                                    <tree editable="bottom" create="false">
+                                        <field force_save="1" name="line_breed_id" readonly="1" visibility="0" />
+                                        <field force_save="1" name="asset_id" readonly="1" visibility="1" />
+                                        <field force_save="0" name="asset_code" readonly="1" visibility="1" />
+                                        <field force_save="0" name="asset_type" readonly="1" visibility="1" />
+                                        <field force_save="0" name="sex" readonly="1" visibility="1" />
+                                        <field force_save="1" name="begin" readonly="1" visibility="1" />
+                                        <field force_save="1" name="death_qty" readonly="0" visibility="1"  />
+                                        <field force_save="1" name="ending_qty" readonly="1" visibility="1" />
+<!--                                        <field force_save="1" name="write_off_id" readonly="1" visibility="1" />-->
+                                        <field force_save="1" name="move_id" readonly="1" invisible="1" />
+                                        <field force_save="1" name="biologis_used_id" readonly="1" invisible="1" />
+                                        <field force_save="1" name="uom_id"  />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Feed">
+<!--                                <button type="object" name="btnFeedBOM" string="BOM" class="oe_highlight"/>-->
+<!--                                <button type="object" name="btnFeedSplit" string="Split" class="oe_highlight"/>-->
+                                <field name="breeding_input_line_feed">
+                                    <tree editable="bottom" >
+                                        <field name="product_product_id" visibility="1"  force_save="1"/>
+                                        <field name="product_template_id" invisible="1" readonly="1" force_save="1"/>
+                                        <field name="product_template_code" invisible="1" />
+                                        <field name="batch_id" invisible="1" force_save="1"/>
+                                        <field name="sex" />
+                                        <field name="doc_product_id" readonly="1" force_save="1"/>
+                                        <field name="transaction_id" invisible="1" />
+                                        <field name="qty" visibility="1"  force_save="1"/>
+                                        <field name="uom_id" visibility="1"  force_save="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Other Material (OVK)">
+<!--                                <button type="object" name="btnOtherBOM" string="BOM" class="oe_highlight"/>-->
+<!--                                <button type="object" name="btnOtherSplit" string="Split" class="oe_highlight"/>-->
+                                <field name="breeding_input_line_ovk">
+                                    <tree editable="bottom">
+                                        <field name="product_product_id" visibility="1"  force_save="1"/>
+                                        <field name="product_template_id" invisible="1" readonly="1" force_save="1"/>
+                                        <field name="sex" />
+                                        <field name="doc_product_id" readonly="1" force_save="1"/>
+                                        <field name="qty" visibility="1" force_save="1" />
+                                        <field name="uom_id" visibility="1" />
+                                        <field name="batch_id" invisible="1" />
+                                        <field name="transaction_id" invisible="1" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="breeding_input_tree_view">
+            <field name="name">breeding.input.tree</field>
+            <field name="model">berdikari.breeding.input</field>
+            <field name="arch" type="xml">
+                <tree create="false">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="age"/>
+                    <field name="phase_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+
+
+        <record model="ir.actions.act_window" id="breeding_input_list_action">
+            <field name="name">Breeding Input</field>
+            <field name="res_model">berdikari.breeding.input</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+            <field name="inherit_id" ref="master_data_menu"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+
+
+        <record model="ir.ui.view" id="breeding_input_graph">
+            <field name="name">berdikari.breeding.input.graph</field>
+            <field name="model">berdikari.breeding.input</field>
+            <field name="arch" type="xml">
+                <graph string="Breeding Input">
+                    <field name="phase_id"/>
+                    <field name="no_bird_female" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+<!--        <menuitem id="breeding_input_menu" name="Breeding Input" parent="master_data_menu"-->
+<!--                  action="breeding_input_list_action"/>-->
+    </data>
+</odoo>

@@ -1,0 +1,59 @@
+body.o_home_menu_background_custom > header > .o_main_navbar {
+	background: transparent!important;
+	border-bottom: transparent!important;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+body:not([class*="o_home_menu_background"]) > header > .o_main_navbar {
+	background: -webkit-linear-gradient(-84deg,#fc2034 10%,#105abf 90%)!important;
+	border-bottom: none!important;
+}
+
+/*body:not([class*="o_home_menu_background"]) > header > .o_main_navbar > a:hover {
+	background: transparent!important;
+	border-bottom: none!important;
+}*/
+
+body.o_home_menu_background_custom > header > .o_main_navbar > a:hover {
+	background: transparent!important;
+}
+
+body.o_home_menu_background_custom > header > .o_main_navbar > a:focus {
+	background: transparent!important;
+}
+
+.o_home_menu_background_custom {
+	background: url(/web/image?model=res.company&id=1&field=background_image) no-repeat;
+    background-size: cover;
+}
+
+.o_home_menu {
+	background: transparent!important;
+}
+
+.o_home_menu .o_home_menu_scrollable .o_apps .o_app .o_caption {
+	text-shadow: 0 0 4px rgba(0, 0, 0, 1)!important;
+}
+
+.btn-primary:not([class*="o_arrow_button"])  {
+	background-color: #105abf!important;
+    border-color: #105abf!important;
+    border-radius: 3px!important;
+}
+
+.btn-primary:hover {
+	background-color: #045ad0!important;
+    border-color: #045ad0!important;
+}
+
+/*.o_menu_brand {
+	display: block!important;
+}*/
+
+.o_account_reports_page {
+	max-width: 100%!important;
+}
+
+.o_account_reports_page > .table-responsive {
+	overflow-x: unset;
+}

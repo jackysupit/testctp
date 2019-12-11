@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.sale_coupon_program_view_inherit">
+            <field name="name">sale.coupon.program.form.inherit</field>
+            <field name="model">sale.coupon.program</field>
+            <field name="inherit_id" ref="sale_coupon.sale_coupon_program_view_form_common"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <field name="is_hide_approve" invisible="1"/>
+                        <button name="action_approve" string="Approve" type="object"
+                                class="oe_highlight" attrs="{'invisible': [('is_hide_approve', '=', True)]}"/>
+                    </header>
+                </xpath>
+                <xpath expr="//button[@name='toggle_active']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

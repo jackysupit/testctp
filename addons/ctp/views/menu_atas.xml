@@ -1,0 +1,6 @@
+<odoo>
+    <data>
+        <menuitem id="berdikari_menu" name="FMS"/>
+            <menuitem id="master_data_menu" name="Master Data" parent="berdikari_menu" sequence="1"/>
+    </data>
+</odoo>

@@ -1,0 +1,114 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="report_pph_form_view">
+            <field name="name">report.pph.form</field>
+            <field name="model">berdikari.report.pph</field>
+            <field name="arch" type="xml">
+                <form string="Report PPH">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+
+                        </div>
+                        <group class="text-left">
+                            <group>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                            </group>
+                            <group>
+                                <button type="object" name="go_action" class="oe_stat_button"
+                                        icon="fa-archive" string="Go!"></button>
+                            </group>
+                        </group>
+
+<!--                        Bahan Baku-->
+                        <group>
+                            <group col="1">
+                                <group style="margin:0;">
+                                    <span>Bahan Baku</span>
+                                </group>
+                                <group style="padding:0 0 0 20px;">
+                                    <group colspan="5" style="margin:0;">
+                                        <field name="bahan_baku_awal" readonly="1" class="oe_right"/>
+                                        <field name="bahan_baku_pembelian" readonly="1" class="oe_right"/>
+                                        <field name="bahan_baku_akhir" readonly="1" class="oe_right"/>
+                                    </group>
+                                </group>
+                                <group style="margin:0;">
+                                    <span>Total Pemakaian Bahan</span>
+                                </group>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+
+
+<!--                        total_biaya-->
+                        <group>
+                            <group>
+                                <field name="total_biaya" readonly="1" class="oe_right"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+
+<!--                        Bahan Baku-->
+                        <group>
+                            <group col="1">
+                                <group style="margin:0;">
+                                    <span>Persediaan Dalam Proses</span>
+                                </group>
+                                <group style="padding:0 0 0 20px;">
+                                    <group colspan="5" style="margin:0;">
+                                        <field name="biaya_awal" readonly="1" class="oe_right"/>
+                                        <field name="biaya_pindah" readonly="1" class="oe_right"/>
+                                        <field name="biaya_akhir" readonly="1" class="oe_right"/>
+                                    </group>
+                                </group>
+                                <group style="margin:0;">
+                                    <field name="total_hpp_proses" readonly="1" class="oe_right"/>
+                                </group>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+
+
+<!--                        Produk Jadi-->
+                        <group>
+                            <group col="1">
+                                <group style="margin:0;">
+                                    <span>Produk Jadi</span>
+                                </group>
+                                <group style="padding:0 0 0 20px;">
+                                    <group colspan="5" style="margin:0;">
+                                        <field name="jadi_awal" readonly="1" class="oe_right"/>
+                                        <field name="jadi_pindah" readonly="1" class="oe_right"/>
+                                        <field name="jadi_akhir" readonly="1" class="oe_right"/>
+                                    </group>
+                                </group>
+                                <group style="margin:0;">
+                                    <field name="total_hpp_produksi" readonly="1" class="oe_right"/>
+                                </group>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="report_pph_action">
+            <field name="name">Report PPH</field>
+            <field name="res_model">berdikari.report.pph</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

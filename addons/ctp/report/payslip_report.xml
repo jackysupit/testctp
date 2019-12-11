@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="berdikari.report_payslip_karyawan_direksi" model="ir.actions.report">
+        <field name="name">Direksi</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">berdikari.template_payslip_direksi</field>
+        <field name="target">self</field>
+    </record>
+    <record id="berdikari.report_payslip_karyawan" model="ir.actions.report">
+        <field name="name">Karyawan</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">berdikari.template_payslip_karyawan_karyawan</field>
+        <field name="target">self</field>
+    </record>
+
+    <record id="berdikari.report_payslip_penjaga" model="ir.actions.report">
+        <field name="name">Penjaga</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">berdikari.template_payslip_penjaga</field>
+        <field name="target">self</field>
+    </record>
+
+<!--    <report id="berdikari.payslip_karyawan_kontrak_report2"-->
+<!--            string="Report"-->
+<!--            model="hr.payslip.report"-->
+<!--            report_type="qweb-pdf"-->
+<!--            file="berdikari.template_payslip_direksi"-->
+<!--            name="berdikari.template_payslip_direksi"-->
+<!--            paperformat="hr_holidays.paperformat_hrsummary"-->
+<!--    />-->
+
+
+
+<!--    Laporan Rekapitulasi Gaji Direksi & Dewan Komisaris-->
+    <template id="berdikari.template_payslip_direksi">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h3>
+                        <span t-esc="title"/>
+                    </h3>
+
+                    <p>
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%b-%Y')"/>
+                    </p>
+
+                    <t t-set="i" t-value="0"/>
+                    <table border="0">
+                        <table class="table table-sm">
+                            <thead>
+
+<!--                                No, Nama, Gaji, Tunjangan Perumahan, Tunjangan Transport
+, BPJS Naker (Direksi & Dekom) Ditanggung Perusahaan, Total Potongan BPJS Kesehatan, Total Diterima Direksi / Dekom, Total SPP-->
+
+                                <tr>
+                                    <th class="text-center">
+                                        <strong>No</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Nama</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Gaji</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Tunjangan Perumahan</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Tunjangan Transport</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>BPJS Naker (Perusahaan)</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>BPJS Naker (Pegawai)</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Total BPJS Naker</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Potongan BPJS Kesehatan (Perusahaan)</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Potongan BPJS Kesehatan (Pegawai)</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Total Potongan BPJS Kesehatan</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>THP</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Total SPP</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="model" t-as="index">
+                                    <t t-set="o" t-value="model[index]" />
+                                    <t t-set="i" t-value="i+1" />
+                                    <t t-set="subtotal" t-value="o['gaji_pokok']+o['tunjangan_perumahan']+o['tunjangan_transport']-o['bpjs_naker_perusahaan']-o['bpjs_naker_pegawai']-o['bpjs_naker_total']-o['potongan_bpjs_kesehatan_perusahaan']-o['potongan_bpjs_kesehatan_pegawai']-o['potongan_bpjs_kesehatan_total']" />
+                                    <tr>
+                                        <td> <span t-esc="i"/> </td>
+                                        <td>
+                                            <t t-esc="o['name']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['gaji_pokok']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['tunjangan_perumahan']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['tunjangan_transport']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['bpjs_naker_perusahaan']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['bpjs_naker_pegawai']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['bpjs_naker_total']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['potongan_bpjs_kesehatan_perusahaan']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['potongan_bpjs_kesehatan_pegawai']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['potongan_bpjs_kesehatan_total']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(subtotal))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['total_spp']))" />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+<!--    Laporan Rekapitulasi Gaji Karyawan Tetap dan Kontrak-->
+    <template id="berdikari.template_payslip_karyawan_karyawan">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h3>
+                        <span t-esc="title"/>
+                    </h3>
+
+
+                    <p>
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%b-%Y')"/>
+                    </p>
+
+                    <t t-set="i" t-value="0"/>
+                    <table border="0">
+                        <table class="table table-sm">
+                            <thead>
+
+<!--                                No, Nama, Gaji, Tunjangan Perumahan, Tunjangan Transport
+, BPJS Naker (Direksi & Dekom) Ditanggung Perusahaan, Total Potongan BPJS Kesehatan, Total Diterima Direksi / Dekom, Total SPP-->
+
+                                <tr>
+                                    <th class="text-center">
+                                        <strong>No</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Nama</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Gaji</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Tunjangan Jabatan</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Potongan Pinjaman</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>BPJS Naker (Perusahaan)</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>BPJS Naker (Pegawai)</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Total BPJS Naker</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Potongan BPJS Kesehatan (Perusahaan)</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Potongan BPJS Kesehatan (Pegawai)</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Total Potongan BPJS Kesehatan</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>THP</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Total SPP</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="model" t-as="index">
+                                    <t t-set="o" t-value="model[index]" />
+                                    <t t-set="i" t-value="i+1" />
+                                    <t t-set="subtotal" t-value="o['gaji_pokok']+o['tunjangan_jabatan']-o['potongan_pinjaman']-o['bpjs_naker_perusahaan']-o['bpjs_naker_pegawai']-o['bpjs_naker_total']-o['potongan_bpjs_kesehatan_perusahaan']-o['potongan_bpjs_kesehatan_pegawai']-o['potongan_bpjs_kesehatan_total']" />
+                                    <tr>
+                                        <td> <span t-esc="i"/> </td>
+                                        <td>
+                                            <t t-esc="o['name']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['gaji_pokok']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['tunjangan_jabatan']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['potongan_pinjaman']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['bpjs_naker_perusahaan']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['bpjs_naker_pegawai']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['bpjs_naker_total']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['potongan_bpjs_kesehatan_perusahaan']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['potongan_bpjs_kesehatan_pegawai']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['potongan_bpjs_kesehatan_total']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(subtotal))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['total_spp']))" />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+<!--    Laporan Rekapitulasi Gaji Penjaga-->
+    <template id="berdikari.template_payslip_penjaga">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h3>
+                        <span t-esc="title"/>
+                    </h3>
+
+                    <p>
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%b-%Y')"/>
+                    </p>
+                    <p>
+                        docs: <t t-esc="docs"/>
+                    </p>
+                    <p>
+                        model2: <t t-esc="model2"/>
+                    </p>
+
+                    <table border="0">
+                        <table class="table table-sm">
+                            <thead>
+<!--                                No, Nama, Gaji, Tunjangan Perumahan, Tunjangan Transport
+, BPJS Naker (Direksi & Dekom) Ditanggung Perusahaan, Total Potongan BPJS Kesehatan, Total Diterima Direksi / Dekom, Total SPP-->
+
+                                <tr>
+                                    <th class="text-center">
+                                        <strong>No</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Nama</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Gaji</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>THP</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="i" t-value="0"/>
+                                <t t-foreach="docs" t-as="index">
+                                    <t t-set="o" t-value="docs[index]" />
+                                    <t t-set="i" t-value="i+1" />
+                                    <tr>
+                                        <td> <span t-esc="i"/> </td>
+                                        <td>
+                                            <t t-esc="o['name']"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['gaji_pokok']))" />
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="'{0:,.2f}'.format(int(o['total_diterima']))" />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

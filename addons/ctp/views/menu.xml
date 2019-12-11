@@ -1,0 +1,130 @@
+<odoo>
+    <data>
+        <menuitem id="fms_master_data_menu" name="FMS Master Data" parent="master_data_menu" sequence="1"/>
+        <menuitem id="flock_master_menu" sequence="16" name="Flock Master" parent="fms_master_data_menu" action="flock_master_list_action"/>
+<!--        <menuitem id="work_order_menu" sequence="17" name="Work Order" parent="fms_master_data_menu" action="work_order_list_action"/>-->
+        <menuitem id="hose_master_menu" sequence="18" name="House Master" parent="fms_master_data_menu" action="hose_master_list_action"/>
+        <menuitem id="farm_machine_menu" sequence="19" name="Farm Machine" parent="fms_master_data_menu" action="farm_machine_list_action"/>
+        <menuitem id="farm_menu" sequence="20" name="Farm" parent="fms_master_data_menu" action="farm_list_action"/>
+        <menuitem id="standard_productivity_menu" sequence="21" name="Standard Productivity" parent="fms_master_data_menu" action="standard_productivity_list_action"/>
+        <menuitem id="phase_menu" sequence="22" name="Phase" parent="fms_master_data_menu" action="phase_list_action"/>
+
+        <menuitem id="hris_master_data_menu" name="Master Data" parent="hr.menu_hr_root" sequence="99"/>
+        <menuitem id="religion_master_menu" sequence="16" name="Religion Master" parent="hris_master_data_menu" action="religion_list_action"/>
+        <menuitem id="training_type_master_menu" sequence="17" name="Training Type" parent="hris_master_data_menu" action="training_type_list_action"/>
+        <menuitem id="job_level_master_menu" sequence="18" name="Job Level" parent="hris_master_data_menu" action="job_level_list_action"/>
+        <menuitem id="education_level_master_menu" sequence="19" name="Education Level" parent="hris_master_data_menu" action="education_level_list_action"/>
+        <menuitem id="competency_master_menu" sequence="20" name="Competency" parent="hris_master_data_menu" action="competency_list_action"/>
+        <menuitem id="family_relation_master_menu" sequence="21" name="Family Relation" parent="hris_master_data_menu" action="family_relation_list_action"/>
+        <menuitem id="punishment_type_master_menu" sequence="22" name="Punishment Type" parent="hris_master_data_menu" action="punishment_type_list_action"/>
+        <menuitem id="attendance_code_master_menu" sequence="23" name="Attendance Code" parent="hris_master_data_menu" action="attendance_code_list_action"/>
+        <menuitem id="attendance_period_master_menu" sequence="24" name="Attendance Period" parent="hris_master_data_menu" action="attendance_period_list_action"/>
+        <menuitem id="paklaring_menu" name="Paklaring" parent="hris_master_data_menu"  action="paklaring_list_action" sequence="25"/>
+        <menuitem id="hr_job_menu" name="Job Position" parent="hris_master_data_menu"  action="hr_job_list_action"/>
+        <menuitem id="category_type_master_menu" sequence="26" name="Category" parent="hris_master_data_menu" action="category_type_list_action"/>
+        <menuitem id="contract_type_master_menu" sequence="27" name="Contract Type" parent="hris_master_data_menu" action="contract_type_list_action"/>
+
+        <menuitem id="fms_menu" name="Farm Management System" parent="berdikari_menu" sequence="2"/>
+<!--        <menuitem id="fms_breeding_menu" name="Breeding" parent="fms_menu" sequence="1"/>-->
+<!--        <menuitem id="fms_breeding_submenu" name="FMS Breeding" parent="fms_breeding_menu"-->
+<!--                  action="fms_breeding_list_action"/>-->
+<!--        <menuitem id="breeding_input_submenu" name="Breeding Input" parent="fms_breeding_menu"-->
+<!--                  action="breeding_input_list_action"/>-->
+<!--        <menuitem id="fms_egg_production_submenu" name="FMS Egg Production" parent="fms_menu"-->
+<!--                  action="fms_egg_production_list_action"/>-->
+<!--        <menuitem id="fms_hatchery_submenu" name="FMS Hatchery" parent="fms_menu" action="fms_hatchery_list_action"/>-->
+        <menuitem id="asset_menu" name="Asset" parent="fms_menu"/>
+
+<!--        <menuitem id="asset_biologis_used_submenu" name="Asset Biologis Used" parent="asset_menu" action="asset_biological_used_list_action"/>-->
+        <menuitem id="asset_deprecation_submenu" name="Asset Deprecation" parent="asset_menu" action="asset_depreciation_list_action" sequence="102"/>
+        <menuitem id="asset_adding_submenu" name="Asset Adding" parent="asset_menu" action="asset_adding_list_action" sequence="103"/>
+        <menuitem id="asset_reclass_submenu" name="Asset Reclass" parent="asset_menu" action="asset_reclass_list_action" sequence="104"/>
+        <menuitem id="asset_write_off_submenu" name="Asset Write Off" parent="asset_menu" action="asset_write_off_list_action" sequence="105"/>
+
+        <menuitem id="vat_management_menu" name="VAT Management" parent="account_accountant.menu_accounting" sequence="21"
+                  action="vat_management_list_action"/>
+
+        <menuitem id="business_unit_menu" name="Business Unit" parent="account.account_management_menu"
+                  action="farm_list_action"/>
+
+        <menuitem id="cogs_costing_menu" name="COGS Costing" parent="account.menu_finance_entries_management"
+                  action="cogs_costing_list_action" sequence="106"/>
+        <menuitem id="closing_year_menu" name="Closing Year" parent="account.menu_finance_entries_management"
+                  action="closing_year_list_action" sequence="107"/>
+
+
+        <menuitem id="menu_report_pph" name="Report PPH" parent="account_reports.account_reports_audit_reports_menu"
+                  action="report_pph_action"/>
+
+        <menuitem id="menu_report_down_payment" name="Report Down Payment"
+                  parent="account_reports.account_reports_audit_reports_menu"
+                  action="report_down_payment_action"/>
+
+        <menuitem id="menu_report_receive_money" name="Laporan Kas"
+                  parent="account_reports.account_reports_audit_reports_menu"
+                  action="payment_receive_list_action"/>
+
+        <menuitem id="top_menu_employee" name="Employee"
+                  parent="account_accountant.menu_accounting"
+                  sequence="3"
+                  action="employee_kasbon_action"/>
+        <menuitem id="menu_employee_kasbon_action" name="Cash Advance"
+                  parent="top_menu_employee"
+                  action="employee_kasbon_action"/>
+        <menuitem id="menu_employee_bill_action" name="Bill"
+                  parent="top_menu_employee"
+                  action="employee_bill_action"/>
+
+
+        <menuitem id="menu_stock_scrap" name="Stock Scrap" parent="stock.menu_stock_warehouse_mgmt" sequence="1"
+                  action="stock_scrap_header_list_action"/>
+
+        <menuitem id="pr_menu" name="Purchase Request" parent="purchase.menu_procurement_management" sequence="1"
+                  action="pr_list_action"/>
+
+        <menuitem id="menu_asset_material" name="Asset Material" parent="account.menu_finance_entries_management" sequence="101"
+                  action="action_asset_material"/>
+
+        <menuitem id="menu_asset_non_material" name="Asset Non Material" parent="account.menu_finance_entries_management" sequence="101"
+                  action="action_asset_non_material"/>
+
+        <menuitem id="attendance_sum_menu" name="Attendance Summary Report" action="action_summary_attendance_report"
+                  parent="hr_attendance.menu_hr_attendance_root" sequence="11"/>
+
+        <menuitem id="hr_payslip_filter_submenu" name="Payslip Report"
+                  parent="hr_payroll.menu_hr_payroll_root"
+        />
+
+        <menuitem id="hr_payslip_configuration_item" name="Configuration" action="jekdoo.action_setup"
+                  parent="hr_payslip_filter_submenu"
+                  sequence="17"
+        />
+
+        <menuitem id="hr_payslip_filter_item" name="HR Payslip Report" action="hr_payslip_filter_action"
+                  parent="hr_payslip_filter_submenu"
+                  sequence="18"
+        />
+        <menuitem id="hr_payslip_byaccount_item" name="HR Payslip By Account" action="hr_payslip_byaccount_action"
+                  parent="hr_payslip_filter_submenu"
+                  sequence="19"
+        />
+
+
+        <record model="ir.ui.menu" id="purchase.menu_purchase_rfq">
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="stock.menu_stock_scrap" model="ir.ui.menu">
+            <field name="active">False</field>
+        </record>
+
+        <record model ="ir.ui.menu" id="hr_attendance.menu_hr_attendance_kiosk_mode">
+            <field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+        </record>
+
+        <record model ="ir.ui.menu" id="hr_attendance.menu_hr_attendance_my_attendances">
+            <field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+        </record>
+
+    </data>
+</odoo>

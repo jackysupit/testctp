@@ -1,0 +1,61 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="standard_productivity_form_view">
+            <field name="name">standard.productivity.form</field>
+            <field name="model">berdikari.standard.productivity</field>
+            <field name="arch" type="xml">
+                <form string="Standard Productivity">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="asset_id"/>
+                                <field name="vendor_id"/>
+                                <field name="by_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Productivity">
+                                <field name="std_prod_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="week"/>
+                                        <field name="pe_he"/>
+                                        <field name="he_hh"/>
+                                        <field name="female_depletion"/>
+                                        <field name="male_depletion"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="standard_productivity_tree_view">
+            <field name="name">standard.productivity.tree</field>
+            <field name="model">berdikari.standard.productivity</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="asset_id"/>
+                    <field name="vendor_id"/>
+                    <field name="by_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="standard_productivity_list_action">
+            <field name="name">Standard Productivity</field>
+            <field name="res_model">berdikari.standard.productivity</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="master_data_menu"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+<!--        <menuitem id="standard_productivity_menu" name="Standard Productivity" parent="account.account_management_menu"-->
+<!--                  action="standard_productivity_list_action"/>-->
+    </data>
+</odoo>

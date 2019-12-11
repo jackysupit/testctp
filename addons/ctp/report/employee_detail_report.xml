@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="employee_detail_report"
+            string="Print Employee Page"
+            model="hr.employee"
+            report_type="qweb-pdf"
+            name="berdikari.employee_detail_template"
+            file="berdikari.employee_detail_template"
+            print_report_name="'Print Employee - %s' % (object.name).replace('/', '')"
+    />
+
+    <template id="berdikari.employee_detail_template">
+        <t t-call="web.html_container">
+            <div class="header" style="border-bottom: 2px solid black;">
+                <span class="text-center">Employee Detail Page</span>
+            </div>
+            <div>
+                <t t-foreach="docs" t-as="employee">
+                    <table class="" style=" padding:0;margin:0;">
+                        <!--
+                        Work Information
+                        -->
+                        <tr>
+                            <td colspan="2">
+                                <table class="table table-condensed table-bordered" >
+                                    <tr>
+                                        <td>
+                                            <img t-if="employee.image" t-att-src="image_data_uri(employee.image)"
+                                                 style="max-height:85pt; max-width:100pt;"
+                                                 alt="Employee Image"/>
+                                        </td>
+                                        <td>
+                                            <h1>
+                                                <t t-esc="employee.name"/>
+                                            </h1>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td colspan="2" style="background: #f0f0f0;">
+                                <h3>Work Information</h3>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td style="width:50%;">
+                                <table class="table" style="width:100%; padding:0;margin:0; ">
+                                    <tr>
+                                        <td colspan="2">
+                                            <h4>Contact Information</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Employee ID</td>
+                                        <td>
+                                            <t t-esc="employee.employee_id"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Address ID</td>
+                                        <td>
+                                            <t t-esc="employee.address_id.str_show_address"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Work Location</td>
+                                        <td>
+                                            <t t-esc="employee.work_location"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Work Email</td>
+                                        <td>
+                                            <t t-esc="employee.work_email"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Phone 1</td>
+                                        <td>
+                                            <t t-esc="employee.mobile_phone"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Phone 2</td>
+                                        <td>
+                                            <t t-esc="employee.mobile_phone_2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Work Phone</td>
+                                        <td>
+                                            <t t-esc="employee.work_phone"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Notes</td>
+                                        <td>
+                                            <t t-esc="employee.notes"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width:50%;">
+                                <table class="table" style="width:100%; padding:0;margin:0; ">
+                                    <tr>
+                                        <td colspan="2">
+                                            <h4>Position</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Gender</td>
+                                        <td>
+                                            <t t-esc="employee.department_id.display_name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Tax Marital Status</td>
+                                        <td>
+                                            <t t-esc="employee.job_id.display_name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Marital</td>
+                                        <td>
+                                            <t t-esc="employee.job_title"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Spouse Name</td>
+                                        <td>
+                                            <t t-esc="employee.job_level_id.display_name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Spouse Birthday</td>
+                                        <td>
+                                            <t t-esc="employee.parent_id.display_name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Birthday</td>
+                                        <td>
+                                            <t t-esc="employee.coach_id.display_name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Age</td>
+                                        <td>
+                                            <t t-esc="employee.manager"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Place Of Birth</td>
+                                        <td>
+                                            <t t-esc="employee.resource_calendar_id.display_name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Country Of Birth</td>
+                                        <td>
+                                            <t t-esc="employee.tz"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <hr/>
+                            </td>
+                        </tr>
+
+                        <!--
+                        PRIVATE INFORMATION
+                        -->
+                        <tr valign="top">
+                            <td colspan="2" style="background: #f0f0f0;">
+                                <h3>Private Information</h3>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td style="width:50%;">
+                                <table class="table" style="width:100%; padding:0;margin:0; ">
+                                    <tr>
+                                        <td colspan="2">
+                                            <h4>Private Information</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Gender</td>
+                                        <td>
+                                            <t t-esc="employee.gender"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Tax Marital Status</td>
+                                        <td>
+                                            <t t-esc="employee.tax_marital_status"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Marital</td>
+                                        <td>
+                                            <t t-esc="employee.marital"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Spouse Name</td>
+                                        <td>
+                                            <t t-esc="employee.spouse_complete_name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Spouse Birthday</td>
+                                        <td>
+                                            <t t-esc="employee.spouse_birthdate"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Birthday</td>
+                                        <td>
+                                            <t t-esc="employee.birthday"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Age</td>
+                                        <td>
+                                            <t t-esc="employee.age"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Place Of Birth</td>
+                                        <td>
+                                            <t t-esc="employee.place_of_birth"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Country Of Birth</td>
+                                        <td>
+                                            <t t-esc="employee.country_of_birth.display_name"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width:50%;">
+                                <table class="table" style="width:100%; padding:0;margin:0;">
+                                    <tr>
+                                        <td colspan="2">
+                                            <h4>Citizenship</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Gender</td>
+                                        <td>
+                                            <t t-esc="employee.country_id.display_name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Tax Marital Status</td>
+                                        <td>
+                                            <t t-esc="employee.ethnic"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Marital</td>
+                                        <td>
+                                            <t t-esc="employee.identification_id"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Spouse Name</td>
+                                        <td>
+                                            <t t-esc="employee.passport_id"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Spouse Birthday</td>
+                                        <td>
+                                            <t t-esc="employee.religion_id.display_name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Birthday</td>
+                                        <td>
+                                            <t t-esc="employee.bank_account_id.display_name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Age</td>
+                                        <td>
+                                            <t t-esc="employee.id_no_expired_date"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Place Of Birth</td>
+                                        <td>
+                                            <t t-esc="employee.drive_licence_type"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Country Of Birth</td>
+                                        <td>
+                                            <t t-esc="employee.drive_licence_id"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Gender</td>
+                                        <td>
+                                            <t t-esc="employee.drive_licence_exp_date"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Tax Marital Status</td>
+                                        <td>
+                                            <t t-esc="employee.passport_place_of_issued"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Marital</td>
+                                        <td>
+                                            <t t-esc="employee.passport_exp_date"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Spouse Name</td>
+                                        <td>
+                                            <t t-esc="employee.npwp"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Spouse Birthday</td>
+                                        <td>
+                                            <t t-esc="employee.npwp_address"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Birthday</td>
+                                        <td>
+                                            <t t-esc="employee.bank_payroll_account"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Age</td>
+                                        <td>
+                                            <t t-esc="employee.other_bank_account"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <hr/>
+                            </td>
+                        </tr>
+
+
+                        <!--
+                        Emergency Contacts
+                        -->
+<!--                        <tr valign="top">-->
+<!--                            <td colspan="2" style="background: #f0f0f0;">-->
+<!--                                <h3>Emergency Contacts</h3>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+                        <tr valign="top">
+                            <td style="width:50%;">
+                                <!--
+                                Family
+                                -->
+                                <table class="table" style="width:100%; padding:0;margin:0; ">
+                                    <tr>
+                                        <td colspan="2">
+                                            <h4>Emergency Contacts</h4>
+                                        </td>
+                                    </tr>
+                                    <t t-foreach="employee.emergency_contact_ids" t-as="contact">
+                                        <tr>
+                                            <td style="width:200px;">Nama</td>
+                                            <td>
+                                                <t t-esc="contact.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:200px;">Hubungan</td>
+                                            <td>
+                                                <t t-esc="contact.family_relation.display_name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:200px;">Alamat</td>
+                                            <td>
+                                                <t t-esc="contact.address"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:200px;">Kecamatan</td>
+                                            <td>
+                                                <t t-esc="contact.kecamatan"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:200px;">Kabupaten</td>
+                                            <td>
+                                                <t t-esc="contact.kabupaten"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:200px;">Home Phone</td>
+                                            <td>
+                                                <t t-esc="contact.home_phone"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:200px;">Mobile Phone</td>
+                                            <td>
+                                                <t t-esc="contact.mobile_phone"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <hr/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </table>
+                            </td>
+                            <td style="width:50%;">
+                                <!--
+                                Family
+                                -->
+                                <table class="table" style="width:100%; padding:0;margin:0; ">
+                                    <tr>
+                                        <td colspan="2">
+                                            <h4>Family</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">No. Kartu Keluarga</td>
+                                        <td>
+                                            <t t-esc="employee.no_kartu_keluarga"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:200px;">Nama Ibu Kandung</td>
+                                        <td>
+                                            <t t-esc="employee.birth_mother_name"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <hr/>
+                            </td>
+                        </tr>
+
+
+                    </table>
+                </t>
+            </div>
+            <div class="footer">
+                <div class="row text-center" style="border-top: 1px solid black;">
+                    <div class="col col-3 offset-9 text-right">
+                        <ul class="list-inline mt-2">
+                            <li class="list-inline-item">Page:</li>
+                            <li class="list-inline-item">
+                                <span class="page"/>
+                            </li>
+                            <li class="list-inline-item">/</li>
+                            <li class="list-inline-item">
+                                <span class="topage"/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+        <record id="view_order_form" model="ir.ui.view">
+            <field name="name">sale.view_order_form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="replace">
+                    <field name="payment_term_id"/>
+                    <field name="mode_of_payment_id" options="{'no_create': True}"/>
+                    <field name="company_id"/>
+                    <field name="warehouse_id"/>
+                    <field name="operating_unit_id"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="replace">
+                    <field name="partner_id" widget="res_partner_many2one" domain="[('customer','=',True),('parent_id','=',False)]" context="{'search_default_customer':1, 'show_address': 1, 'show_vat': True}" options='{"always_reload": True}'/>
+                </xpath>
+                <xpath expr="//field[@name='partner_invoice_id']" position="replace">
+                    <field name="partner_invoice_id"/> <!--attrs="{'invisible': [('partner_id', '=', False)]}"/>-->
+                </xpath>
+                <xpath expr="//field[@name='partner_shipping_id']" position="replace">
+                    <field name="partner_shipping_id"/> <!--attrs="{'invisible': [('partner_id', '=', False)]}"/>-->
+                </xpath>
+                <xpath expr="//field[@name='tax_id']" position="replace">
+                    <field name="tax_id" widget="many2many_tags" options="{'no_create': True}" context="{'search_view_ref': 'account.account_tax_view_search'}" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"
+                            attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="replace">
+                    <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}" string="Amount"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                    <field name="customer_po_number" string="Customer PO Number"/>
+                    <field name="customer_po_date" string="Customer PO Date"/>
+                    <field name="is_force_date_sales_order" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='confirmation_date']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('is_force_date_sales_order','=', False)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <template id="report_saleorder_document_inherit_remarks" inherit_id="sale.report_saleorder_document">
+      	<xpath expr="//div[@name='signature']" position="after">
+        	<div class="mt32 ml16 mr16" name="signature">
+                <div class="is-3">
+                    <strong>Signature</strong>
+                </div>
+                <br/><br/><br/>
+                <div class="is-3">
+                    <p>Manager</p>
+                </div>
+            </div>
+
+      	</xpath>
+  	</template>
+
+    </data>
+</odoo>

@@ -1,0 +1,30 @@
+{
+  "name": "D 001 / Flock 201910/0011",
+  "origin": "BREED/201910/0028",
+  "product_id": 1062,
+  "product_uom": 1,
+  "operating_unit_id": False,
+  "product_uom_qty": 4,
+  "price_unit": 0.0,
+  "value": 1000000,
+  "remaining_value": 0,
+  "location_id": 4,
+  "scrapped": True,
+  "location_dest_id": 4,
+  "move_line_ids": [
+    (0,
+    0,
+    {
+      "product_id": 1062,
+      "product_uom_id": 1,
+      "qty_done": 4,
+      "location_id": 4,
+      "location_dest_id": 4,
+      "owner_id": 23352,
+      "lot_id": False
+    }
+    )
+  ],
+  "restrict_partner_id": 23352,
+  "picking_id": 31
+}

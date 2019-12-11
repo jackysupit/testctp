@@ -1,0 +1,87 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="jekdoo_setup_form_inherit">
+            <field name="name">jekdoo.setup.form.inherit</field>
+            <field name="model">jekdoo.setup</field>
+            <field name="inherit_id" ref="jekdoo.jekdoo_setup_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='other']" position="before">
+                    <page string="Page 1" name="berdikari_setup">
+                        <group>
+                            <group>
+                                <field name="default_payment_term_id"/>
+                                <field name="cash_advance_limit"/>
+                                <field name="due_days_for_cash_advance"/>
+                                <field name="warning_days_before_due_date"/>
+                                <field name="foh_reserve_id"/>
+                                <field name="intermediate_account_id"/>
+                                <field name="cogs_manufacture_account_id"/>
+                            </group>
+
+                            <group string="Report HPP">
+                                <field name="asset_account_id"/>
+                                <field name="prefix_akun_biaya"/>
+                                <field name="wip_account_id"/>
+                                <field name="produk_jadi_account_id"/>
+                            </group>
+                        </group>
+                        <group string="Report Inventory Adjustment">
+                            <group string="Dept Head Keuangan">
+                                <field name="dept_keuangan_id"/>
+                                <field name="job_dept_head_keuangan_id"/>
+                            </group>
+                            <group string="Dept Head Akuntansi">
+                                <field name="dept_akuntansi_id"/>
+                                <field name="job_dept_head_akuntansi_id"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="FMS">
+                                <field name="phase_pertama_id"/>
+                                <field name="phase_production_id"/>
+                            </group>
+                            <group string="Journal Write Off">
+                                <field name="journal_kematian_id"/>
+                                <field name="journal_penyusutan_aset_id"/>
+                                <field name="journal_asset_receipt_id"/>
+                                <field name="journal_asset_reclass_id"/>
+                                <field name="journal_bills_validate_id"/>
+                                <field name="journal_payment_validate_id"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="HRIS Attendance">
+                                <label for="diff_limit" string="Diff Limit"/>
+                                <div>
+                                    <field name="diff_limit" nolabel="1" class="oe_inline"/>
+                                    hour
+                                </div>
+                            </group>
+                            <group string="Dept Head HR">
+                                <field name="dept_head_hr_id"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Page 2" name="page2">
+                        <group string="Setup Tipe Karyawan">
+                            <field name="karyawan_tetap_id"/>
+                            <field name="karyawan_kontrak_id"/>
+                            <field name="direksi_id"/>
+                        </group>
+                        <group string="Laporan Rekapitulasi Gaji">
+                            <field name="gaji_pokok_id"/>
+                            <field name="tunjangan_perumahan_id"/>
+                            <field name="tunjangan_transport_id"/>
+                            <field name="bpjs_naker_perusahaan_id"/>
+                            <field name="bpjs_naker_pegawai_id"/>
+                            <field name="potongan_bpjs_kesehatan_perusahaan_id"/>
+                            <field name="potongan_bpjs_kesehatan_pegawai_id"/>
+                            <field name="tunjangan_jabatan_id"/>
+                            <field name="potongan_pinjaman_id"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,105 @@
+<odoo>
+    <data>
+        <menuitem id="menu_hris" name="H.R.I.S" sequence="1"/>
+
+        <menuitem id="submenu_recruitment" name="Recruitment" sequence="1" parent="menu_hris"/>
+            <menuitem id="item_job_position1" name="Job Position" parent="submenu_recruitment" action="hr_recruitment.action_hr_job"/>
+            <menuitem id="item_applications2" name="Applications" parent="submenu_recruitment" action="hr_recruitment.crm_case_categ0_act_job"/>
+            <menuitem id="item_resume_and_letter2" name="Resume and Letters" parent="submenu_recruitment" action="hr_recruitment.hr_applicant_resumes"/>
+            <menuitem id="item_reports2" name="Report" parent="submenu_recruitment" action="hr_recruitment.hr_applicant_action_analysis"/>
+            <menuitem id="sub_configuration2" name="Configuration" parent="submenu_recruitment" />
+                <menuitem id="item_setting23" name="Settings" parent="sub_configuration2" action="hr_recruitment.action_hr_job"/>
+                <menuitem id="item_stages23" name="Stages" parent="sub_configuration2" action="hr_recruitment.hr_recruitment_stage_act"/>
+                <menuitem id="item_23tags" name="Tags" parent="sub_configuration2" action="hr_recruitment.hr_applicant_category_action"/>
+                <menuitem id="item_23degree" name="Degree" parent="sub_configuration2" action="hr_recruitment.hr_recruitment_degree_action"/>
+                <menuitem id="item_23job_positions" name="Job Positions" parent="sub_configuration2" action="hr_recruitment.action_hr_job_config"/>
+                <menuitem id="item_23source_of_applicants" name="Source of Applicants" parent="sub_configuration2" action="hr_recruitment.hr_recruitment_source_action"/>
+                <menuitem id="item_23departments" name="Departments" parent="sub_configuration2" action="hr_recruitment.action_hr_department"/>
+                <menuitem id="item_23tags" name="Activity Types" parent="sub_configuration2" action="hr_recruitment.mail_activity_type_action_config_hr_applicant"/>
+
+        <menuitem id="submenu_employee" name="Employee" sequence="2" parent="menu_hris"/>
+    
+            <menuitem id="item_employee" name="Employee" action="hr.open_view_employee_list_my"
+                      parent="submenu_employee" sequence="1" />
+            <menuitem id="item_contract" name="Contract" action="hr_contract.action_hr_contract"
+                      parent="submenu_employee" sequence="2" />
+            <menuitem id="item_overtime" name="Overtime" action="berdikari.overtime_request_list_action"
+                      parent="submenu_employee" sequence="3" />
+            <menuitem id="item_department" name="Department" action="hr.open_module_tree_department"
+                      parent="submenu_employee" sequence="4" />
+        
+            <menuitem id="item_master_data2" name="Master Data" action="hr.open_module_tree_department"
+                      parent="submenu_employee" sequence="5" />
+                <menuitem id="religion_master_menu2" sequence="16" name="Religion Master" parent="item_master_data2" action="religion_list_action"/>
+                <menuitem id="training_type_master_menu2" sequence="17" name="Training Type" parent="item_master_data2" action="training_type_list_action"/>
+                <menuitem id="job_level_master_menu2" sequence="18" name="Job Level" parent="item_master_data2" action="job_level_list_action"/>
+                <menuitem id="education_level_master_menu2" sequence="19" name="Education Level" parent="item_master_data2" action="education_level_list_action"/>
+                <menuitem id="competency_master_menu2" sequence="20" name="Competency" parent="item_master_data2" action="competency_list_action"/>
+                <menuitem id="family_relation_master_menu2" sequence="21" name="Family Relation" parent="item_master_data2" action="family_relation_list_action"/>
+                <menuitem id="punishment_type_master_menu2" sequence="22" name="Punishment Type" parent="item_master_data2" action="punishment_type_list_action"/>
+                <menuitem id="attendance_code_master_menu2" sequence="23" name="Attendance Code" parent="item_master_data2" action="attendance_code_list_action"/>
+                <menuitem id="attendance_period_master_menu2" sequence="24" name="Attendance Period" parent="item_master_data2" action="attendance_period_list_action"/>
+                <menuitem id="paklaring_menu2" name="Paklaring" parent="item_master_data2"  action="paklaring_list_action" sequence="25"/>
+                <menuitem id="hr_job_menu2" name="Job Position" parent="item_master_data2"  action="hr_job_list_action"/>
+                <menuitem id="category_type_master_menu2" sequence="26" name="Category" parent="item_master_data2" action="category_type_list_action"/>
+                <menuitem id="contract_type_master_menu2" sequence="27" name="Contract Type" parent="item_master_data2" action="contract_type_list_action"/>
+
+
+            <menuitem id="sub2_configuration2" name="Configuration" action="hr.open_module_tree_department"
+                      parent="submenu_employee" sequence="6" />
+                <menuitem id="item_configuration2" name="Configuration" parent="sub2_configuration2" action="hr.hr_config_settings_action"/>
+                <menuitem id="item_employee_tags2" name="Employee Tags" parent="sub2_configuration2" action="hr.open_view_categ_form"/>
+                <menuitem id="item_contract_types2" name="Contract Types" parent="sub2_configuration2" action="hr_contract.action_hr_contract_type"/>
+
+
+
+        <menuitem id="submenu_attendance" name="Attendances" sequence="3" parent="menu_hris"/>
+            <menuitem id="item2_attendances" name="Attendance" parent="submenu_attendance" action="hr_attendance.hr_attendance_action_my_attendances"/>
+            <menuitem id="item2_summary_attendances" name="Summary Attendance" parent="submenu_attendance" action="berdikari.action_summary_attendance_report"/>
+            <menuitem id="sub2_manage_attendances" name="Manage Attendance" parent="submenu_attendance" />
+                <menuitem id="item21_attendances" name="Attendance" parent="sub2_manage_attendances" action="hr_attendance.hr_attendance_action"/>
+                <menuitem id="item21_kiosk" name="Attendance" parent="sub2_manage_attendances" action="hr_attendance.hr_attendance_action_kiosk_mode"/>
+            <menuitem id="item2_reporting" name="Reporting" parent="submenu_attendance" action="hr_attendance.hr_attendance_action_graph"/>
+
+        <menuitem id="item_employee2" name="Employee" action="hr.open_view_employee_list_my"
+                  parent="submenu_attendance" sequence="1" />
+
+        <menuitem id="submenu_leave4" name="Leaves" sequence="4" parent="menu_hris"/>
+            <menuitem id="item4_overview" name="Overview" action="hr_holidays.action_hr_holidays_dashboard" parent="submenu_leave4" sequence="1" />
+        <menuitem id="sub4_my_leaves" name="My Leaves" parent="submenu_leave4" sequence="1" />
+            <menuitem id="item4_new_request" name="New Request" action="hr_holidays.hr_leave_action_new_request" parent="sub4_my_leaves" sequence="1" />
+            <menuitem id="item4_leave_request" name="Leave Request" action="hr_holidays.hr_leave_action_my" parent="sub4_my_leaves" sequence="1" />
+            <menuitem id="item4_my_allocation" name="My Allocation" action="hr_holidays.hr_leave_allocation_action_my" parent="sub4_my_leaves" sequence="1" />
+            <menuitem id="item4_summary" name="Summary" action="hr_holidays.open_company_allocation" parent="sub4_my_leaves" sequence="1" />
+        <menuitem id="sub4_manager" name="Manager" parent="submenu_leave4" sequence="1" />
+            <menuitem id="sub42_manager_toapprove" name="To Approve" parent="sub4_manager" sequence="1" />
+                <menuitem id="sub42_leaves" parent="sub42_manager_toapprove" name="Leaves" action="hr_holidays.hr_leave_action_action_approve_department" sequence="1" />
+                <menuitem id="sub42_allocation" parent="sub42_manager_toapprove" name="Allocation" action="hr_holidays.hr_leave_allocation_action_approve_department" sequence="1" />
+            <menuitem id="sub43_manager_all" name="All" parent="sub4_manager" sequence="1" />
+                <menuitem id="sub43_leaves" parent="sub43_manager_all" name="Leaves" action="hr_holidays.hr_leave_action_all" sequence="1" />
+                <menuitem id="sub43_allocation" parent="sub43_manager_all" name="Allocation" action="hr_holidays.hr_leave_allocation_action_all" sequence="1" />
+            <menuitem id="sub44_manager_all" name="Payroll" parent="sub4_manager" sequence="1" />
+                <menuitem id="sub44_leaves" parent="sub44_manager_all" name="Leaves" action="hr_holidays.hr_leave_action_payroll" sequence="1" />
+        <menuitem id="sub5_manager" name="Reporting" parent="submenu_leave4" sequence="1" />
+            <menuitem id="sub51_1" parent="sub5_manager" name="Leaves Analysis" action="hr_holidays.action_hr_available_holidays_report" sequence="1" />
+            <menuitem id="sub52_2" parent="sub5_manager" name="Report By Department" action="hr_holidays.action_hr_holidays_summary_dept" sequence="1" />
+        <menuitem id="sub6_configuration" name="Configuration" parent="submenu_leave4" sequence="1" />
+            <menuitem id="sub61_1" parent="sub6_configuration" name="Leaves Types" action="hr_holidays.open_view_holiday_status" sequence="1" />
+            <menuitem id="sub62_2" parent="sub6_configuration" name="Activity Types" action="hr_holidays.mail_activity_type_action_config_hr_holidays" sequence="1" />
+
+        <menuitem id="submenu7_payroll" name="Payroll" sequence="5" parent="menu_hris"/>
+            <menuitem id="item_71" parent="submenu7_payroll" name="Employee Payslips" action="hr_payroll.action_view_hr_payslip_form" sequence="1" />
+            <menuitem id="item_72" parent="submenu7_payroll" name="Payslip Batches" action="hr_payroll.action_hr_payslip_run_tree" sequence="1" />
+            <menuitem id="sub_73" parent="submenu7_payroll" name="Configuration" action="hr_payroll.action_view_hr_payslip_form" sequence="1" />
+                <menuitem id="item_711" parent="sub_73" name="HR Payslip Report" action="berdikari.hr_payslip_filter_action" sequence="1" />
+                <menuitem id="item_712" parent="sub_73" name="HR Payslip By Account" action="berdikari.hr_payslip_byaccount_action" sequence="1" />
+
+            <menuitem id="submenu8_payroll" name="Configuration" sequence="5" parent="submenu7_payroll"/>
+                <menuitem id="itempayroll_81" parent="submenu8_payroll" name="Settings" action="hr_payroll.action_hr_payroll_configuration" sequence="1" />
+                <menuitem id="itempayroll_82" parent="submenu8_payroll" name="Salary Structure" action="hr_payroll.action_view_hr_payroll_structure_list_form" sequence="1" />
+                <menuitem id="itempayroll_83" parent="submenu8_payroll" name="Salary Rule Categories" action="hr_payroll.action_hr_salary_rule_category" sequence="1" />
+                <menuitem id="itempayroll_84" parent="submenu8_payroll" name="Salary Rules" action="hr_payroll.action_salary_rule_form" sequence="1" />
+                <menuitem id="itempayroll_85" parent="submenu8_payroll" name="Contribution Register" action="hr_payroll.action_contribution_register_form" sequence="1" />
+                <menuitem id="itempayroll_86" parent="submenu8_payroll" name="Contract Advantage Templates" action="hr_payroll.hr_contract_advantage_template_action" sequence="1" />
+    </data>
+</odoo>

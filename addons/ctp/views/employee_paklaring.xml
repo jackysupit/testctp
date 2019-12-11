@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="paklaring_form_view">
+            <field name="name">paklaring.form</field>
+            <field name="model">berdikari.hr.employee.paklaring</field>
+            <field name="arch" type="xml">
+                <form string="Paklaring Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="user_id"/>
+                                <field name="user_job_id"/>
+                                <field name="created_date" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="paklaring_list_action">
+            <field name="name">Paklaring</field>
+            <field name="res_model">berdikari.hr.employee.paklaring</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="master_data_menu"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

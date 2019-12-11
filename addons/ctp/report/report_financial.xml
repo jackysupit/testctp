@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_internal_transfer_signature" inherit_id="account_reports.main_template">
+        <xpath expr="//div[@class='o_account_reports_header']" position="inside">
+            <t t-if="model._name == 'account.partner.ledger'">
+                <div class="o_account_reports_filter_input_wrapper o_filter_partner no_print">
+<!--                    <span>Model _name: <t t-esc="model._name"></t></span>-->
+                    <span class="searchIcon"><i class="fa fa-search" role="img" aria-label="Search" title="Search"></i></span>
+                    <input class="o_account_reports_filter_input" type="text" placeholder="Search Partner" />
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

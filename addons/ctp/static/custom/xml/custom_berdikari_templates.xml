@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="berdicari_custom_templates" xml:space="preserve">
+
+<!--   <t t-extend="FormView.buttons" groups="base.group_user" position="replace">-->
+<!--        <t t-jquery=".o_form_buttons_view" t-operation="replace" groups="base.group_user" >-->
+<!--            <div class="o_form_buttons_view" role="toolbar" aria-label="Main actions">-->
+<!--                <button t-if="widget.is_action_enabled('edit')" type="button"-->
+<!--                        class="btn btn-primary o_form_button_edit" accesskey="a">-->
+<!--                    Edit REPLACE-->
+<!--                </button>-->
+<!--                <button t-if="widget.is_action_enabled('create')" type="button"-->
+<!--                        class="btn btn-secondary o_form_button_create" accesskey="c">-->
+<!--                    Create REPLACE-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--   </t>-->
+
+<!--   <t t-extend="FormView.buttons" groups="berdikari.read_only_user" position="replace">-->
+<!--        <t t-jquery=".o_form_buttons_view" t-operation="replace" groups="berdikari.read_only_user" >-->
+
+<!--        </t>-->
+<!--   </t>-->
+
+
+</templates>

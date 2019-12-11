@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.chart_of_account_form_inherit">
+            <field name="name">chart.of.account.form.inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="code_existing" string="Old Number"/>
+                    <field name="name_id" string="Account Name (Bahasa)"/>
+                </xpath>
+                <xpath expr="//field[@name='code']" position="replace">
+                    <field name="code" placeholder="account number" string="Account Number"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field name="name" string="Account Name"/>
+                </xpath>
+                <xpath expr="//field[@name='deprecated']" position="after">
+                    <field name="is_tax_pph_account"/>
+                    <field name="is_pph_credited"/>
+                    <field name="is_tax_ppn_account"/>
+                    <field name="is_budget_need_to_check"/>
+                    <field name="cost_type"/>
+                    <field name="is_flock_mandatory"/>
+                    <field name="profit_type"/>
+                    <field name="is_cash_advance"/>
+                    <field name="is_down_payment"/>
+                    <field name="is_sales_down_payment"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="chart_of_account_tree" model="ir.ui.view">
+            <field name="name">chart.of.account.tree.inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="attributes">
+                    <attribute name="string">Account Number</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Account Name</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

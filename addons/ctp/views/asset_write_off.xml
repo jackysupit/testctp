@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="asset_write_off_form_view">
+            <field name="name">asset.write.off.form</field>
+            <field name="model">berdikari.asset.write.off</field>
+            <field name="arch" type="xml">
+                <form string="Asset Write Off Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="date"/>
+                                <separator/>
+                                <field name="asset_id" string="Asset" force_save="1"/>
+                                <field name="product_product_id" string="Product" force_save="1"/>
+                                <field name="asset_code"/>
+                                <field name="asset_account" readonly="1" force_save="1"/>
+                                <field name="accum_asset_account" readonly="1" force_save="1"/>
+                                <field name="write_off_account" readonly="1" force_save="1"/>
+                                <field name="asset_qty" readonly="1" force_save="1"/>
+                                <field name="write_off_qty"/>
+                                <field name="aquire_value" readonly="1" force_save="1"/>
+                                <field name="accum_depr_value" readonly="1" force_save="1"/>
+                                <field name="write_off_value" readonly="1" force_save="1"/>
+                                <separator/>
+                                <field name="notes"/>
+                            </group>
+                            <group>
+                                <field name="company_id"/>
+                                <field name="operating_unit_id" readonly="1" force_save="1"/>
+                                <separator/>
+                                <field name="is_audit" required="1" readonly="1" force_save="1"/>
+                                <separator/>
+                                <field name="purchase_id"/>
+                                <field name="flock_id"/>
+                                <field name="work_order_id"/>
+                                <field name="breeding_input_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="asset_write_off_list_action">
+            <field name="name">Asset Write Off</field>
+            <field name="res_model">berdikari.asset.write.off</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="master_data_menu"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+<!--        <menuitem id="asset_write_off_menu" name="Asset Write Off" parent="master_data_menu"-->
+<!--                  action="asset_write_off_list_action"/>-->
+    </data>
+</odoo>

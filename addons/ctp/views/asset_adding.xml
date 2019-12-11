@@ -1,0 +1,81 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="asset_adding_form_view">
+            <field name="name">asset.adding.form</field>
+            <field name="model">berdikari.asset.adding</field>
+            <field name="arch" type="xml">
+                <form string="Asset Adding Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" readonly="1"/>
+                                <field name="date"/>
+                                <separator/>
+                                <field name="asset_id"/>
+<!--                                <field name="internal_reference"/>-->
+                                <field name="asset_name"/>
+                                <field name="asset_account"/>
+                                <field name="asset_type"/>
+                                <field name="asset_qty" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="src_company_id" readonly="1"/>
+                                <field name="flock_id" readonly="1"/>
+                                <field name="operating_unit_id" readonly="1"/>
+                                <br/>
+                                <field name="is_audit" required="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Material">
+                                <field name="asset_adding_detail">
+                                    <tree editable="bottom">
+                                        <field name="product_template_id" visibility="1" required="1"/>
+                                        <field name="product_template_code" visibility="1" />
+                                        <field name="uom_id" visibility="1" required="1"/>
+                                        <field name="batch_id" visibility="1" required="1"/>
+                                        <field name="qty" visibility="1" required="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Acquire Assets">
+                                <field name="asset_adding_aquire_ids">
+                                    <tree editable="bottom">
+                                        <field name="account" visibility="1" required="1"/>
+                                        <field name="description" visibility="1" required="1"/>
+                                        <field name="amount" visibility="1" required="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="asset_adding_view_tree" model="ir.ui.view">
+            <field name="name">asset.adding.tree</field>
+            <field name="model">berdikari.asset.adding</field>
+            <field name="arch" type="xml">
+                <tree string="flock master tree">
+                    <field name="name"/>
+                    <field name="asset_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="asset_adding_list_action">
+            <field name="name">Asset Adding</field>
+            <field name="res_model">berdikari.asset.adding</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="master_data_menu"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+<!--        <menuitem id="asset_adding_menu" name="Asset Adding" parent="master_data_menu"-->
+<!--                  action="asset_adding_list_action"/>-->
+    </data>
+</odoo>

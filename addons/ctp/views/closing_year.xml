@@ -1,0 +1,66 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="closing_year_form_view">
+            <field name="name">closing.year.form</field>
+            <field name="model">berdikari.closing.year</field>
+            <field name="arch" type="xml">
+                <form string="Closing Year Form">
+                    <header>
+                        <button name="action_post" string="Post" type="object" context="{'post':True}"
+                                class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="date"/>
+                                <field name="company_id"/>
+                            </group>
+                            <group>
+                                <field name="journal_id"/>
+                                <field name="analytic_account_id"/>
+                                <field name="analytic_tag_ids"/>
+                                <label for="period_year" string="Period"/>
+                                <div>
+                                    <field name="period_year" class="oe_inline" placeholder="year"/>
+                                    -
+                                    <field name="period_month" class="oe_inline" nolabel="1" placeholder="month"/>
+                                </div>
+<!--                                <field name="period_year"/>-->
+<!--                                <field name="period_month"/>-->
+                                <field name="notes"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <button type="object" name="btnColData" string="Collect Data" class="oe_highlight"/>
+                            </group>
+                            <field name="closing_year_line_ids" nolable="1">
+                                <tree editable="bottom">
+                                    <field name="account_code"/>
+                                    <field name="account_name"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="debit"/>
+                                    <field name="credit"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="closing_year_list_action">
+            <field name="name">Closing Year</field>
+            <field name="res_model">berdikari.closing.year</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="account.menu_finance_entries_actions"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

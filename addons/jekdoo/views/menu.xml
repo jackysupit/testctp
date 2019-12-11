@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <!-- Action  -->
+        <record model="ir.actions.act_window" id="action_setup">
+            <field name="name">Custom Settings</field>
+            <field name="res_model">jekdoo.setup</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+        <!-- Action  -->
+        <menuitem id="item_setup" name="Custom Settings" parent="base.menu_administration" action="action_setup" sequence="30"/>
+    </data>
+</odoo>

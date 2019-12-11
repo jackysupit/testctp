@@ -1,0 +1,318 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="work_order_form_view">
+            <field name="name">work.order.form</field>
+            <field name="model">berdikari.work.order</field>
+            <field name="arch" type="xml">
+                <form string="Work Order Form">
+                    <header>
+                        <button name="action_draft" type="object" string="Draft All"  confirm="Are you sure?" class="oe_highlight oe_read_only"
+                            attrs="{'invisible':[('state','=','draft')]}"
+                        />
+                        <button name="action_draft" type="object" string="Draft"  confirm="Are you sure?" class="oe_highlight  oe_read_only"
+                            attrs="{'invisible':[('state','!=','declined')]}"
+                        />
+                        <button name="action_confirm" type="object" string="Confirm" confirm="Are you sure?" class="oe_highlight  oe_read_only"
+                            attrs="{'invisible':[('is_hide_confirm_wo','=',True)]}"
+                        />
+                        <button name="action_decline" type="object" string="Decline" confirm="Are you sure?" class="oe_highlight  oe_read_only"
+                            attrs="{'invisible':[('is_hide_approve_wo','=',True)]}"
+                        />
+                        <button name="action_approve" type="object" string="Approve" confirm="Are you sure?" class="oe_highlight  oe_read_only"
+                            attrs="{'invisible':[('is_hide_approve_wo','=',True)]}"
+                        />
+                        <field name="is_hide_confirm_wo" invisible="1" />
+                        <field name="is_hide_approve_wo" invisible="1" />
+                        <field name="is_hide_approve_wo" invisible="1" />
+
+                        <field name="is_invisible_breeding_input_button" invisible="1" />
+                        <field name="is_invisible_setter_input_button" invisible="1" />
+                        <field name="is_invisible_hatcher_input_button" invisible="1" />
+                        <field name="state" widget="statusbar" readonly="1" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box" attrs="{'invisible':[('state','!=','approved')]}">
+
+                            <button name="action_breeding_list" type="object" class="oe_stat_button"
+                                    icon="fa-list"
+                                    attrs="{'invisible':[('state','=','draft')]}"
+                            >
+
+                                <t attrs="{'invisible':[('count_breeding','&gt;',0)]}">
+                                    <span>No Breeding List</span>
+                                </t>
+                                <t attrs="{'invisible':[('count_breeding','&lt;=',0)]}">
+                                    <span><field name="count_breeding" /> Breeding List</span>
+                                </t>
+                            </button>
+                            <button name="action_breeding_input" type="object" class="oe_stat_button"
+                                    icon="fa-edit"
+                                    attrs="{'invisible':[('is_invisible_breeding_input_button','=',True)]}"
+                            >
+                                <span>Breeding Input</span>
+                            </button>
+
+                            <button name="action_setter_list" type="object" class="oe_stat_button"
+                                    icon="fa-list"
+                                   attrs="{'invisible':[('count_setter','&lt;=',0)]}"
+                            >
+                                <t attrs="{'invisible':[('count_setter','&gt;',0)]}">
+                                    <span>No Setter</span>
+                                </t>
+                                <t attrs="{'invisible':[('count_setter','&lt;=',0)]}">
+                                    <span><field name="count_setter" /> Setter List</span>
+                                </t>                                
+                            </button>
+                            <button name="action_setter_input" type="object" class="oe_stat_button"
+                                    icon="fa-edit"
+                                    attrs="{'invisible':[('is_invisible_setter_input_button','=',True)]}"
+                            >
+                                <span>Setter Input</span>
+                            </button>
+
+                            <button name="action_hatcher_list" type="object" class="oe_stat_button"
+                                    icon="fa-list"
+                                    attrs="{'invisible':[('count_hatcher','=',0)]}"
+                            >
+                                <t attrs="{'invisible':[('count_hatcher','&gt;',0)]}">
+                                    <span>No Hatcher</span>
+                                </t>
+                                <t attrs="{'invisible':[('count_hatcher','&lt;=',0)]}">
+                                    <span><field name="count_hatcher" /> Hatcher List</span>
+                                </t>
+                            </button>
+                            <button name="action_hatcher_input" type="object" class="oe_stat_button"
+                                    icon="fa-edit"
+                                    attrs="{'invisible':[('is_invisible_hatcher_input_button','=',True)]}"
+                            >
+                                <span>Hatcher Input</span>
+                            </button>
+
+<!--                            <button name="update_age_daily" type="object" class="oe_stat_button"-->
+<!--                                    icon="fa-check"-->
+<!--                                    attrs="{'invisible':[('current_phase_id','=','setup_phase_production_id')]}"-->
+<!--                            >-->
+<!--                                <span>Update Age - Daily</span>-->
+<!--                            </button>-->
+
+
+<!--                            <button name="action_biologis_used" type="object" class="oe_stat_button"-->
+<!--                                    icon="fa-check"-->
+<!--                                    attrs="{'invisible':[('id','=',False)]}"-->
+<!--                            >-->
+<!--                                <span>Biological Used</span>-->
+<!--                            </button>-->
+
+                        </div>
+                        <group>
+                            <group col="1">
+                                <group>
+                                    <field name="flock_state" invisible="1"/>
+                                    <field name="name" attrs="{'readonly': [('flock_state','=','closed')]}"/>
+                                    <field name="date" attrs="{'readonly': [('flock_state','=','closed')]}"/>
+                                    <field name="batch_id" attrs="{'readonly': [('flock_state','=','closed')]}"/>
+                                    <field name="production_type" invisible="1"/>
+
+                                    <separator string="Results" invisible="1"/>
+
+                                    <field name="product_product_id" invisible="1" force_save="1"/>
+                                    <field name="planning_qty" invisible="1" force_save="1"/>
+                                    <field name="uom_id" invisible="1" force_save="1"/>
+
+                                    <field name="product_product_id_setter" invisible="1" force_save="1"/>
+                                    <field name="planning_qty_setter" invisible="1" force_save="1"/>
+                                    <field name="uom_id_setter" invisible="1" force_save="1"/>
+
+                                    <field name="product_product_id_hatcher" invisible="1" force_save="1"/>
+                                    <field name="planning_qty_hatcher" invisible="1" force_save="1"/>
+                                    <field name="uom_id_hatcher" invisible="1" force_save="1"/>
+
+                                    <separator/>
+
+                                    <field name="current_phase_id" force_save="1" />
+                                    <field name="current_age" force_save="1" />
+
+                                    <field name="setup_phase_pertama_id" invisible="1"/>
+                                    <field name="setup_phase_production_id" invisible="1"/>
+                                </group>
+
+                                <group col="2">
+                                    <group>
+                                        <field name="total_pe" readonly="1"/>
+                                        <field name="total_he" readonly="1"/>
+                                        <field name="count_breeding" readonly="1"/>
+                                        <field name="count_setter" readonly="1"/>
+                                        <field name="count_hatcher" readonly="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="current_pe_hh" readonly="1"/>
+                                        <field name="current_he_hh" readonly="1"/>
+                                        <field name="begin_qty_female" readonly="1"/>
+                                    </group>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="flock_id"  required="1" readonly="1"/>
+                                <field name="company_id" attrs="{'readonly': [('flock_state','=','closed')]}"/>
+                                <field name="operating_unit_id" attrs="{'readonly': [('flock_state','=','closed')]}"/>
+                                <field name="house_id" invisible="1" attrs="{'readonly': [('flock_state','=','closed')]}" />
+                                <field name="notes" attrs="{'readonly': [('flock_state','=','closed')]}"/>
+                                <br/><br/>
+<!--                                <field name="start_date" force_save="1" attrs="{'readonly': ['|',('state','!=','draft'),('flock_state','=','closed')]}"/>-->
+                                <field name="start_date" force_save="1" readonly="1" />
+<!--                                <field name="start_date" force_save="1" />-->
+<!--                                <field name="duration" force_save="1" attrs="{'readonly': [('flock_state','=','closed')]}"/>-->
+                                <field name="duration" force_save="1" readonly="1" />
+                                <field name="end_date" force_save="1" readonly="1"/>
+
+                                <field name="last_breeding_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <group name="hidden-fields" string="Hidden Fields" invisible="1">
+                                <field name="today"/>
+                                <field name="last_breeding_id"/>
+                                <field name="begin_qty_female"/>
+                                <field name="total_pe"/>
+                                <field name="total_he"/>
+                                <field name="current_pe_hh"/>
+                                <field name="current_he_hh"/>
+                                <field name="is_bio_use" />
+                        </group>
+                        <notebook>
+                            <page string="Asset Biological">
+                                <field name="line_breed_ids"  attrs="{'readonly': [('flock_state','=','closed')]}">
+                                    <tree editable="bottom">
+
+                                        <field name="flock_id" invisible="1"/>
+                                        <field name="operating_unit_id" invisible="1"/>
+                                        <field name="house_id" invisible="0"/>
+
+                                        <field name="is_phase_pertama" invisible="1"/>
+                                        <field name="work_order_id" invisible="1"/>
+                                        <field name="flock_id" invisible="1"/>
+                                        <field name="phase_id" visibility="1" required="1"/>
+                                        <field name="std_duration" visibility="1" required="1"/>
+                                        <field name="asset_id" visibility="1" />
+                                        <field name="sex" visibility="1" required="1"/>
+                                        <field name="asset_avail_qty" visibility="1" readonly="1"/>
+                                        <field name="planning_qty_line" visibility="1" required="1"/>
+                                        <field name="uom_id" visibility="1" required="1"/>
+                                        <field name="avail_qty" visibility="1" readonly="1" force_save="1"/>
+                                        <field name="is_invisible_button_bio_use" invisible="1" />
+                                        <field name="int_bio_use" invisible="1" />
+                                        <field name="lot_id" invisible="1" />
+                                        <field name="biologis_used_id" invisible="0" />
+                                        <button name="action_biological_used" type="object"
+                                                attrs="{'invisible':[('is_invisible_button_bio_use', '!=', 0)]}"
+                                            string = "Bio Use"
+                                        >
+                                            <span>Bio Use</span>
+                                        </button>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Feed">
+                                <field name="line_feed_ids"  attrs="{'readonly': [('flock_state','=','closed')]}">
+                                    <tree editable="bottom">
+                                        <field name="product_product_id" visibility="1" required="1"/>
+                                        <field name="product_template_id" visibility="1" invisible="1"/>
+                                        <field name="product_template_code" visibility="1"  />
+                                        <field name="warehouse_id" invisible="1"  />
+                                        <field name="sex" visibility="1" />
+                                        <field name="material_planning_qty_line" visibility="1" required="1"/>
+                                        <field name="uom_id" visibility="1" />
+                                        <field name="avail_qty"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Other Material (OVK)">
+                                <field name="line_ovk_ids"  attrs="{'readonly': [('flock_state','=','closed')]}">
+                                    <tree editable="bottom">
+                                        <field name="product_product_id" visibility="1" required="1"/>
+                                        <field name="product_template_id" visibility="1" invisible="1"/>
+                                        <field name="product_template_code" visibility="1" />
+                                        <field name="warehouse_id" invisible="1" />
+                                        <field name="material_planning_qty_line" visibility="1" required="1"/>
+                                        <field name="uom_id" visibility="1"/>
+                                        <field name="avail_qty" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Breeding Results">
+                                <field name="line_byproduct_ids"  attrs="{'readonly': [('flock_state','=','closed')]}">
+                                    <tree editable="bottom">
+                                        <field name="product_product_id" visibility="1" required="1"/>
+                                        <field name="product_template_id" visibility="1" invisible="1"/>
+                                        <field name="product_template_code" visibility="1" />
+                                        <field name="is_result" visibility="1" />
+                                        <field name="daily_target" visibility="0"  />
+                                        <field name="uom_id" visibility="1" required="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Setter Results">
+                                <field name="line_byproduct_ids_setter"  attrs="{'readonly': [('flock_state','=','closed')]}">
+                                    <tree editable="bottom">
+                                        <field name="product_product_id" visibility="1" required="1"/>
+                                        <field name="product_template_id" visibility="1" invisible="1"/>
+                                        <field name="product_template_code" visibility="1" />
+                                        <field name="is_result" visibility="1" />
+                                        <field name="daily_target" visibility="0"  />
+                                        <field name="uom_id" visibility="1" required="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Hatcher Results">
+                                <field name="line_byproduct_ids_hatcher"  attrs="{'readonly': [('flock_state','=','closed')]}">
+                                    <tree editable="bottom">
+                                        <field name="product_product_id" visibility="1" required="1"/>
+                                        <field name="product_template_id" visibility="1" invisible="1"/>
+                                        <field name="product_template_code" visibility="1" />
+                                        <field name="is_result" visibility="1" />
+                                        <field name="daily_target" visibility="0"  />
+                                        <field name="uom_id" visibility="1" required="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Current Product" invisible="1">
+                                <field name="line_current_product_ids"  attrs="{'readonly': [('flock_state','=','closed')]}">
+                                    <tree editable="bottom">
+                                        <field name="product_template_id" visibility="1" required="1"/>
+                                        <field name="product_template_code" visibility="1" />
+                                        <field name="uom_id" visibility="1" required="1"/>
+                                        <field name="qty" visibility="1" required="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="work_order_view_tree" model="ir.ui.view">
+            <field name="name">work.order.tree</field>
+            <field name="model">berdikari.work.order</field>
+            <field name="arch" type="xml">
+                <tree string="flock master tree" create="false">
+                    <field name="name"/>
+                    <field name="state"/>
+                    <field name="current_phase_id"/>
+                    <field name="current_age"/>
+                    <field name="count_breeding" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="work_order_list_action">
+            <field name="name">Work Order</field>
+            <field name="res_model">berdikari.work.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="master_data_menu"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+    </data>
+</odoo>

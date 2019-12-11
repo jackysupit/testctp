@@ -1,0 +1,146 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.view_partner_form">
+            <field name="name">view_partner_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <field name="approval_state" widget="statusbar" nolabel="1"
+                               statusbar_visible="draft,sales_comfirm,dh_sales_approve,tax_validation,dh_tax_approve"/>
+                        <field name="is_hide_confirm" invisible="1"/>
+                        <button name="action_confirm_vendor" string="Confirm" type="object"
+                                class="oe_highlight" attrs="{'invisible': ['|',('is_hide_confirm', '=', True)]}"/>
+                        <field name="is_hide_dept_head" invisible="1"/>
+                        <button name="action_approve_dept_head" string="Dept Head Approve" type="object"
+                                class="oe_highlight" attrs="{'invisible': ['|',('is_hide_dept_head', '=', True)]}"/>
+                        <field name="is_hide_tax" invisible="1"/>
+                        <button name="action_tax_validate" string="Tax Validate" type="object"
+                                class="oe_highlight" attrs="{'invisible': ['|',('is_hide_tax', '=', True)]}"/>
+                        <field name="is_hide_dh_tax" invisible="1"/>
+                        <button name="action_dh_tax_approve" string="DH Tax Approve" type="object"
+                                class="oe_highlight" attrs="{'invisible': [('is_hide_dh_tax', '=', True)]}"/>
+                    </header>
+                </xpath>
+                <xpath expr="//button[@name='open_action_followup']" position="after">
+                    <button type="object"
+                            class="oe_stat_button" name="open_action_partner_ap"
+                            icon="fa-list"
+                            disabled="true"
+                    >
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="total_ap" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"
+                                />
+                            </span>
+                            <span class="o_stat_text" modifiers="{}">
+                                Total AP
+                            </span>
+                        </div>
+                    </button>
+                    <button type="object"
+                            class="oe_stat_button" name="open_action_partner_ar"
+                            icon="fa-list"
+                            disabled="true"
+                    >
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="total_ar" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"
+                                />
+                            </span>
+                            <span class="o_stat_text" modifiers="{}">
+                                Total AR
+                            </span>
+                        </div>
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='vat']" position="replace">
+                    <field widget="mask" data-inputmask-mask="99.999.999.9-999.999" name="vat" />
+                    <field name="is_pkp"/>
+                    <field name="credit_limit"/>
+                    <field name="is_limit_check" attrs="{'invisible':[('supplier','=',True)]}"/>
+
+                    <field name="employee" readonly="1" force_save="1"/>
+                    <field name="employee_id"/>
+                </xpath>
+                <xpath expr="//field[@name='vat']" position="attributes">
+                    <attribute name="attrs">{'required':[('company_type','=','company')]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <!--                    <field name="file_npwp" filename="file_npwp_name"/>-->
+                    <!--                    <field name="file_npwp_name" invisible="1"/>-->
+                    <!--                    <field name="file_siup" filename="file_siup_name"/>-->
+                    <!--                    <field name="file_siup_name" invisible="1"/>-->
+                    <!--                    <field name="file_tdp" filename="file_tdp_name"/>-->
+                    <!--                    <field name="file_tdp_name" invisible="1"/>-->
+                    <!--                    <field name="file_akta_perusahaan" filename="file_akta_perusahaan_name"/>-->
+                    <!--                    <field name="file_akta_perusahaan_name" invisible="1"/>-->
+                    <!--                    <field name="file_ktp_owner" filename="file_ktp_owner_name"/>-->
+                    <!--                    <field name="file_ktp_owner_name" invisible="1"/>-->
+                    <!--                    <field name="file_others" filename="file_others_name"/>-->
+                    <!--                    <field name="file_others_name" invisible="1"/>-->
+                    <field name="institution_id" attrs="{'invisible':[('supplier','!=',True)]}"/>
+                    <field name="identification_number"/>
+                    <field name="document_type_id"/>
+                </xpath>
+                <xpath expr="//page[@name='sales_purchases']" position="after">
+                    <page string="Document">
+                        <field name="doc_partner_ids">
+                            <tree editable="bottom">
+                                <field name="document_name"/>
+                                <field name="expired_date"/>
+                                <field name="legal_id"/>
+                                <field name="location"/>
+                                <field name="attached_doc" filename="attached_doc_name"/>
+                                <field name="attached_doc_name" invisible="1"/>
+                                <field name="document_type"/>
+                                <field name="warning_date"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Product Supplied" attrs="{'invisible':[('supplier','=','False')]}">
+                        <field name="product_ids">
+                            <tree editable="bottom">
+                                <field name="product_tmpl_id"/>
+                                <field name="product_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='property_supplier_payment_term_id']" position="after">
+                    <field name="maximal_bill"/>
+                    <field name="product_category_id"/>
+                </xpath>
+                <xpath expr="//button[@name='toggle_active']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='property_account_payable_id']" position="after">
+                    <field name="property_account_receivable_for_down_payment_id"/>
+                    <field name="property_account_payable_for_down_payment_id"/>
+                </xpath>
+                <xpath expr="//field[@name='child_ids']" position="attributes">
+                    <attribute name="context">{'default_is_contact': True,'default_active': True, 'default_parent_id': active_id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_supplier': supplier, 'default_customer': customer, 'default_lang': lang, 'default_user_id': user_id}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_form_inherited_dbk" model="ir.ui.view">
+            <field name="name">res.partner.form.inherited.bdk</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='child_ids']/form/sheet/group/group[2]" position="after">
+                    <group>
+                        <field name="parent_id" invisible="1"/>
+                        <field name="is_contact" invisible="1"/>
+                        <field name="active" invisible="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

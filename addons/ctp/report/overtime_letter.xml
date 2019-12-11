@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="overtime_letter"
+            model="berdikari.overtime.request"
+            string="Overtime"
+            report_type="qweb-pdf"
+            name="berdikari.overtime_letter_template"
+            file="berdikari.overtime_letter_template"
+            attachment_use="False"
+    />
+
+    <template id="overtime_letter_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h4 align="center">
+                            <u>SURAT PERINTAH LEMBUR</u>
+                        </h4>
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr height="10">
+                                    <td colspan="3" text-align="left">
+                                        <i>Group Head</i>
+                                        <span class="white-space: nowrap"
+                                              t-field="o.user_id.employee_id.department_id"></span>
+                                        memberi perintah kepada:
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="5%">Nama</td>
+                                    <td width="1%">:</td>
+                                    <td width="20%" text-align="left">
+                                        <span t-field="o.user_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="5%">Nomor Pegawai</td>
+                                    <td width="1%">:</td>
+                                    <td width="20%" text-align="left">
+                                        <span t-field="o.user_id.employee_id.barcode"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="5%">Jabatan</td>
+                                    <td width="1%">:</td>
+                                    <td width="20%" align="left">
+                                        <span t-field="o.user_id.employee_id.job_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="5%" wrap="hard">Department</td>
+                                    <td>:</td>
+                                    <td width="10%" align="left">
+                                        <span t-field="o.user_id.employee_id.department_id"/>
+                                    </td>
+                                </tr>
+                                <tr height="10">
+                                    <td colspan="3" text-align="left">
+                                        Untuk memberikan tugas di luar jam kerja rutin pada:
+                                    </td>
+                                </tr>
+                                <tr></tr>
+                                <tr>
+                                    <td width="5%">Hari/ Tanggal</td>
+                                    <td width="2%">:</td>
+                                    <td width="20%" text-align="left">
+                                        <span t-field="o.day"/>/
+                                        <span t-field="o.date"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="5%">Mulai Dari</td>
+                                    <td width="2%">:</td>
+                                    <td width="20%" align="left">
+                                        <span t-field="o.start_date"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="5%">Sampai Dengan</td>
+                                    <td width="2%">:</td>
+                                    <td width="20%" align="left">
+                                        <span t-field="o.end_date"/>
+                                    </td>
+                                </tr>
+                                <tr height="10">
+                                    <td colspan="3" text-align="left">
+                                        Hal-hal yang dikerjakan:
+                                    </td>
+                                </tr>
+                                <tr height="10">
+                                    <td colspan="3" text-align="left">
+                                        <span t-field="o.job"></span>
+                                    </td>
+                                </tr>
+                                <tr t-if="o.week_end_overtime" height="10">
+                                    <td colspan="3" text-align="left">
+                                        Alasan memberi perintah lembur pada hari libur:
+                                    </td>
+                                </tr>
+                                <tr t-if="o.week_end_overtime" height="10">
+                                    <td colspan="3" text-align="left">
+                                        <span t-field="o.job_purpose"></span>
+                                    </td>
+                                </tr>
+                                <tr height="10">
+                                    <td colspan="3" text-align="left">
+                                        Harap dilaksanakan dengan penuh tanggung jawab.
+                                    </td>
+                                </tr>
+                                <tr height="10">
+                                    <td colspan="3" text-align="left">
+                                        <div align="left">Jakarta,<![CDATA[&nbsp;]]>
+                                            <span t-field="o.approved_date" t-options='{"format": "dd MMM yyyy"}'/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <table class="table table-borderless">
+                            <tr>
+                                <th class="text-left">Yang menerima tugas</th>
+                                <th class="text-left">Yang memberi tugas</th>
+                            </tr>
+                            <tr style="height: 10em;">
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <div>
+                            <i>Catatan:</i>
+                            <i>
+                                <ol>
+                                    <li>Formulir Lembur diserahkan ke Bagian SDM selambatnya 1 hari sebelum tanggal
+                                        pelaksanaan
+                                    </li>
+                                    <li>Maksimal perhitungan lembur selama 3 jam</li>
+                                </ol>
+                            </i>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

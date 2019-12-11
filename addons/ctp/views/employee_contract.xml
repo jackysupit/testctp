@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari_employee_contract_form_inherit">
+            <field name="name">employee.contract.form.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='advantages']" position="after">
+                    <field name="transport"/>
+                    <field name="meal"/>
+                    <field name="functional_allowance"/>
+                    <field name="house_allowance"/>
+                </xpath>
+                <xpath expr="//field[@name='schedule_pay']" position="after">
+                    <field name="overtime_status"/>
+                    <field name="overtime_type"/>
+                </xpath>
+                <xpath expr="//field[@name='type_id']" position="attributes">
+                    <attribute name="string">Status Karyawan</attribute>
+                </xpath>
+                <xpath expr="//field[@name='job_id']" position="after">
+                    <field name="job_status"/>
+                </xpath>
+                <xpath expr="//field[@name='reported_to_secretariat']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='type_id']" position="before">
+                    <field name="contract_type"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

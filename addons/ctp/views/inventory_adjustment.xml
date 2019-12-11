@@ -1,0 +1,75 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.inventory_adjustment_form_inherit">
+            <field name="name">inventory.adjustment.form.inherit</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='filter']" position="after">
+                    <field name="audit_period" required="1"/>
+                    <field name="is_flock_material" invisible="1"/>
+                    <field name="operating_unit_id" attrs="{'required' :[('is_flock_material', '=', True)]}"/>
+                    <field name="flock_id" attrs="{'required' :[('is_flock_material', '=', True)]}"/>
+                    <field name="dept_head_keuangan_id" invisible="1"/>
+                    <field name="dept_head_akuntansi_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='product_qty']" position="after">
+                    <field name="difference_qty" readonly="1"/>
+                </xpath>
+                <xpath expr="//sheet" position="after">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <template id="report_inventory_signature" inherit_id="stock.report_inventory">
+            <xpath expr="//div[@class='page']" position="after">
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <table class="table table-bordered">
+<!--                    <thead>-->
+                        <tr>
+                            <th class="text-center">Dept Head</th>
+                            <th class="text-center">Dept Head Keuangan</th>
+                            <th class="text-center">Dept Head Akuntansi</th>
+                        </tr>
+<!--                    </thead>-->
+<!--                    <tbody>-->
+                        <tr style="height: 10rem;">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+<!--                            <td class="text-center"><span t-field="o.dept_head_keuangan_id"/></td>-->
+<!--                            <td class="text-center"><span t-field="o.dept_head_akuntansi_id"/></td>-->
+                        </tr>
+<!--                    </tbody>-->
+                </table>
+            </xpath>
+            <xpath expr="//table[@class='table table-sm']/thead/tr/th[@class='text-right']" position="replace">
+                <th class="text-right"><strong>Theoretical Quantity </strong></th>
+                <th class="text-right"><strong>Real Quantity </strong></th>
+                <th class="text-right"><strong>Difference Quantity </strong></th>
+            </xpath>
+            <xpath expr="//table[@class='table table-sm']/tbody/t/tr/td[@groups='stock.group_tracking_lot']" position="after">
+                <td></td>
+                <td></td>
+            </xpath>
+            <xpath expr="//table[@class='table table-sm']/tbody/t/tr/td[@class='text-right']" position="replace">
+                <td class="text-right"><span t-field="line.theoretical_qty"/></td>
+                <td class="text-right"><span t-field="line.product_qty"/></td>
+                <td class="text-right"><span t-field="line.difference_qty"/> <span t-field="line.product_uom_id" groups="uom.group_uom"/></td>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

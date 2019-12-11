@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.tax_adjustment_form_inherit">
+            <field name="name">tax.adjustment.form.inherit</field>
+            <field name="model">tax.adjustments.wizard</field>
+            <field name="inherit_id" ref="account.tax_adjustments_wizard"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="notes" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='credit_account_id']" position="after">
+                    <field name="analytic_account_id"/>
+                    <field name="analytic_tag_ids"/>
+                    <field name="partner" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='tax_id']" position="after">
+                    <field name="is_credited" required="1"/>
+                    <field name="vat_number"/>
+                    <field name="vat_date"/>
+                    <field name="vat"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

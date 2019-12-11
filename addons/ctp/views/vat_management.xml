@@ -1,0 +1,114 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="vat_management_form_view">
+            <field name="name">vat.management.form</field>
+            <field name="model">vat.management</field>
+            <field name="arch" type="xml">
+                <form string="VAT Management Form">
+                    <header>
+                        <button name="action_calculated_post" string="Calculated &amp; Post" type="object" context="{'calculated-vat':True}"
+                                class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="number"/>
+                                <field name="date" required="1"/>
+                                <field name="company_id"/>
+                                <field name="calculated_vat_account"/>
+                            </group>
+                            <group>
+                                <field name="journal_id"/>
+                                <field name="analytic_account_id"/>
+                                <field name="analytic_tag_ids" required="1"/>
+                                <field name="calculated" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Details">
+                                <group>
+                                    <group>
+                                        <field name="transaction_period_start" visibility="1"/>
+                                        <field name="transaction_period_end" visibility="1"/>
+                                        <field name="partner_id" visibility="1"/>
+                                        <field name="filter_journal_id" visibility="1"/>
+                                        <field name="vat_name" visibility="1"/>
+                                    </group>
+                                    <group string="Filters">
+                                        <field name="is_credited" visibility="1"/>
+                                        <field name="is_paid" visibility="1"/>
+                                        <field name="is_send_withholding_tax_slip" visibility="1"/>
+                                        <field name="is_calculated" visibility="1"/>
+                                    </group>
+                                    <group>
+                                        <button type="object" name="action_search_data" class="oe_stat_button"
+                                            icon="fa-archive" string="Get Data"/>
+                                    </group>
+                                </group>
+                                <field name="vat_management_detail">
+                                    <tree string="Detail" create="false">
+                                        <field name="pick"/>
+                                        <field name="date" readonly="1"/>
+                                        <field name="number" readonly="1"/>
+                                        <field name="partner_id" readonly="1"/>
+                                        <field name="trans_type" readonly="1"/>
+                                        <field name="reference" readonly="1"/>
+                                        <field name="account_tax" readonly="1"/>
+                                        <field name="analytic_account_id" readonly="1"/>
+                                        <field name="analytic_tag_ids" readonly="1"/>
+                                        <field name="vat_name" readonly="1"/>
+                                        <field name="vat_number" readonly="1"/>
+                                        <field name="vat_date" readonly="1"/>
+                                        <field name="debit" readonly="1"/>
+                                        <field name="credit" readonly="1"/>
+                                        <field name="total_line" readonly="1"/>
+                                        <field name="is_credited" readonly="1"/>
+                                        <field name="is_paid" readonly="1"/>
+                                        <field name="is_send_withholding_tax_slip" readonly="1"/>
+                                        <field name="is_calculated" readonly="1"/>
+                                        <field name="is_calculated_ref_num" readonly="1"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <br/>
+                                    <field name="ammount_total_debit_selected" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="ammount_total_credit_selected" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="ammount_total_calculated_vat" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </page>
+                        </notebook>
+                        <group>
+                            <field name="notes"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="vat_management_view_tree" model="ir.ui.view">
+            <field name="name">vat.management.tree</field>
+            <field name="model">vat.management</field>
+            <field name="arch" type="xml">
+                <tree string="vat management tree">
+                    <field name="number"/>
+                    <field name="date"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="vat_management_list_action">
+            <field name="name">VAT Management</field>
+            <field name="res_model">vat.management</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="account_accountant.menu_accounting"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+        <menuitem id="vat_management_menu" name="VAT Management" parent="account_accountant.menu_accounting" sequence="1"
+                  action="vat_management_list_action"/>
+    </data>
+</odoo>

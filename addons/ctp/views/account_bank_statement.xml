@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.account_bank_statement_form_inherit">
+            <field name="name">account.bank.statement.form.inherit</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="operating_unit_id"/>
+                    <field name="is_audit_period"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

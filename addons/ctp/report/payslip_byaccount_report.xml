@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="berdikari.report_payslip_byaccount" model="ir.actions.report">
+        <field name="name">Salary By Account</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">berdikari.template_payslip_byaccount</field>
+        <field name="target">self</field>
+    </record>
+
+<!--    Laporan Rekapitulasi Gaji Direksi & Dewan Komisaris-->
+    <template id="berdikari.template_payslip_byaccount">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h3>
+                        <span t-esc="title"/>
+                    </h3>
+
+                    <p>
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%b-%Y')"/>
+                    </p>
+
+                    <t t-set="i" t-value="0"/>
+                    <table border="0">
+                        <table class="table table-sm">
+                            <thead>
+
+<!--
+No, Account Code/Name, Pegawai Tetap, Pegawai Kontrak, Direksi, Jumlah
+-->
+
+                                <tr>
+                                    <th class="text-center">
+                                        <strong>No</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Account Code/Name</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Pegawai Tetap</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Pegawai Kontrak</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Direksi</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Jumlah</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="total_1" t-value="0" />
+                                <t t-set="total_2" t-value="0" />
+                                <t t-set="total_3" t-value="0" />
+                                <t t-set="total_4" t-value="0" />
+                                <t t-foreach="list_docs" t-as="index">
+                                    <t t-set="o" t-value="list_docs[index]" />
+                                    <t t-set="i" t-value="i+1" />
+                                    <t t-set="total_1" t-value="total_1+o[1]" />
+                                    <t t-set="total_2" t-value="total_2+o[2]" />
+                                    <t t-set="total_3" t-value="total_3+o[3]" />
+                                    <t t-set="total_4" t-value="total_4+o[4]" />
+                                    <tr>
+                                        <td>
+                                            <t t-esc="i"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="o[0]"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-if="o[1] &gt; 0">
+                                                <t t-esc="'{0:,.2f}'.format(int(o[1]))" />
+                                            </t>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-if="o[2] &gt; 0">
+                                                <t t-esc="'{0:,.2f}'.format(int(o[2]))" />
+                                            </t>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-if="o[3] &gt; 0">
+                                                <t t-esc="'{0:,.2f}'.format(int(o[3]))" />
+                                            </t>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-if="o[4] &gt; 0">
+                                                <t t-esc="'{0:,.2f}'.format(int(o[4]))" />
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2" class="text-right">
+                                        Total
+                                    </th>
+                                    <th class="text-right">
+                                        <t t-if="total_1 &gt; 0">
+                                            <t t-esc="'{0:,.2f}'.format(int(total_1))" />
+                                        </t>
+                                    </th>
+                                    <th class="text-right">
+                                        <t t-if="total_2 &gt; 0">
+                                            <t t-esc="'{0:,.2f}'.format(int(total_2))" />
+                                        </t>
+                                    </th>
+                                    <th class="text-right">
+                                        <t t-if="total_3 &gt; 0">
+                                            <t t-esc="'{0:,.2f}'.format(int(total_3))" />
+                                        </t>
+                                    </th>
+                                    <th class="text-right">
+                                        <t t-if="total_4 &gt; 0">
+                                            <t t-esc="'{0:,.2f}'.format(int(total_4))" />
+                                        </t>
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

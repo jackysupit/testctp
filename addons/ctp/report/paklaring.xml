@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="report_paklaring"
+            model="hr.employee"
+            string="Paklaring"
+            report_type="qweb-pdf"
+            name="berdikari.report_paklaring_template"
+            file="berdikari.report_paklaring_template"
+            attachment_use="False"
+            menu="False"
+    />
+
+    <template id="report_paklaring_template">
+        <main >
+        <div style="margin-left:20px;padding:25px;">
+        <t t-if="1">
+            <t t-foreach="docs" t-as="o">
+                <t t-if="1">
+                    <div class="page">
+                        <h3 align="center">SURAT KETERANGAN</h3>
+                        <h5 align="center">Nomor:
+                            <span t-field="o.paklaring_id.name"/>
+                        </h5>
+                        <div>Yang bertanda tangan di bawah ini:</div><br/>
+                        <table class="table table-borderless">
+<!--                        <table class="table table-borderless" style="margin:20px;background-color:yellow;padding:25px;border: solid 10px green;">-->
+                            <tbody>
+                                <tr height="10">
+                                    <td width="10%">Nama</td>
+                                    <td width="2%">:</td>
+                                    <td width="20%" text-align="left">
+                                        <span t-field="o.paklaring_id.user_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10%">Nomor Pegawai</td>
+                                    <td width="2%">:</td>
+                                    <td width="20%" text-align="left">
+                                        <span t-field="o.paklaring_id.user_id.barcode"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10%">Jabatan</td>
+                                    <td width="2%">:</td>
+                                    <td width="20%" align="left">
+                                        <span t-field="o.paklaring_id.user_job_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10%">Perusahaan</td>
+                                    <td>:</td>
+                                    <td width="10%" align="left">
+                                        <span t-field="o.company_id"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <div>Menerangkan Bahwa</div><br/>
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr height="10">
+                                    <td width="10%">Nama</td>
+                                    <td width="2%">:</td>
+                                    <td width="20%" text-align="left">
+                                        <span t-field="o.paklaring_id.employee_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10%">Nomor Pegawai</td>
+                                    <td width="2%">:</td>
+                                    <td width="20%" align="left">
+                                        <span t-field="o.barcode"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10%">Jabatan</td>
+                                    <td width="2%">:</td>
+                                    <td width="20%" align="left">
+                                        <span t-field="o.job_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10%">Alamat</td>
+                                    <td width="2%">:</td>
+                                    <td width="20%" align="left">
+                                        <span t-field="o.address"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <p>Adalah benar karyawan PT Berdikari (Persero) yang telah bekerja terhitung sejak tanggal
+                            <![CDATA[&nbsp;]]><span t-field="o.join_date" t-options='{"format": "dd MMM yyyy"}'/>
+                            sampai dengan<![CDATA[&nbsp;]]><span t-field="o.termination_date" t-options='{"format": "dd MMM yyyy"}'/>.
+                        </p>
+                        <p>Selama bekerja yang bersangkutan telah menunjukan dedikasi yang baik.</p>
+                        <p>Demikian surat keterangan ini dibuat untuk dapat dipergunakan sebagaimana mestinya.</p>
+                        <br/>
+                        <p>Jakarta,
+                            <span t-field="o.paklaring_id.created_date" t-options='{"format": "dd MMM yyyy"}'/>
+                        </p>
+                        <p>Hormat Kami,
+                            <br/>
+                            <b>PT BERDIKARI (PERSERO)</b>
+                            <br/>
+                            Group SDM
+                        </p>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <p>
+                            <u>
+                                <span t-field="o.paklaring_id.user_id"/>
+                            </u>
+                            <br/>
+                            <i>Dept Head Adm Kepegawaian</i>
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </t>
+        </div>
+        </main>
+    </template>
+</odoo>

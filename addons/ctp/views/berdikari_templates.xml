@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="custom_assets" name="website.assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <!--<script type="text/javascript" src="/jekdoo/static/src/js/jekdoo.js"></script>-->
+            <!--<script type="text/javascript" src="/jekdoo/static/src/js/jquery.number.min.js"></script>-->
+            <!--<script type="text/javascript" src="/jekdoo/static/src/js/jekdoo_char.js"></script>-->
+            <!--<link rel="stylesheet" href="/lunch/static/src/less/lunch.less"/>-->
+            <!--<link type="text/css" rel="stylesheet" href="/jekdoo/static/custom/custom.css"/>-->
+            <!--<script type="text/javascript" src="/jekdoo/static/custom/custom.js"></script>-->
+
+
+            <group class="custom-post-menu3">
+                <span>MENU SPAN</span><br/>
+                <p>MENU P</p>
+                <div>MENU DIV</div>
+                INI HILANG ISINYA?
+            </group>
+            <span class="custom-post-menu">
+                <span>MENU SPAN</span><br/>
+                <p>MENU P</p>
+                <div>MENU DIV</div>
+                INI HILANG ISINYA?
+            </span>
+            <div id="my-custom-post-menu">
+                <span>MENU SPAN</span><br/>
+                <p>MENU P</p>
+                <div>MENU DIV</div>
+                INI HILANG ISINYA?
+            </div>
+            <link rel="stylesheet" href="/berdikari/static/custom/css/custom_pos.css"/>
+            <script type="text/javascript" src="/berdikari/static/custom/js/custom_pos.js"></script>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.generate_assets_entries_form_inherit">
+            <field name="name">generate.assets.entries.form.inherit</field>
+            <field name="model">asset.depreciation.confirmation.wizard</field>
+            <field name="inherit_id" ref="account_asset.view_asset_depreciation_confirmation_wizard"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="company"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

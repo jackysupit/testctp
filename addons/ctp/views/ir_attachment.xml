@@ -1,0 +1,62 @@
+<odoo>
+    <data>
+        <record id="view_attachment_form_inherit" model="ir.ui.view">
+            <field name="name">ir.attachment.form.inherit</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='res_id']" position="after">
+                    <field name="hr_applicant_id" readonly="1" force_save="1" attrs="{'invisible':[('res_model','!=','hr.applicant'), ('id','=',False)]}" />
+<!--                    <field name="hr_applicant_name" readonly="1" force_save="1" attrs="{'invisible':[('res_model','!=','hr.applicant'), ('id','=',False)]}" />-->
+                    <field name="job_id" readonly="1" force_save="1" attrs="{'invisible':[('res_model','!=','hr.applicant'), ('id','=',False)]}" />
+                    <field name="stage_id" readonly="1" force_save="1" attrs="{'invisible':[('res_model','!=','hr.applicant'), ('id','=',False)]}" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_attachment_tree_inherit" model="ir.ui.view">
+            <field name="name">ir.attachment.form.inherit</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='create_uid']" position="before">
+                    <field name="stage_id" />
+                </xpath>
+            </field>
+        </record>
+
+
+        <!-- Resume and Letters -->
+        <record id="hr_recruitment.ir_attachment_view_search_inherit_hr_recruitment" model="ir.ui.view">
+            <field name="name">ir.attachment.search.inherit.recruitment</field>
+            <field name="model">ir.attachment</field>
+            <field name="mode">primary</field>
+<!--            <field name="inherit_id" ref="base.view_attachment_search"/>-->
+<!--            <field name="inherit_id" ref="hr_recruitment.ir_attachment_view_search_inherit_hr_recruitment"/>-->
+            <field name="arch" type="xml">
+<!--                <xpath expr="//field[@name='create_uid']" position="after">-->
+<!--                <xpath expr="//field[@name='index_content']" position="after">-->
+<!--                    <field name="hr_applicant_name" />-->
+<!--                    <field name="job_id" />-->
+<!--                    <field name="stage_id" />-->
+<!--                </xpath>-->
+
+                <xpath expr="//field[@name='create_date']" position="after">
+                    <field name="index_content" string="Content"/>
+                    <field name="hr_applicant_name"/>
+                    <field name="job_id" />
+                    <field name="stage_id" />
+                </xpath>
+                <xpath expr="//filter[@name='my_documents_filter']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='url_filter']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='binary_filter']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

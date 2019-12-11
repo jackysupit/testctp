@@ -1,0 +1,90 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="asset_biologis_used_form_view">
+            <field name="name">asset.biologis.used.form</field>
+            <field name="model">berdikari.asset.biologis.used</field>
+            <field name="arch" type="xml">
+                <form string="Asset Biologis Used Form">
+                    <header>
+                        <button name="action_asset_biologis_used_released" string="Released/ Open" type="object"
+                                class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="date"/>
+
+                                <separator/>
+
+                                <field name="asset_id" force_save="1" readonly="1"/>
+                                <field name="asset_code"/>
+                                <field name="asset_type"/>
+                                <field name="sex"/>
+                                <separator/>
+                                <field name="is_audit"/>
+                                <separator/>
+                                <field name="notes"/>
+                            </group>
+                            <group>
+                                <field name="work_order_id" required="1" force_save="1" readonly="1"/>
+                                <field name="work_order_line_breed_id" required="1" force_save="1" readonly="1"/>
+                                <field name="company_id"/>
+                                <field name="operating_unit_id" readonly="1"/>
+                                <field name="flock_id" readonly="1"/>
+                                <field name="house_id" readonly="1"/>
+                                <separator/>
+                                <field name="wo_qty" attrs="{'readonly':1}"/>
+                                <field name="avail_qty" attrs="{'readonly':1}"/>
+                                <field name="asset_qty" attrs="{'readonly':[('id','!=',False)]}"/>
+                                <field name="last_qty" readonly="1" attrs="{'invisible':[('last_qty','==','wo_qty')]}" force_save="1"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group>
+                                <field name="return_ids">
+                                    <tree editable="bottom">
+                                        <field name="qty"/>
+                                        <field name="date" class="text-right"/>
+                                    </tree>
+                                </field>
+
+                                <separator string=""/>
+
+                                <field name="add_ids">
+                                    <tree editable="bottom">
+                                        <field name="qty"/>
+                                        <field name="date" class="text-right"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group>
+                                <field name="write_off_ids" readonly="1">
+                                    <tree>
+                                        <field name="write_off_qty"/>
+                                        <field name="date" class="text-right"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="asset_biological_used_list_action">
+            <field name="name">Asset Biological Used</field>
+            <field name="res_model">berdikari.asset.biologis.used</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="master_data_menu"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+<!--        <menuitem id="asset_biological_used_menu" name="Asset Biological Used" parent="master_data_menu"-->
+<!--                  action="asset_biological_used_list_action"/>-->
+    </data>
+</odoo>

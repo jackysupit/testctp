@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.budget_form_inherit">
+            <field name="name">budget.form.inherit</field>
+            <field name="model">crossovered.budget</field>
+            <field name="inherit_id" ref="account_budget.crossovered_budget_view_form"/>
+            <field name="arch" type="xml">
+                <header>
+                    <button string="Confirm Plan" name="action_budget_confirm_plan" type="object" class="oe_highlight"
+                        attrs="{'invisible':[('confirm_plan','=',True)]}"/>
+                </header>
+                <xpath expr="//button[@name='action_budget_confirm']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('confirm_plan', '=', False)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="npwp_id"/>
+                    <field name="is_pkp"/>
+                    <field name="ppn_ammount"/>
+                    <field name="pph_ammount"/>
+                    <field name="tax_invoice_id"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="operating_unit_id"/>
+                    <field name="confirm_plan" readonly="1"/>
+                    <field name="budget_no" readonly="1"/>
+                    <field name="notes"/>
+                </xpath>
+                <xpath expr="//field[@name='crossovered_budget_line']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('confirm_plan','=',False)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='percentage']" position="after">
+                    <field name="remarks"/>
+                    <field name="account_display" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="attrs">{'required':1}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_crossovered_budget_line_tree">
+            <field name="name">crossovered.budget.line.tree</field>
+            <field name="model">crossovered.budget.lines</field>
+           <field name="inherit_id" ref="account_budget.view_crossovered_budget_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='analytic_account_id']" position="after">
+                    <field name="account_display"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

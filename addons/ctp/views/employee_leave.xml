@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari_employee_leave_form_inherit">
+            <field name="name">employee.leave.form.inherit</field>
+            <field name="model">hr.leave.type</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='time_type']" position="after">
+                    <field name="is_carryover"/>
+                    <field name="carry_over_limit"/>
+                    <field name="carry_cut_off_date"/>
+                    <field name="limit_days_req_to_leave"/>
+                    <field name="attendance_code_id"/>
+                    <field name="is_exclude_weekend_and_holiday" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

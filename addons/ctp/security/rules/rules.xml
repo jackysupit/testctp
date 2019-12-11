@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <data>
+        <record id="employee_director" model="res.groups">
+            <field name="name">Director</field>
+            <field name="category_id" ref="base.module_category_human_resources"/>
+        </record>
+
+        <record id="rule_overtime_request_officer" model="ir.rule">
+            <field name="model_id" ref="model_berdikari_overtime_request"/>
+            <field name="name">for User</field>
+            <field name="domain_force">[('user_id','=',user.id)]</field>
+            <field name="groups" eval="[(4,ref('hr.group_hr_user'))]"/>
+        </record>
+
+        <record id="rule_overtime_request_manager" model="ir.rule">
+            <field name="model_id" ref="model_berdikari_overtime_request"/>
+            <field name="name">for Manager</field>
+            <field name="domain_force">[('user_parent_id','=',user.id)]</field>
+            <field name="groups" eval="[(4,ref('hr.group_hr_manager'))]"/>
+        </record>
+
+        <record id="rule_overtime_request_director" model="ir.rule">
+            <field name="model_id" ref="model_berdikari_overtime_request"/>
+            <field name="name">for Director</field>
+            <field name="domain_force">[('user_director_id','=',user.id)]</field>
+<!--            <field name="groups" eval="[(4,ref('berdikari.employee_director'))]"/>-->
+            <field name="groups" eval="[(4,ref('hr.group_hr_manager'))]"/>
+        </record>
+
+        <record id="rule_overtime_request_admin" model="ir.rule">
+            <field name="model_id" ref="model_berdikari_overtime_request"/>
+            <field name="name">for Director</field>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('base.group_system'))]"/>
+        </record>
+
+<!--        PR -->
+        <record id="rule_purchase_request_admin" model="ir.rule">
+            <field name="model_id" ref="model_purchase_request"/>
+            <field name="name">for Admin</field>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('base.group_system'))]"/>
+        </record>
+
+        <record id="rule_purchase_request_user" model="ir.rule">
+            <field name="model_id" ref="model_purchase_request"/>
+            <field name="name">for User</field>
+            <field name="domain_force">['|',('user_id','=',user.id),'&amp;',('dest_department_id','=',user.employee_id.department_id.id),('state','=','dept_head_approve')]</field>
+            <field name="groups" eval="[(4,ref('purchase.group_purchase_user'))]"/>
+        </record>
+
+        <record id="rule_purchase_request_manager" model="ir.rule">
+            <field name="model_id" ref="model_purchase_request"/>
+            <field name="name">for Manager</field>
+            <field name="domain_force">['|','|','|',('user_parent_id','=',user.id),('user_group_head_id','=',user.id),('user_id','=',user.id),('department_id','=',user.employee_id.department_id.id)]</field>
+            <field name="groups" eval="[(4,ref('purchase.group_purchase_manager'))]"/>
+        </record>
+
+<!--        Group Staff Inventory (not working)-->
+        <record id="rule_staff_inventory_group" model="ir.rule">
+            <field name="model_id" ref="model_purchase_request"/>
+            <field name="name">for Staff Inventory</field>
+            <field name="domain_force">[('state','=','dept_head_approve'),('is_stock','=',True)]</field>
+            <field name="groups" eval="[(4,ref('berdikari.group_purchase_validasi_inventory'))]"/>
+        </record>
+<!--        Group Staff Pengadaan -->
+        <record id="rule_staff_pengadaan_group" model="ir.rule">
+            <field name="model_id" ref="model_purchase_request"/>
+            <field name="name">for Staff Pengadaan</field>
+            <field name="domain_force">['|',('state','=','dept_head_approve'),('user_id','=',user.id)]</field>
+            <field name="groups" eval="[(4,ref('berdikari.group_purchase_validasi_pengadaan'))]"/>
+        </record>
+
+<!--        Admin PO-->
+        <record id="rule_purchase_order_admin" model="ir.rule">
+            <field name="model_id" ref="model_purchase_order"/>
+            <field name="name">for Admin</field>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('base.group_system'))]"/>
+        </record>
+<!--        Group Pengadaan di PO (not working)-->
+        <record id="rule_creator_rfq_po_group" model="ir.rule">
+            <field name="model_id" ref="model_purchase_order"/>
+            <field name="name">for Group Pengadaan</field>
+<!--            <field name="domain_force">[('state', '=', 'draft'), '|',('dest_department_id', '=', user.employee_id.department_id.id),('user_id','=',user.id)]</field>-->
+            <field name="domain_force">['|','|',('dest_department_id','=',False),('state', '=', 'draft'),('dest_department_id', '=', user.employee_id.department_id.id),('user_id','=',user.id)]</field>
+            <field name="groups" eval="[(4,ref('berdikari.group_purchase_validasi_pengadaan'))]"/>
+        </record>
+<!--        Group Head Staff Pengadaan di PO-->
+<!--        <record id="rule_gh_inventory_group" model="ir.rule">-->
+<!--            <field name="model_id" ref="model_purchase_order"/>-->
+<!--            <field name="name">for GH Pengadaan</field>-->
+<!--            <field name="domain_force">[('state','=','purchase'), '|',('dest_department_id', '=', user.employee_id.department_id.id),('user_id','=',user.id)]</field>-->
+<!--            <field name="groups" eval="[(4,ref('purchase.group_purchase_manager'))]"/>-->
+<!--        </record>-->
+<!--        Group Staff Inventory di PO-->
+        <record id="rule_purchase_order_staff_inventory" model="ir.rule">
+            <field name="model_id" ref="model_purchase_order"/>
+            <field name="name">for Staff Inventory</field>
+            <field name="domain_force">['|','|',('dest_department_id','=',False),('user_id','=',user.id),('state','=','draft'),('is_not_stock','=',False)]</field>
+            <field name="groups" eval="[(4,ref('berdikari.group_purchase_validasi_inventory'))]"/>
+        </record>
+
+        <record id="rule_purchase_order_unit_price" model="ir.rule">
+            <field name="model_id" ref="model_purchase_order"/>
+            <field name="name">for Purchase Unit Price</field>
+            <field name="domain_force">['|','|',('dest_department_id','=',False),('user_id','=',user.id),('state','=','draft'),('is_not_stock','=',False)]</field>
+            <field name="groups" eval="[(4,ref('berdikari.group_purchase_update_price'))]"/>
+        </record>
+
+        <record id="rule_purchase_order_tax_validate" model="ir.rule">
+            <field name="model_id" ref="model_purchase_order"/>
+            <field name="name">for Tax Validate</field>
+            <field name="domain_force">[('id','in',user.read_purchase_order_ids.ids)]</field>
+            <field name="groups" eval="[(4,ref('berdikari.group_inventory_tax_validation'))]"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,154 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.hr_payslip_form_inherit">
+            <field name="name">hr.payslip.form.inherit</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group" position="replace">
+                    <group>
+                        <group>
+                            <field name="period_id" required="1"/>
+                            <field name="period_seq_id" required="1"/>
+                            <label for="date_from" string="Period"/>
+                            <div>
+                                <field name="date_from" class="oe_inline" readonly="1" force_save="1"/>
+                                -
+                                <field name="date_to" class="oe_inline" readonly="1" force_save="1"/>
+                            </div>
+                            <field name="number"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="contract_id"
+                                   domain="[('employee_id','=',employee_id),('date_start','&lt;=',date_to),'|',('date_end','&gt;=',date_from),('date_end','=',False)]"
+                                   context="{'default_employee_id': employee_id}"/>
+                            <field name="struct_id" attrs="{'required':[('contract_id','!=',False)]}"/>
+                            <field name="credit_note"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']" position="replace">
+                    <field name="line_ids" colspan="4" nolabel="1">
+                        <tree string="Salary Structure" editable="bottom" decoration-info="total == 0"
+                              default_order="rule_parent_id asc">
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="category_id"/>
+                            <field name="sequence" invisible="1"/>
+                            <field name="quantity"/>
+                            <field name="rate"/>
+                            <field name="salary_rule_id"/>
+                            <field name="amount"/>
+                            <field name="total"/>
+                        </tree>
+                        <form string="Payslip Line">
+                            <group col="4">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="category_id"/>
+                                <field name="sequence"/>
+                                <field name="quantity"/>
+                                <field name="rate"/>
+                                <field name="amount"/>
+                                <field name="total"/>
+                                <field name="salary_rule_id"/>
+                            </group>
+                        </form>
+                    </field>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="account_id"/>
+                    <field name="appears_on_payslip"/>
+                    <field name="amount_python_compute" invisible="1"/>
+                    <field name="id" invisible="1"/>
+                    <field name="rule_parent_id" invisible="1"/>
+                    <field name="is_header" invisible="1"/>
+                    <field name="order" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='input_line_ids']" position="after">
+                    <separator string="Overtime Hour"/>
+                    <field name="attendance_days_line_ids" colspan="4" nolabel="1">
+                        <tree string="Overtime Hourss" editable="bottom">
+                            <field name="name"/>
+                            <field name="sequence"/>
+                            <field name="payslip_id"/>
+                            <field name="overtime_date_from"/>
+                            <field name="overtime_date_to"/>
+                            <field name="overtime_day"/>
+                            <field name="no_of_hours" sum="Total Overtime Hours"/>
+                            <field name="meal_provided" invisible="0" class="text-center"/>
+                            <field name="overtime_rate" invisible="1"/>
+                        </tree>
+                        <form string="Overtime Hours">
+                            <group col="4">
+                                <field name="name"/>
+                                <field name="sequence"/>
+                                <field name="payslip_id"/>
+                                <field name="overtime_date_from"/>
+                                <field name="overtime_date_to"/>
+                                <field name="overtime_day"/>
+                                <field name="no_of_hours"/>
+                                <field name="meal_provided"/>
+                                <field name="overtime_rate" invisible="1"/>
+                            </group>
+                        </form>
+                    </field>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="operating_unit_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="berdikari.hr_payslip_run_form_inherit">
+            <field name="name">hr.payslip.run.form.inherit</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='%(hr_payroll.action_hr_payslip_by_employees)d']" position="replace">
+                    <field name="date_from" invisible="1"/>
+                    <field name="date_to" invisible="1"/>
+                    <field name="period_id" invisible="1"/>
+                    <field name="period_seq_id" invisible="1"/>
+
+                    <button name="%(hr_payroll.action_hr_payslip_by_employees)d" type="action" states="draft" string="Generate Payslips" class="oe_highlight"
+                    context="{'date_from':date_from, 'date_to':date_to, 'period_id':period_id, 'period_seq_id':period_seq_id}"
+                    />
+                </xpath>
+                <xpath expr="//sheet/group" position="replace">
+                    <group>
+                        <group>
+                            <field name="period_id" required="1"/>
+                            <field name="period_seq_id" required="1"/>
+                            <label for="date_from" string="Period"/>
+                            <div>
+                                <field name="date_from" class="oe_inline" readonly="1" force_save="1"/>
+                                -
+                                <field name="date_to" class="oe_inline" readonly="1" force_save="1"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="credit_note"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+
+
+<!--        <record id="hr_payroll.action_hr_payslip_by_employees" model="ir.actions.act_window">-->
+<!--            <field name="name">Generate Payslipssssssssssssssss</field>-->
+<!--&lt;!&ndash;            <field name="inherit_id" ref="hr_payroll.action_hr_payslip_by_employees"/>&ndash;&gt;-->
+<!--            <field name="res_model">hr.payslip.employees</field>-->
+<!--            <field name="view_type">form</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--&lt;!&ndash;            <field name="view_id" ref="view_hr_payslip_by_employees"/>&ndash;&gt;-->
+<!--            <field name="target">new</field>-->
+<!--            <field name="context">{'date_from':date_start, 'date_to':date_end}</field>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

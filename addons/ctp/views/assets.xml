@@ -1,0 +1,261 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.assets_form_inherit">
+            <field name="name">assets.form.inherit</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='account_analytic_id']" position="after">
+                    <field name="legal_status"/>
+                    <field name="status_availability" widget="radio"/>
+                </xpath>
+                <xpath expr="//field[@name='method']" position="after">
+                    <field name="is_next_month_depreciation"
+                           string="Tanggal 15 ke atas akan didepresiasikan pada bulan berikutnya"/>
+                    <field name="is_can_reclass"/>
+                </xpath>
+                <xpath expr="//field[@name='account_analytic_id']" position="after">
+                    <field name="current_depreciation_line_id"/>
+                    <field name="current_depreciation_amount"/>
+                    <field name="current_depreciation_value"/>
+                    <field name="current_depreciation_remaining_value"/>
+                </xpath>
+                <xpath expr="//field[@name='prorata']" position="after">
+                    <label for="useful_life" string="Economical Life Time"/>
+                    <div>
+                        <field name="useful_life" nolabel="1" class="oe_inline" required="1"/>
+                        <field name="useful_life_unit" nolabel="1" class="oe_inline" required="1"/>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='method_period']" position="replace">
+                    <label for="method_period" string="Depreciate Every"/>
+                    <div>
+                        <field name="method_period" nolabel="1" class="oe_inline"/>
+                        <field name="method_period_unit" nolabel="1" class="oe_inline" required="1"/>
+                    </div>
+                    <!--                    <field name="method_number_new" force_save="1"/>-->
+                    <!--                    <field name="method_number" force_save="1"/>-->
+                </xpath>
+                <xpath expr="//field[@name='method_number']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='method_end']" position="before">
+                    <field name="method_number" force_save="1" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='salvage_value']" position="replace">
+                    <field name="salvage_value" string="Residual Value"/>
+                </xpath>
+                <xpath expr="//field[@name='value_residual']" position="replace">
+                    <field name="value_residual" string="Book Value"/>
+                </xpath>
+                <xpath expr="//field[@name='value_residual']" position="after">
+                    <!--                    <field name="one_value"/>-->
+                    <!--                    <field name="one_salvage"/>-->
+                    <!--                    <field name="one_residual"/>-->
+                    <!--                    <field name="qty_start" attrs="{'readonly':[('flock_id','!=',False)]}"/>-->
+                    <field name="qty_start"/>
+                    <field name="avail_qty" readonly="1" force_save="1"/>
+                    <field name="used_qty" readonly="1"/>
+                    <field name="off_qty" readonly="1"/>
+                    <field name="qty_end" invisible="0"/>
+
+                    <separator/>
+
+                    <field name="uom_id"/>
+                    <field name="lot_id" readonly="0" force_save="1"/>
+                    <field name="product_product_id" readonly="0" force_save="1"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="page_doc" string="Document">
+                        <group>
+                            <field name="doc_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="document_name"/>
+                                    <field name="expired_date"/>
+                                    <field name="legal_id"/>
+                                    <field name="location"/>
+                                    <field name="attached_doc" filename="attached_doc_name"/>
+                                    <field name="attached_doc_name" invisible="1"/>
+                                    <field name="document_type"/>
+                                    <field name="warning_date"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                    <page name="page_maintenance" string="Maintenance">
+                        <group>
+                            <field name="maintenance_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="vendor"/>
+                                    <field name="nominal"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                    <page name="page_bio_assets" string="Biological Assets">
+                        <group>
+                            <group>
+                                <separator string="Identity"/>
+                                <field name="flock_id"/>
+                                <field name="sex"/>
+                                <field name="std_productivity"/>
+                            </group>
+                            <group>
+                                <separator string="Information"/>
+                                <field name="total_dead"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <separator string="House"/>
+                                <separator/>
+
+                                <field name="bio_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="house_id"/>
+                                        <field name="end_qty"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="total_qty_house"/>
+                                </group>
+                            </group>
+                        </group>
+                    </page>
+                    <page name="page_receipt" string="Receipts">
+                        <group>
+                            <field name="receipt_ids" nolabel="1">
+                                <tree>
+                                    <field name="purchase_line_id"/>
+                                    <field name="date"/>
+                                    <field name="qty"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                    <page name="page_used" string="Used">
+                        <group>
+                            <field name="used_ids" nolabel="1">
+                                <tree>
+                                    <field name="biologis_used_id" invisible="1"/>
+                                    <field name="flock_id"/>
+                                    <field name="work_order_id"/>
+                                    <!--                                    <field name="house_id"/>-->
+                                    <field name="date"/>
+                                    <field name="first_qty" sum="Total First QTY"/>
+                                    <field name="off_qty" sum="Total OFF QTY"/>
+                                    <field name="qty" sum="Total Current QTY"/>
+                                    <button type="object" name="action_write_off_input" string="Write Off" class="oe_highlight"
+                                        attrs="{'invisible':[('id','=',False)]}"
+                                    />
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                    <page name="page_other_information" string="Other Information">
+                        <group>
+                            <group>
+                                <field name="location"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="berdikari.assets_type_form_inherit">
+            <field name="name">assets.type.form.inherit</field>
+            <field name="model">account.asset.category</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_category_form"/>
+            <field name="arch" type="xml">
+                <!--                <xpath expr="//field[@name='date_first_depreciation']" position="after">-->
+                <xpath expr="(//group)[last()]" position="after">
+                    <group string="Flock Material">
+                        <field name="sex"/>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='date_first_depreciation']" position="after">
+                    <field name="is_capitalize_assets"/>
+                    <field name="moving_type" widget="radio"/>
+                    <field name="is_next_month_depreciation"/>
+                    <field name="is_house_mandatory"/>
+                    <field name="is_flock_mandatory"/>
+                </xpath>
+                <xpath expr="//field[@name='method_progress_factor']" position="after">
+                    <field name="is_double_declaining_method"/>
+                </xpath>
+                <xpath expr="//field[@name='method_time']" position="after">
+                    <label for="useful_life" string="Economical Life Time"/>
+                    <div>
+                        <field name="useful_life" nolabel="1" class="oe_inline" required="1"/>
+                        <field name="useful_life_unit" nolabel="1" class="oe_inline" required="1"/>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='method_number']" position="before">
+                    <label for="method_period" string="Depreciate Every"/>
+                    <div>
+                        <field name="method_period" nolabel="1" class="oe_inline"/>
+                        <field name="method_period_unit" nolabel="1" class="oe_inline" required="1"/>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='method_end']" position="before">
+                    <field name="method_number" string="Method Number" force_save="1"/>
+                </xpath>
+                <xpath expr="//field[@name='method_number']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/group/group[3]/div[3]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/sheet/group/group[3]/label[3]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!--        <record model="ir.ui.view" id="berdikari.categ_assets_form_inherit">-->
+        <!--            <field name="name">account.asset.category.inherit</field>-->
+        <!--            <field name="model">account.asset.category</field>-->
+        <!--            <field name="inherit_id" ref="account_asset.view_account_asset_category_form"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <xpath expr="//field[@name='company_id']" position="after">-->
+        <!--                    <field name="sex"/>-->
+        <!--                </xpath>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+
+        <record model="ir.actions.act_window" id="action_asset_material">
+            <field name="name">Asset Material</field>
+            <field name="res_model">account.asset.asset</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="account_asset.action_account_asset_asset_form"/>
+            <field name="domain">[('category_id.type', '=',
+                'purchase'),('product_product_id.is_flock_material','=',True)]
+            </field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_asset_non_material">
+            <field name="name">Asset Non Material</field>
+            <field name="res_model">account.asset.asset</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="account_asset.action_account_asset_asset_form"/>
+            <field name="domain">[('category_id.type', '=',
+                'purchase'),('product_product_id.is_flock_material','=',False)]
+            </field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

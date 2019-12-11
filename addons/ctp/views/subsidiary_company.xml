@@ -1,0 +1,71 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="subsidiary_company_form_view">
+            <field name="name">subsidiary.company.form</field>
+            <field name="model">berdikari.subsidiary.company</field>
+            <field name="arch" type="xml">
+                <form string="Subsidiary Company Form">
+                    <header>
+                        <button name="action_import" string="Import" type="object" context="{'import':True}"
+                                class="oe_highlight"/>
+                        <button name="action_validate" string="Validate" type="object" context="{'validate':True}"
+                                class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="date"/>
+                                <field name="company_id"/>
+                            </group>
+                            <group>
+                                <field name="type" widget="radio"/>
+                                <field name="subs_company"/>
+                                <label for="period_year" string="Period"/>
+                                <div>
+                                    <field name="period_year" class="oe_inline" placeholder="year"/>
+                                    -
+                                    <field name="period_month" class="oe_inline" nolabel="1" placeholder="month"/>
+                                </div>
+<!--                                <field name="period_year"/>-->
+<!--                                <field name="period_month"/>-->
+                                <field name="file_name"/>
+                                <field name="notes"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="subs_company_line_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="line"/>
+                                    <field name="account_code"/>
+                                    <field name="account_name"/>
+                                    <field name="erp_account_code"/>
+                                    <field name="erp_account_name"/>
+                                    <field name="begin"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="debit"/>
+                                    <field name="credit"/>
+                                    <field name="end"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="subsidiary_company_list_action">
+            <field name="name">Subsidiary Company</field>
+            <field name="res_model">berdikari.subsidiary.company</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="account.menu_finance_entries_actions"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+        <menuitem id="subsidiary_company_menu" name="Subsidiary Company" parent="account.menu_finance_entries_actions"
+                  action="subsidiary_company_list_action" sequence="65"/>
+    </data>
+</odoo>

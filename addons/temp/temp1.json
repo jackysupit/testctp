@@ -1,0 +1,106 @@
+{
+  "id": 1,
+  "struct_id": [
+    2,
+    "Salary Pegawai Tetap"
+  ],
+  "name": "Sabilarrosyad Sabilarrosyad",
+  "employee_id": [
+    20,
+    "Sabilarrosyad"
+  ],
+  "state": "draft",
+  "line_ids": [
+    461,
+    459,
+    460,
+    441,
+    442,
+    443,
+    444,
+    448,
+    445,
+    446,
+    447,
+    450,
+    451,
+    453,
+    455,
+    449,
+    452,
+    456,
+    454,
+    457,
+    458
+  ],
+  "company_id": [
+    1,
+    "PT Berdikari (Persero)"
+  ],
+  "worked_days_line_ids": [
+    1
+  ],
+  "input_line_ids": [],
+  "paid": False,
+  "note": False,
+  "contract_id": [
+    2,
+    "Kontrak Pertama"
+  ],
+  "credit_note": False,
+  "payslip_run_id": False,
+  "period_id": False,
+  "period_seq_id": False,
+  "date_from": "2019-05-05",
+  "date_to": "2019-05-31",
+  "operating_unit_id": False,
+  "attendance_days_line_ids": [],
+  "hr_dept_head_id": False,
+  "hr_dept_head_job_id": False,
+  "create_uid": [
+    2,
+    "Administrator"
+  ],
+  "create_date": "2019-11-04 09:35:16",
+  "write_uid": [
+    2,
+    "Administrator"
+  ],
+  "write_date": "2019-11-05
+  08: 17
+  :
+  54
+  ", "
+  details_by_salary_rule_category
+  ": [461, 459,
+  460,
+  441,
+  442,
+  443,
+  444,
+  448,
+  445,
+  446,
+  447,
+  450,
+  451,
+  453,
+  455,
+  449,
+  452,
+  456,
+  454,
+  457,
+  458
+],
+  "payslip_count": 21,
+  "display_name": "Salary Slip of Sabilarrosyad for May-
+  2019
+  ", "
+  __last_update
+  ": "
+  2019-11-05
+  08: 17
+  :
+  54
+  "}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="jekdoo_setup_form" model="ir.ui.view">
+        <field name="name">jekdoo.setup.form</field>
+        <field name="model">jekdoo.setup</field>
+        <field name="arch" type="xml">
+            <form string="Form Custom Settings">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="web_base_url"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Others" name="other">
+                            <group string="Miscellaneous">
+                                <field name="white_list_email" widget="many2many_tags"/>
+                                <field name="jekdoo_max_upload_size"/>
+                                <field name="jekdoo_file_extention_allowed"/>
+                            </group>
+
+                            <group string="">
+                                <group>
+                                    <group>
+                                        <field name="min_password_length"/>
+                                    </group>
+                                    <group>
+                                        <field name="max_password_length"/>
+                                    </group>
+                                </group>
+                            </group>
+
+                            <group>
+                                <group>
+                                    <button name="action_backup_log"
+                                            string="Backup And Clear Log History"
+                                            type="object"
+                                            class="btn btn-primary"
+                                            confirm="Are you sure?"
+                                    />
+                                    <button name="action_backup_db"
+                                            string="Backup And Clear DB History"
+                                            type="object"
+                                            class="btn btn-primary"
+                                            confirm="Are you sure?"
+                                    />
+                                </group>
+                                <group>
+
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

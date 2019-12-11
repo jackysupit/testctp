@@ -1,0 +1,124 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="flock_master_form_view">
+            <field name="name">flock.master.form</field>
+            <field name="model">berdikari.flock.master</field>
+            <field name="arch" type="xml">
+                <form string="Flock Master Form" attrs="{'create': False, 'edit': True}" >
+                    <header>
+                        <button name="action_close_flock" string="Close Flock" type="object" class="oe_highlight"
+                            attrs="{'invisible':[('is_invisible_close_button','=',True)]}"/>
+
+                        <field name="is_invisible_close_button" invisible="1" />
+                        <field name="state" widget="statusbar" readonly="1" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box" modifiers="{}">
+                            <button name="action_work_order_list" type="object" class="oe_stat_button"
+                                    icon="fa-check"
+                            >
+                                
+                                <t attrs="{'invisible':[('count_work_order','&gt;',0)]}">
+                                    <span>No Work Order</span>
+                                </t>
+                                <t attrs="{'invisible':[('count_work_order','&lt;=',0)]}">
+                                    <span><field name="count_work_order" /> Work Order</span>
+                                </t>                                
+                            </button>
+
+
+                            <field name="is_allow_create_wo" invisible="1"/>
+                            <button name="action_work_order_input" type="object" class="oe_stat_button"
+                                    icon="fa-check"
+                                    attrs="{'invisible':['|',('is_allow_create_wo','!=',True),('state','=','closed')]}"
+                            >
+                                <span>Work Order Input</span>
+                            </button>   
+<!--                            <button name="action_breeding_open" type="object" class="oe_stat_button"-->
+<!--                                    icon="fa-check"-->
+<!--                                    attrs="{'invisible':[('id','=',False)]}"-->
+<!--                            >-->
+<!--                                <span>Breeding Open</span>-->
+<!--                            </button>-->
+<!--                            <button name="action_breeding_input" type="object" class="oe_stat_button"-->
+<!--                                    icon="fa-check"-->
+<!--                                    attrs="{'invisible':[('id','=',False)]}"-->
+<!--                            >-->
+<!--                                <span>Breeding Input</span>-->
+<!--                            </button>-->
+<!--                            <button name="action_hachery" type="object" class="oe_stat_button"-->
+<!--                                    icon="fa-check"-->
+<!--                                    attrs="{'invisible':[('id','=',False)]}"-->
+<!--                            >-->
+<!--                                <span>Hatchery</span>-->
+<!--                            </button>-->
+                        </div>
+                        <group>
+                            <group>
+                                <field name="code" attrs="{'readonly':[('state','=','closed')]}"/>
+                                <field name="name" attrs="{'readonly':[('state','=','closed')]}"/>
+                                <field name="company_id" attrs="{'readonly':[('state','=','closed')]}"/>
+                                <field name="operating_unit_id" attrs="{'readonly':[('state','=','closed')]}"/>
+                                <field name="period_year" attrs="{'readonly':[('state','=','closed')]}"/>
+                                <field name="period_sequence" attrs="{'readonly':[('state','=','closed')]}"/>
+                            </group>
+                            <group>
+                                <field name="count_work_order" invisible="1"/>
+                                <field name="start_date" attrs="{'readonly':[('count_work_order','>',0)]}"/>
+                                <field name="duration" attrs="{'readonly':[('count_work_order','>',0)]}"/>
+                                <field name="end_date" readonly="1" force_save="1"/>
+                                <field name="all_day_qty" invisible="1" />
+                                <field name="current_day" invisible="1" />
+                                <field name="prod_week" invisible="1" />
+                                <field name="prod_day_qty" invisible="1" />
+                                <field name="prod_day_start" invisible="1" />
+                                <field name="prod_day_qty_current" invisible="1" />
+                                <field name="prod_day_left" invisible="1" />
+
+                                <field name="purchase_id" attrs="{'readonly':['|',('count_work_order','>',0),('state','=','closed')]}"/>
+                                <field name="notes" attrs="{'readonly':[('state','=','closed')]}"/>
+                            </group>
+                            <group>
+                                <field name="biological_asset_ids" nolabel="1" attrs="{'readonly':[('state','=','closed')]}">
+                                    <tree editable="bottom">
+                                        <field name="product_template_id"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="flock_master_view_tree" model="ir.ui.view">
+            <field name="name">flock.master.tree</field>
+            <field name="model">berdikari.flock.master</field>
+            <field name="arch" type="xml">
+                <tree string="flock master tree">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="operating_unit_id"/>
+                    <field name="period_year"/>
+                    <field name="period_sequence"/>
+                    <field name="state"/>
+                    <field name="count_work_order" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="flock_master_list_action">
+            <field name="name">Flock Master</field>
+            <field name="res_model">berdikari.flock.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="mrp.menu_mrp_bom"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+        <menuitem id="flock_master_menu" name="Flock Master" parent="mrp.menu_mrp_bom"
+                  action="flock_master_list_action"/>
+    </data>
+</odoo>

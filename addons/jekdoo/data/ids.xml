@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="res.groups" id="read_only_user">
+            <field name="name">Read Only User</field>
+        </record>
+    </data>
+</odoo>

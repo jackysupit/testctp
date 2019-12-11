@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+	<data>
+		<!-- Nomor Anggaran -->
+        <record id="sequence_budget_number" model="ir.sequence">
+            <field name="name">Budget number sequence</field>
+            <field name="code">crossovered.budget</field>
+            <field name="prefix">BGT/%(range_year)s/9</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <!-- Nomor PR -->
+        <record id="sequence_purchase_request_number" model="ir.sequence">
+            <field name="name">Purchase Request number sequence</field>
+            <field name="code">purchase.request</field>
+            <field name="prefix">PR/%(range_year)s/9</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <!-- Nomor RFQ -->
+        <record id="sequence_purchase_order_quotation" model="ir.sequence">
+            <field name="name">RFQ Purchase</field>
+            <field name="code">purchase.order.quotation</field>
+            <field name="prefix">RFQ%(year)s%(month)s</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="sequence_produksi_telur" model="ir.sequence">
+            <field name="name">Produksi Telur number sequence</field>
+            <field name="code">mrp.production</field>
+            <field name="prefix">MO/01/%(range_year)s/9</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_produksi_ayam_doc" model="ir.sequence">
+            <field name="name">Produksi Ayam DOC number sequence</field>
+            <field name="code">mrp.production</field>
+            <field name="prefix">MO/02/%(range_year)s/9</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_payment_request" model="ir.sequence">
+            <field name="name">Payment Request number sequence</field>
+            <field name="code">berdikari.payment.request</field>
+            <field name="prefix">PAYREQ/%(year)s%(month)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_fms_egg_production" model="ir.sequence">
+            <field name="name">FMS Egg Production number sequence</field>
+            <field name="code">berdikari.fms.egg.production</field>
+            <field name="prefix">FMSEGGPROD/%(year)s%(month)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_fms_hatchery" model="ir.sequence">
+            <field name="name">FMS Hatchery number sequence</field>
+            <field name="code">berdikari.fms.hatchery</field>
+            <field name="prefix">FMSHATC/%(year)s%(month)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+        <record id="sequence_fms_hatchery_grading" model="ir.sequence">
+            <field name="name">FMS Hatchery Grading number sequence</field>
+            <field name="code">berdikari.fms.hatchery.grading</field>
+            <field name="prefix">FMS/HATC/GRD/%(year)s%(month)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_fms_hatchery_setter" model="ir.sequence">
+            <field name="name">FMS Hatchery Setter number sequence</field>
+            <field name="code">berdikari.fms.hatchery.setter</field>
+            <field name="prefix">FMSHATCSET/%(year)s%(month)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_fms_hatchery_hatcher" model="ir.sequence">
+            <field name="name">FMS Hatchery Hatcher number sequence</field>
+            <field name="code">berdikari.fms.hatchery.hatcher</field>
+            <field name="prefix">FMSHATCHAT/%(year)s%(month)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_fms_breeding" model="ir.sequence">
+            <field name="name">FMS Breeding number sequence</field>
+            <field name="code">berdikari.fms.breeding</field>
+            <field name="prefix">FMSBREED/%(year)s%(month)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_work_order" model="ir.sequence">
+            <field name="name">Work Order number sequence</field>
+            <field name="code">berdikari.work.order</field>
+            <field name="prefix">WO/%(year)s%(month)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_hr_paklaring" model="ir.sequence">
+            <field name="name">HR Paklaring number sequence</field>
+            <field name="code">employee.paklaring</field>
+            <field name="suffix">/BDK/D-3.1.1/%(month)s/%(year)s</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+
+
+        <record id="sequence_berdikari_breeding_input" model="ir.sequence">
+            <field name="name">berdikari.breeding.input number sequence</field>
+            <field name="code">berdikari.breeding.input</field>
+            <field name="prefix">BREED/%(year)s%(month)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_berdikari_flock_master" model="ir.sequence">
+            <field name="name">berdikari.flock.master number sequence</field>
+            <field name="code">berdikari.flock.master</field>
+            <field name="prefix">FLOCK/%(year)s%(month)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_berdikari_chicken_coop" model="ir.sequence">
+            <field name="name">berdikari.chicken.coop number sequence</field>
+            <field name="code">berdikari.chicken.coop</field>
+            <field name="prefix">HOUSE/%(year)s%(month)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_berdikari_asset_adding" model="ir.sequence">
+            <field name="name">berdikari.asset.adding number sequence</field>
+            <field name="code">berdikari.asset.adding</field>
+            <field name="prefix">ASSETADD/%(year)s%(month)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_berdikari_asset_biological_used" model="ir.sequence">
+            <field name="name">berdikari.asset.biological number sequence</field>
+            <field name="code">berdikari.asset.biological</field>
+            <field name="prefix">ASSETBIO/%(year)s%(month)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_berdikari_write_off" model="ir.sequence">
+            <field name="name">berdikari.write.off number sequence</field>
+            <field name="code">berdikari.write.off</field>
+            <field name="prefix">WRITEOFF/%(year)s%(month)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_berdikari_vat_management" model="ir.sequence">
+            <field name="name">berdikari.vat.management number sequence</field>
+            <field name="code">berdikari.vat.management</field>
+            <field name="prefix">VAT/%(year)s%(month)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_berdikari_stock_scrap_header" model="ir.sequence">
+            <field name="name">berdikari.stock.scrap.header sequence</field>
+            <field name="code">berdikari.stock.scrap.header</field>
+            <field name="prefix">SCRAP/%(year)s%(month)s/</field>
+            <field name="number_next" eval="1"/>
+            <field name="number_increment" eval="1"/>
+            <field name="company_id" eval="False"/>
+            <field name="use_date_range" eval="True"/>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_payslip_inherit" inherit_id="hr_payroll.report_payslip">
+        <xpath expr="//div[@class='page']" position="replace">
+            <div class="page">
+                <div class="text-center">Tanda Bukti Pembayaran Penghasilan/ Gaji Pegawai</div>
+                <div class="text-center">PT BERDIKARI (PERSERO)</div>
+                <div class="text-center">
+                    <span t-field="o.date_from" t-options='{"format": "MMMM YYYY"}'/>
+                </div>
+            </div>
+            <table class="table table-borderless">
+                <tbody>
+                    <tr height="10">
+                        <td width="10%">Nama</td>
+                        <td width="2%">:</td>
+                        <td width="20%" text-align="left">
+                            <span t-field="o.employee_id"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="10%">Nomor Pegawai</td>
+                        <td width="2%">:</td>
+                        <td width="20%" text-align="left">
+                            <span t-field="o.employee_id.barcode"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="10%">Department</td>
+                        <td width="2%">:</td>
+                        <td width="20%" align="left">
+                            <span t-field="o.employee_id.department_id"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="10%">Jabatan</td>
+                        <td width="2%">:</td>
+                        <td width="20%" align="left">
+                            <span t-field="o.employee_id.job_id"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            <table class="table table-borderless">
+                <tbody>
+                    <t t-set="order" t-value="1"/>
+                    <tr>
+                        <td>
+                            <b>I.</b>
+                        </td>
+                        <td align="left" colspan="2">
+                            <b>Penghasilan</b>
+                        </td>
+                        <td align="center">:</td>
+                        <td align="left" colspan="2">Rp.</td>
+                        <t t-set="total_penghasilan" t-value="0"/>
+                        <t t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip).sorted(key=lambda r: r.rule_parent_id)"
+                           t-as="line">
+                            <t t-if="line.is_header and line.order">
+                                <t t-if="line.order in [order, order+1]">
+                                    <t t-set="total_penghasilan" t-value="total_penghasilan + line.total"/>
+                                </t>
+                            </t>
+                        </t>
+                        <td align="right" colspan="2">
+                            <b>
+                                <span t-esc="'{0:,.2f}'.format(total_penghasilan)"/>
+                            </b>
+                        </td>
+                    </tr>
+                    <t t-set="parent_id" t-value="0"/>
+                    <tr>
+                        <td><![CDATA[&nbsp;]]></td>
+                        <td align="left" colspan="7">
+                            <t t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip).sorted(key=lambda r: r.rule_parent_id)"
+                               t-as="line">
+                                <t t-if="line.is_header and line.order">
+                                    <t t-if="line.order == order">
+                                        <t t-set="parent_id" t-value="parent_id + line.category_id.id"/>
+                                        <u>
+                                            <span t-esc="line.salary_rule_id.name"/>
+                                        </u>
+                                    </t>
+                                </t>
+                            </t>
+                        </td>
+                    </tr>
+                    <t t-set="i" t-value="0"/>
+                    <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip).sorted(key=lambda r: r.rule_parent_id)"
+                        t-as="line">
+                        <span t-if="line.rule_parent_id.id == parent_id">
+                            <td><![CDATA[&nbsp;]]></td>
+                            <td width="2%" align="left">
+                                <t t-set="i" t-value="i+1"/>
+                                <span t-esc="i"/>
+                            </td>
+                            <td align="left">
+                                <span t-field="line.salary_rule_id.name"></span>
+                            </td>
+                            <td width="2%" align="center">:</td>
+                            <td align="left">Rp.</td>
+                            <td width="30%" align="right" colspan="2">
+                                <span t-field="line.total"/>
+                            </td>
+                            <td></td>
+                        </span>
+                    </tr>
+                    <t t-set="parent_id" t-value="0"/>
+                    <tr>
+                        <td><![CDATA[&nbsp;]]></td>
+                        <td align="left" colspan="7">
+                            <t t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip).sorted(key=lambda r: r.rule_parent_id)"
+                               t-as="line">
+                                <t t-if="line.is_header and line.order">
+                                    <t t-if="line.order == order+1">
+                                        <t t-set="parent_id" t-value="parent_id + line.category_id.id"/>
+                                        <u>
+                                            <span t-esc="line.salary_rule_id.name"/>
+                                        </u>
+                                    </t>
+                                </t>
+                            </t>
+                        </td>
+                    </tr>
+                    <t t-set="i" t-value="0"/>
+                    <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip).sorted(key=lambda r: r.id)"
+                        t-as="line">
+                        <span t-if="line.rule_parent_id.id == parent_id">
+                            <td><![CDATA[&nbsp;]]></td>
+                            <td width="2%" align="left">
+                                <t t-set="i" t-value="i+1"/>
+                                <span t-esc="i"/>.
+                            </td>
+                            <td align="left">
+                                <span t-field="line.salary_rule_id.name"></span>
+                            </td>
+                            <td width="2%" align="center">:</td>
+                            <td align="left">Rp.</td>
+                            <td width="20%" align="right" colspan="2">
+                                <span t-field="line.total"/>
+                            </td>
+                            <td></td>
+                        </span>
+                    </tr>
+                    <t t-set="parent_id" t-value="0"/>
+                    <tr>
+                        <td>
+                            <b>II.</b>
+                        </td>
+                        <td align="left" colspan="2">
+                            <t t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip).sorted(key=lambda r: r.rule_parent_id)"
+                               t-as="line">
+                                <t t-if="line.is_header and line.order">
+                                    <t t-if="line.order == order+2">
+                                        <t t-set="parent_id" t-value="line.category_id.id"/>
+                                        <b>
+                                            <span t-esc="line.salary_rule_id.name"/>
+                                        </b>
+                                    </t>
+                                </t>
+                            </t>
+                        </td>
+                        <td align="center">:</td>
+                        <td align="left" colspan="2">Rp.</td>
+                        <t t-set="total_potongan" t-value="0"/>
+                        <t t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip).sorted(key=lambda r: r.rule_parent_id)"
+                           t-as="line">
+                            <t t-if="line.is_header and line.order">
+                                <t t-if="line.order == order+2">
+                                    <t t-set="total_potongan" t-value="total_potongan + abs(line.total)"/>
+                                </t>
+                            </t>
+                        </t>
+                        <td align="right" colspan="2">
+                            <b>
+                                <span t-esc="'{0:,.2f}'.format(total_potongan)"/>
+                            </b>
+                        </td>
+                    </tr>
+                    <t t-set="i" t-value="0"/>
+                    <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip).sorted(key=lambda r: r.id)"
+                        t-as="line">
+                        <span t-if="line.rule_parent_id.id == parent_id">
+                            <td><![CDATA[&nbsp;]]></td>
+                            <td width="2%" align="left">
+                                <t t-set="i" t-value="i+1"/>
+                                <span t-esc="i"/>.
+                            </td>
+                            <td align="left">
+                                <span t-field="line.salary_rule_id.name"></span>
+                            </td>
+                            <td width="2%" align="center">:</td>
+                            <td align="left">Rp.</td>
+                            <td width="20%" align="right" colspan="2">
+                                <span t-esc="'{0:,.2f}'.format(abs(line.total))"/>
+                            </td>
+                            <td></td>
+                        </span>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>III.</b>
+                        </td>
+                        <td align="left" colspan="2">
+                            <b>Jumlah Yang Diterima Bulan Ini</b>
+                        </td>
+                        <td align="center">:</td>
+                        <td align="left" colspan="2">Rp.</td>
+                        <td align="right" colspan="2">
+                            <b>
+                                <span t-esc="'{0:,.2f}'.format(total_penghasilan - total_potongan)"/>
+                            </b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>IV.</b>
+                        </td>
+                        <td align="left" colspan="2">
+                            <b>Nilai Slip</b>
+                        </td>
+                        <td align="center">:</td>
+                        <td align="left" colspan="2">Rp.</td>
+                        <td align="right" colspan="2">
+                            <b>
+                                <span t-esc="'{0:,.2f}'.format(total_penghasilan)"/>
+                            </b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            <br/>
+            <div align="right">Jakarta,<![CDATA[&nbsp;]]>
+                <span t-esc="time.strftime('%d-%m-%Y')"/>
+            </div>
+            <div align="right">
+                <b>GROUP SDM &amp; UMUM</b>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <p align="right">
+                <u>
+                    <span t-field="o.hr_dept_head_id"/>
+                </u>
+                <br/>
+                <i align="right">Department Head</i>
+            </p>
+        </xpath>
+    </template>
+
+    <report
+            id="hr_payroll.payslip_details_report"
+            model="hr.payslip"
+            string="PaySlip Details"
+            report_type="qweb-pdf"
+            name="hr_payroll.report_payslipdetails"
+            file="hr_payroll.report_payslipdetails"
+            print_report_name="'Payslip Details - %s' % (object.employee_id.name)"
+            menu="False"
+    />
+</odoo>

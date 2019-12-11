@@ -1,0 +1,61 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="asset_reclass_form_view">
+            <field name="name">asset.reclass.form</field>
+            <field name="model">berdikari.asset.reclass</field>
+            <field name="arch" type="xml">
+                <form string="Asset Reclass Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="number"/>
+                                <field name="date"/>
+
+                                <separator string="From"/>
+                                <field name="asset_id"/>
+                                <field name="asset_name"/>
+                                <field name="asset_account"/>
+                                <field name="asset_type"/>
+                                <field name="asset_qty"/>
+                                <field name="asset_value"/>
+                                <field name="total_asset_value"/>
+                            </group>
+                            <group>
+                                <field name="src_company_id"/>
+                                <field name="operating_unit_id"/>
+                                <br/>
+                                <field name="is_audit" required="1"/>
+
+                                <separator string="Reclass To"/>
+                                <field name="reclass_asset_name"/>
+                                <field name="reclass_asset_type"/>
+                                <field name="reclass_asset_account"/>
+                                <field name="reclass_asset_qty"/>
+                                <field name="flock_id"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="remarks"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="asset_reclass_list_action">
+            <field name="name">Asset Reclass</field>
+            <field name="res_model">berdikari.asset.reclass</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="master_data_menu"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+<!--        <menuitem id="asset_reclass_menu" name="Asset Reclass" parent="master_data_menu"-->
+<!--                  action="asset_reclass_list_action"/>-->
+    </data>
+</odoo>

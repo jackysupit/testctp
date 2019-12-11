@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.hr_payslip_byaccount_form">
+            <field name="name">hr.payslip.byaccount.form</field>
+            <field name="model">hr.payslip.byaccount</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="period_id"/>
+                                <field name="period_seq_id"/>
+                                <label for="date_from" string="Period"/>
+                                <div>
+                                    <field name="date_from" class="oe_inline" readonly="1" force_save="1"/>
+                                    -
+                                    <field name="date_to" class="oe_inline" readonly="1" force_save="1"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="operating_unit_id"/>
+                            </group>
+                        </group>
+
+                        <footer>
+                            <button string="Confirm" name="confirm_button" type="object" class="btn-primary"/>
+                            <button string="Cancel" class="btn-default" special="cancel" />
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hr_payslip_byaccount_action">
+            <field name="name">HR Payslip By Account</field>
+            <field name="res_model">hr.payslip.byaccount</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

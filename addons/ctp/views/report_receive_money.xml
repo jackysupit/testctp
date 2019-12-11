@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="receive_money_form_view">
+            <field name="name">receive.money.form</field>
+            <field name="model">receive.money.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Receive Money">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <group>
+                                <group>
+                                    <field name="date_from"/>
+                                </group>
+                                <group>
+                                    <field name="date_to"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="journal_type"/>
+                                <field name="payment_type"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group>
+                                <button type="object" name="action_report_receive_money" class="oe_stat_button"
+                                        icon="fa-archive" string="Get All Data"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="payment_receive_list_action">
+            <field name="name">Payment Receive</field>
+            <field name="res_model">receive.money.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+    </data>
+</odoo>

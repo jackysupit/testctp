@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="report_purchaseorder_document_custom" inherit_id="purchase.report_purchaseorder_document">
+		<xpath expr="//div[@class='page']" position="replace">
+			<style>
+				div[class*='address row'] {
+					display: none;
+				}
+
+				.payment_sign {
+					margin-top: 30px;
+					font-weight: bold;
+				}
+
+				.ttd {
+					margin-top: 130px;
+				}
+
+				.page {
+					margin-top: 50px;
+				}
+
+				address {
+					float: left;
+				}
+			</style>
+			<div class="page">
+	            <div class="oe_structure"/>
+
+	            <h2 t-if="o.state == 'draft'">Request for Quotation #<span t-field="o.name"/></h2>
+	            <h2 t-if="o.state in ['sent', 'to approve']">Purchase Order #<span t-field="o.name"/></h2>
+	            <h2 t-if="o.state in ['purchase', 'done']">Purchase Order Confirmation</h2>
+	            <h2 t-if="o.state == 'cancel'">Cancelled Purchase Order #<span t-field="o.name"/></h2>
+
+	            <div id="informations" class="row mt32">
+	                <div class="col-6 bm-4" style="outline: thin solid #000;">
+	                    <strong>Supplier:</strong>
+	                    <p t-field="o.partner_id.name" class="m-0"/>
+	                    <p t-field="o.partner_id.street" class="m-0"/>
+	                    <p t-field="o.partner_id.city" class="m-0"/>
+	                </div>
+	                
+	                <div class="col-6 bm-3" style="outline: thin solid #000;">
+	                    <strong>Bill to:</strong>
+	                    <p class="m-0"><strong>PT Berdikari (Persero) - Divisi Food Industry Kantor Pusat</strong></p>
+	                    <p class="m-0">Jl. Medan Merdeka Barat No. 1 10110</p>
+	                    <p class="m-0">Phone : (62-21) 3459955 Fax : (62-21) 3440509</p>
+	                </div>
+	            </div>
+
+	            <div class="row mb32">
+	                <div class="col-6 bm-6" style="outline: thin solid #000;">
+	                    <strong>Deliver to:</strong>
+	                    <p class="m-0"><strong>PT Berdikari (Persero) - Divisi Food Industry Kantor Pusat</strong></p>
+	                    <p class="m-0">Jl. Medan Merdeka Barat No. 1 10110</p>
+	                    <p class="m-0">Phone : (62-21) 3459955 Fax : (62-21) 3440509</p>
+	                    <strong>Deliver on:</strong>
+	                    <p>PO Date. : <span t-field="o.date_order"/></p>
+	                </div>
+	                <div class="col-6 bm-4" style="outline: thin solid #000;">
+	                	<div class="row">
+		                	<div class="col-4">
+			                    <p>PO No.</p>
+			                    <p>PO Date</p>
+			                    <p>Mode of Payment</p>
+			                    <p>Term of Payment</p>
+			                </div>
+			                <div class="col-8">
+			                	<p>: <span t-field="o.name"/></p>
+			                    <p>: <span t-field="o.date_order"/></p>
+			                    <p>: <span t-field="o.mode_of_payment_id.name"/></p>
+			                    <p>: </p>
+			                </div>
+		            	</div>
+	                </div>
+	            </div>
+
+	            <table class="table table-sm o_main_table">
+	                <thead>
+	                    <tr>
+	                        <th><strong>No.</strong></th>
+	                        <th><strong>Description</strong></th>
+	                        <th class="text-right"><strong>Quantity</strong></th>
+	                        <th class="text-right"><strong>Unit Price</strong></th>
+	                        <th class="text-right"><strong>Amount</strong></th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                	<t t-set="nmr" t-value="1"/>
+	                    <tr t-foreach="o.order_line" t-as="line">
+	                    	<td class="text-right" name="nomor"><span t-esc="nmr"/></td>
+	                        <td>
+	                            <span t-field="line.name"/>
+	                        </td>
+	                        <td class="text-right">
+	                            <span t-field="line.product_qty"/>
+	                            <span t-field="line.product_uom.name" groups="uom.group_uom"/>
+	                        </td>
+	                        <td class="text-right">
+	                            <span t-field="line.price_unit"/>
+	                        </td>
+	                        <td class="text-right">
+	                            <span t-field="line.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+	                        </td>
+	                    </tr>
+	                </tbody>
+	            </table>
+
+	            <div id="total" class="row justify-content-end">
+	                <div class="col-4">
+	                    <table class="table table-sm">
+	                        <tr class="border-black">
+	                            <td><strong>Subtotal</strong></td>
+	                            <td class="text-right">
+	                                <span t-field="o.amount_untaxed" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td>Taxes</td>
+	                            <td class="text-right">
+	                                <span t-field="o.amount_tax" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+	                            </td>
+	                        </tr>
+	                        <tr class="border-black o_total">
+	                            <td><strong>Total</strong></td>
+	                            <td class="text-right">
+	                                <span t-field="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+	                            </td>
+	                        </tr>
+	                    </table>
+	                </div>
+	            </div>
+
+	            <div class="payment_sign">
+                    <div class="row">
+                        <div class="col-12">
+                            <p>Remarks:</p>
+                            <p t-field="o.notes"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <![CDATA[
+                            &nbsp;
+                            ]]>
+                        </div>
+                        <div class="col-6 text-center ttd">
+                            <p t-field="o.group_head_id.name"/>
+                        </div>
+                    </div>
+                </div>
+
+	            <div class="oe_structure"/>
+	        </div>
+		</xpath>
+	</template>
+</odoo>

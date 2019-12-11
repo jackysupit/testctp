@@ -1,0 +1,129 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="attendance_sheets_form_view">
+            <field name="name">attendance.sheets.form</field>
+            <field name="model">berdikari.attendance.sheets</field>
+            <field name="arch" type="xml">
+                <form string="Attendance Sheets Form">
+                    <header>
+                        <button name="action_get_attendance" string="Get Attendance" type="object"
+                                class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="period_id"/>
+                                <field name="period_seq_id"/>
+                                <!--                                <field name="period"/>-->
+                                <field name="period_start" readonly="1" force_save="1"/>
+                                <field name="period_end" readonly="1" force_save="1"/>
+                                <field name="remarks"/>
+                                <field name="attendance_policy"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Attendances">
+                                <field name="attendance_line_ids"
+                                       context="{'name':name, 'period_start':period_start, 'period_end':period_end}">
+                                    <tree create="false" editable="false" delete="false" limit="15">
+                                        <field name="date" readonly="1"/>
+                                        <field name="day" readonly="1"/>
+                                        <field name="planned_sign_in" readonly="1"/>
+                                        <field name="planned_sign_out" readonly="1"/>
+                                        <field name="actual_sign_in_time" class="text-right" readonly="1"/>
+                                        <field name="actual_sign_out_time" class="text-right" readonly="1"/>
+                                        <field name="attendance_code" class="text-center" readonly="1"/>
+                                        <field name="actual_sign_in" invisible="1"/>
+                                        <field name="actual_sign_out" invisible="1"/>
+                                        <field name="late_in" readonly="1"/>
+                                        <field name="total_working_hour" readonly="1"/>
+                                        <field name="nett_working_hour" readonly="1"/>
+                                        <field name="overtime" readonly="1"/>
+                                        <field name="ot_meal_provided" class="text-center" readonly="1"/>
+                                        <field name="diff_time" readonly="1"/>
+                                        <field name="transport_allowance" readonly="1" invisible="0"/>
+                                        <field name="meal_allowance" readonly="1" invisible="0"/>
+                                        <field name="note" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Calculated Attendance Data">
+                                <group>
+                                    <group>
+                                        <separator string="Over Time"/>
+                                        <field name="no_of_overtimes" readonly="1"/>
+                                        <label for="total_overtime" string="Total Over Time"/>
+                                        <div>
+                                            <field name="total_overtime" nolabel="1" class="oe_inline" readonly="1"/>
+                                            hour
+                                        </div>
+                                        <field name="ot_meal_provided" readonly="1" string="OT Meal Provided"/>
+                                    </group>
+                                    <group>
+                                        <separator string="Late In"/>
+                                        <field name="no_of_lates" readonly="1"/>
+                                        <label for="total_late_in" string="Total Late In"/>
+                                        <div>
+                                            <field name="total_late_in" nolabel="1" class="oe_inline" readonly="1"/>
+                                            hour
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <separator string="Absence"/>
+                                        <field name="no_of_absence_days" readonly="1"/>
+                                        <label for="total_absence_hour" string="Total Absence"/>
+                                        <div>
+                                            <field name="total_absence_hour" nolabel="1" class="oe_inline" readonly="1"/>
+                                            hour
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <separator string="Difference Time"/>
+                                        <field name="no_of_diff_times" readonly="1"/>
+                                        <label for="total_diff_time_hours" string="Total Diff Time"/>
+                                        <div>
+                                            <field name="total_diff_time_hours" nolabel="1" class="oe_inline" readonly="1"/>
+                                            hour
+                                        </div>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <separator string="Working Time"/>
+                                        <field name="no_of_work_days" readonly="1"/>
+                                        <label for="total_work_hours" string="Total Work Hour"/>
+                                        <div>
+                                            <field name="total_work_hours" nolabel="1" class="oe_inline" readonly="1"/>
+                                            hour
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <separator string="Leave Time"/>
+                                        <field name="no_of_leave_days" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="attendance_sheets_list_action">
+            <field name="name">Attendance Sheets</field>
+            <field name="res_model">berdikari.attendance.sheets</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="hr_attendance.menu_hr_attendance_root"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+        <menuitem id="attendance_sheets_menu" name="Attendance Sheets" parent="hr_attendance.menu_hr_attendance_root"
+                  action="attendance_sheets_list_action"/>
+    </data>
+</odoo>

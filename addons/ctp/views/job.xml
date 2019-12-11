@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="job_form_view">
+            <field name="name">hr.job.form</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_hr_job_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='recruitment']" position="after">
+                    <group string="FMS Allow To:" name="fms-rules">
+                        <field name="is_allow_create_wo"/>
+                        <field name="is_allow_confirm_wo"/>
+                        <field name="is_allow_approve_wo"/>
+                        <field name="is_allow_validasi_setter"/>
+                        <field name="is_allow_validasi_hatcher"/>
+                        <field name="is_allow_close_flock"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="hr_job_list_action">
+            <field name="name">Job Position</field>
+            <field name="res_model">hr.job</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+<!--        <menuitem id="asset_reclass_menu" name="Asset Reclass" parent="master_data_menu"-->
+<!--                  action="asset_reclass_list_action"/>-->
+    </data>
+</odoo>

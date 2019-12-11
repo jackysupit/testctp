@@ -1,0 +1,143 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="down_payment_tree_view">
+            <field name="name">report.downpayment.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="priority">17</field>
+            <field name="arch" type="xml">
+                <tree default_order="number">
+                    <!--                    <field name="company_id"/>-->
+                    <field name="operating_unit_id"/>
+                    <field name="vendor_display_name"/>
+                    <field name="number"/>
+                    <field name="origin"/>
+                    <field name="date_invoice"/>
+                    <field name="date_due"/>
+                    <field name="amount_total_signed" sum="Total"/>
+                    <field name="account_id"/>
+                    <field name="partner_id"/>
+                    <field name="account_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_invoice_view_search" model="ir.ui.view">
+            <field name="name">account.invoice.search</field>
+            <field name="model">account.invoice</field>
+            <field name="priority" eval="10"/>
+            <field name="arch" type="xml">
+                <search string="Search Groups">
+                    <field name="account_id"/>
+                    <field name="partner_id"/>
+                    <field name="operating_unit_id"/>
+                    <field name="number"/>
+                    <field name="origin"/>
+                    <field name="date_invoice"/>
+                    <field name="state"/>
+
+                    <separator/>
+
+                    <filter name="filter_state_draft" domain="[('state','=','draft')]" string="State Draft"/>
+                    <filter name="filter_state_open" domain="[('state','=','open')]" string="State Open"/>
+                    <filter name="filter_state_inpayment" domain="[('state','=','inpayment')]"
+                            string="State In Payment"/>
+                    <filter name="filter_state_paid" domain="[('state','=','paid')]" string="State Paid"/>
+                    <filter name="filter_state_cancel" domain="[('state','=','cancel')]" string="State Cancelled"/>
+
+                    <filter name="filter_trans_type_cash2" domain="[('trans_type','=','cash_advance')]"
+                            string="Trans Type: Cash"/>
+                    <filter name="filter_trans_type_bill" domain="[('trans_type','=','bill')]"
+                            string="Trans Type: Bill"/>
+
+                    <filter name="filter_due_14" string="Due 14 Days"
+                            domain="[('state','=','open'),('date_due','&gt;=',(context_today()-relativedelta(days=14)).strftime('%%Y-%%m-%%d')),('date_due','&lt;',(context_today()).strftime('%%Y-%%m-%%d'))]"/>
+
+                    <filter name="filter_due_15_28" string="Due 15 - 28 Days"
+                            domain="[('state','=','open'),('date_due','&gt;=',(context_today()-relativedelta(days=28)).strftime('%%Y-%%m-%%d')),('date_due','&lt;',(context_today()-relativedelta(days=14)).strftime('%%Y-%%m-%%d'))]"/>
+
+                    <filter name="filter_due_28" string="Due 28 Days"
+                            domain="[('state','=','open'),('date_due','&lt;=',(context_today()-relativedelta(days=28)).strftime('%%Y-%%m-%%d'))]"/>
+
+
+                    <separator/>
+
+                    <filter name="groupby_account_id" string="Account" context="{'group_by':'account_id'}"/>
+                    <filter name="groupby_partner_id" string="Vendor" context="{'group_by':'partner_id'}"/>
+                    <filter name="groupby_unit_id" string="Unit" context="{'group_by':'operating_unit_id'}"/>
+                    <filter name="groupby_state" string="State" context="{'group_by':'state'}"/>
+                    <filter name="groupby_department_id" string="Department" context="{'group_by':'department_id'}"/>
+                    <filter name="groupby_partner_id" string="Vendor" context="{'group_by':'partner_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="report_down_payment_action">
+            <field name="name">Report Down Payment</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="account_invoice_view_search"/>
+            <field name="context">{'search_default_groupby_account_id':1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+        <record id="action_down_payment_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="down_payment_tree_view"/>
+            <field name="act_window_id" ref="report_down_payment_action"/>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="report_down_payment_action_3000">
+            <field name="name">Follow-up Reports 3000</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('parent_id', '=', False)]</field>
+            <field name="context">{'search_default_filter_in_need_of_action': 1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+        <record id="customer_statements_form_view_3000" model="ir.ui.view">
+            <field name="name">customer.statements.followup.3000</field>
+            <field name="model">res.partner</field>
+            <field name="priority">3000</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="id"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+<!--        <record id="action_down_payment_tree_3000" model="ir.actions.act_window.view">-->
+<!--            <field name="sequence">10</field>-->
+<!--            <field name="view_mode">tree</field>-->
+<!--            <field name="view_id" ref="account_reports.customer_statements_tree_view"/>-->
+<!--            <field name="act_window_id" ref="report_down_payment_action_3000"/>-->
+<!--        </record>-->
+
+<!--        <record id="action_down_payment_form_3000" model="ir.actions.act_window.view">-->
+<!--            <field name="sequence">11</field>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="view_id" ref="account_reports.customer_statements_form_view"/>-->
+<!--            <field name="act_window_id" ref="report_down_payment_action_3000"/>-->
+<!--        </record>-->
+
+<!--        <menuitem id="customer_statements_menu_3000" name="Follow-up Reports 3000"-->
+<!--                  parent="account.menu_finance_receivables"-->
+<!--                  action="report_down_payment_action_3000" sequence="20"/>-->
+
+    </data>
+</odoo>

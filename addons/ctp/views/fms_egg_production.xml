@@ -1,0 +1,197 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="fms_egg-production_form_view">
+            <field name="name">fms.egg.production.form</field>
+            <field name="model">berdikari.fms.egg.production</field>
+            <field name="arch" type="xml">
+                <form string="Farm Management System Egg Production Form">
+                    <header>
+                        <button name="action_fms_egg_production_validate" string="Validate" type="object"
+                                class="oe_highlight"/>
+                        <button name="action_fms_egg_production_released" string="Released" type="object"
+                                class="oe_highlight"/>
+                        <field widget="statusbar" name="status"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="number"/>
+                                <field name="date"/>
+                                <field name="file_name"/>
+                            </group>
+                            <group>
+                                <field name="src_company_id"/>
+                                <field name="notes"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Dateils">
+                                <group>
+                                    <button type="object" name="btnUpload" string="Upload File" class="oe_highlight"/>
+                                </group>
+                                <field name="fms_egg_production_detail">
+                                    <tree string="Detail" editable="bottom">
+                                        <field name="status" readonly="1"/>
+                                        <field name="finished_goods" visibility="1" required="1"/>
+                                        <field name="flock" visibility="1" required="1"/>
+                                        <field name="chicken_coop" visibility="1" required="1"/>
+                                        <field name="date" visibility="1" required="1"/>
+                                        <field name="weeks" visibility="1" required="1"/>
+                                        <field name="age" visibility="1"/>
+                                        <field name="death" visibility="1"/>
+                                        <field name="by_product" visibility="1"/>
+                                        <field name="on_hand" visibility="1"/>
+                                        <field name="egg_in" visibility="1"/>
+                                        <field name="egg_in_by_product" visibility="1"/>
+                                        <field name="feed_code" visibility="1"/>
+                                        <field name="feed_name" visibility="1"/>
+                                        <field name="standard" visibility="1"/>
+                                        <field name="actual" visibility="1"/>
+                                        <field name="uom_id" visibility="1"/>
+                                        <field name="temperature" visibility="1"/>
+                                        <field name="humidity" visibility="1"/>
+                                        <field name="light" visibility="1"/>
+                                        <field name="medicine_code" visibility="1"/>
+                                        <field name="medicine_name" visibility="1"/>
+                                        <field name="medicine_qty" visibility="1"/>
+                                        <field name="medicine_uom_id" visibility="1"/>
+                                        <field name="vaccine_code" visibility="1"/>
+                                        <field name="vaccine_name" visibility="1"/>
+                                        <field name="vaccine_qty" visibility="1"/>
+                                        <field name="vaccine_uom_id" visibility="1"/>
+                                        <field name="chemical_code" visibility="1"/>
+                                        <field name="chemical_name" visibility="1"/>
+                                        <field name="chemical_qty" visibility="1"/>
+                                        <field name="chemical_uom_id" visibility="1"/>
+                                        <field name="weight" visibility="1"/>
+                                        <field name="weight_uom_id" visibility="1"/>
+                                        <field name="remark" visibility="1"/>
+                                        <field name="is_open" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Material Use">
+                                <group>
+                                    <button type="object" name="btnLoadMaterial" string="Load Material Use" class="oe_highlight"/>
+                                </group>
+                                <field name="fms_egg_production_line2">
+                                    <tree string="Material Use" editable="bottom">
+                                        <field name="manufacturing_order_id" visibility="1" required="1"/>
+                                        <field name="date" visibility="1" required="1"/>
+                                        <field name="weeks" visibility="1" required="1"/>
+                                        <field name="age" visibility="1"/>
+                                        <field name="feed_code" visibility="1"/>
+                                        <field name="feed_name" visibility="1"/>
+                                        <field name="medicine_code" visibility="1"/>
+                                        <field name="medicine_name" visibility="1"/>
+                                        <field name="vaccine_code" visibility="1"/>
+                                        <field name="vaccine_name" visibility="1"/>
+                                        <field name="chemical_code" visibility="1"/>
+                                        <field name="chemical_name" visibility="1"/>
+                                        <field name="standard" visibility="1"/>
+                                        <field name="actual" visibility="1"/>
+                                        <field name="uom_id" visibility="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Death">
+                                <group>
+                                    <button type="object" name="btnLoadDeath" string="Load Death Population" class="oe_highlight"/>
+                                </group>
+                                <field name="fms_egg_production_line3">
+                                    <tree string="Death" editable="bottom">
+                                        <field name="manufacturing_order_id" visibility="1" required="1"/>
+                                        <field name="date" visibility="1" required="1"/>
+                                        <field name="weeks" visibility="1" required="1"/>
+                                        <field name="age" visibility="1"/>
+                                        <field name="biological_assets_code" visibility="1"/>
+                                        <field name="biological_assets_name" visibility="1"/>
+                                        <field name="biological_assets_qty" visibility="1"/>
+                                        <field name="biological_assets_uom_id" visibility="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="By Product">
+                                <group>
+                                    <button type="object" name="btnLoadByProduct" string="Load By Product" class="oe_highlight"/>
+                                </group>
+                                <field name="fms_egg_production_line4">
+                                    <tree string="By Product" editable="bottom">
+                                        <field name="manufacturing_order_id" visibility="1" required="1"/>
+                                        <field name="date" visibility="1" required="1"/>
+                                        <field name="weeks" visibility="1" required="1"/>
+                                        <field name="age" visibility="1"/>
+                                        <field name="biological_assets_code" visibility="1"/>
+                                        <field name="biological_assets_name" visibility="1"/>
+                                        <field name="biological_assets_qty" visibility="1"/>
+                                        <field name="biological_assets_uom_id" visibility="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Egg In">
+                                <group>
+                                    <button type="object" name="btnLoadEggIn" string="Load Egg In" class="oe_highlight"/>
+                                </group>
+                                <field name="fms_egg_production_line5">
+                                    <tree string="By Product" editable="bottom">
+                                        <field name="manufacturing_order_id" visibility="1" required="1"/>
+                                        <field name="date" visibility="1" required="1"/>
+                                        <field name="weeks" visibility="1" required="1"/>
+                                        <field name="age" visibility="1"/>
+                                        <field name="egg_in_code" visibility="1"/>
+                                        <field name="egg_in_name" visibility="1"/>
+                                        <field name="egg_in_qty" visibility="1"/>
+                                        <field name="egg_in_uom_id" visibility="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Egg In By Product">
+                                <group>
+                                    <button type="object" name="btnLoadEggInByProduct" string="Load Egg In By Product" class="oe_highlight"/>
+                                </group>
+                                <field name="fms_egg_production_line6">
+                                    <tree string="By Product" editable="bottom">
+                                        <field name="manufacturing_order_id" visibility="1" required="1"/>
+                                        <field name="date" visibility="1" required="1"/>
+                                        <field name="weeks" visibility="1" required="1"/>
+                                        <field name="age" visibility="1"/>
+                                        <field name="egg_in_by_product_code" visibility="1"/>
+                                        <field name="egg_in_by_product_name" visibility="1"/>
+                                        <field name="egg_in_by_product_qty" visibility="1"/>
+                                        <field name="egg_in_by_product_uom_id" visibility="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fms_egg_production_view_tree" model="ir.ui.view">
+            <field name="name">fms.egg.production.tree</field>
+            <field name="model">berdikari.fms.egg.production</field>
+            <field name="arch" type="xml">
+                <tree string="vat management tree">
+                    <field name="number"/>
+                    <field name="date"/>
+                    <field name="src_company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="fms_egg_production_list_action">
+            <field name="name">FMS Egg Production</field>
+            <field name="res_model">berdikari.fms.egg.production</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="mrp.menu_mrp_root"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+<!--        <menuitem id="fms_egg_production_submenu" name="FMS Egg Production" parent="fms_breeding_menu" sequence="2"-->
+<!--                  action="fms_egg_production_list_action"/>-->
+    </data>
+</odoo>

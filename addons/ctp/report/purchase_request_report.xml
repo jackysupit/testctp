@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="laporan_pengadaan"
+            string="Laporan Pengadaan"
+            model="account.invoice"
+            report_type="qweb-pdf"
+            name="berdikari.laporan_pengadaan_list"
+            file="berdikari.laporan_pengadaan_list"
+            print_report_name="'Print Laporan Pengadaan - %s' % (object.number).replace('/', '')"
+    />
+
+    <template id="laporan_pengadaan_list">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <p>
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%b-%Y')"/>
+                    </p>
+                    <table border="0">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">
+                                        <strong>Vendor</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Bill Date</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Invoice Number</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Business Unit</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Source Document</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Payment Ref.</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Order Date</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Schedule Date</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Tax Exclude</strong>
+                                    </th>
+                                    <th class="text-center">
+                                        <strong>Tax</strong>
+                                    </th>
+                                    <th class="text-right">
+                                        <strong>Total</strong>
+                                    </th>
+                                    <th class="text-right">
+                                        <strong>Bill Status</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="total_untaxed" t-value="0" />
+                                <t t-set="total_tax" t-value="0" />
+                                <t t-set="total_total" t-value="0" />
+                                <tr t-foreach="docs" t-as="o">
+                                    <td class="text-center">
+                                        <span t-field="o.vendor_display_name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="o.date_invoice"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="o.number"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="o.farm_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="o.origin"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="o.reference"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="o.order_date_po"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="o.schedule_date"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="o.amount_untaxed"/>
+                                        <t t-set="total_untaxed" t-value="total_untaxed+o.amount_untaxed" />
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="o.amount_tax"/>
+                                        <t t-set="total_tax" t-value="total_tax+o.amount_tax" />
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="o.amount_total_signed"/>
+                                        <t t-set="total_total" t-value="total_total+o.amount_total_signed" />
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="o.state"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </table>
+
+                    <div class="clearfix">
+                        <div id="total" class="row">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+                                    <tr class="border-black o_subtotal" style="">
+                                        <td>
+                                            <strong>Total Untaxed</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'%.2f'%(total_untaxed)"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-black o_subtotal" style="">
+                                        <td>
+                                            <strong>Total Tax</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'%.2f'%(total_tax)"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-black o_total">
+                                        <td>
+                                            <strong>Total</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'%.2f'%(total_total)"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

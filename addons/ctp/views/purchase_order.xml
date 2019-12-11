@@ -1,0 +1,190 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.purchase_order_form_inherit">
+            <field name="name">purchase.order.inherit.form.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="priority">17</field>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_rfq_send'][@states='draft']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_rfq_send'][@states='sent']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_rfq_send'][@states='purchase']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_approve']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_confirm'][@states='draft']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="is_not_stock" invisible="1"/>
+                    <field name="is_confirm_inventory" invisible="1"/>
+                    <field name="is_confirm_pengadaan" invisible="1"/>
+                    <field name="is_hide_confirm_inventory" invisible="1"/>
+                    <field name="is_hide_confirm_pengadaan" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='button_confirm'][@states='draft']" position="after">
+                    <field name="is_debug" invisible="1"/>
+                    <field name="is_not_stock" attrs="{'invisible':[('is_debug','=',False)]}"/>
+                    <field name="is_confirm_inventory" attrs="{'invisible':[('is_debug','=',False)]}"/>
+                    <field name="is_confirm_pengadaan" attrs="{'invisible':[('is_debug','=',False)]}"/>
+                    <field name="is_approve_dept_head" attrs="{'invisible':[('is_debug','=',False)]}"/>
+                    <field name="is_approve_group_head" attrs="{'invisible':[('is_debug','=',False)]}"/>
+                    <field name="is_hide_confirm_inventory" attrs="{'invisible':[('is_debug','=',False)]}"/>
+                    <field name="is_hide_confirm_pengadaan" attrs="{'invisible':[('is_debug','=',False)]}"/>
+                    <field name="is_hide_approve_dept_head" attrs="{'invisible':[('is_debug','=',False)]}"/>
+                    <field name="is_hide_approve_group_head" attrs="{'invisible':[('is_debug','=',False)]}"/>
+                    <field name="is_hide_amount_for_inventory" attrs="{'invisible':[('is_debug','=',False)]}"/>
+
+                    <button name="button_confirm_inventory" string="Confirm Inventory" type="object"
+                            attrs="{'invisible':[('is_hide_confirm_inventory','=',True)]}"
+                    />
+
+                    <button name="button_confirm_pengadaan" string="Approve" type="object"
+                            attrs="{'invisible':[('is_hide_confirm_pengadaan','=',True)]}"
+                    />
+
+                    <button name="button_approve_dept_head" string="Approve Dept Head" type="object"
+                            attrs="{'invisible':[('is_hide_approve_dept_head','=',True)]}"
+                    />
+
+                    <button name="button_approve_group_head" string="Approve Group Head" type="object"
+                            attrs="{'invisible':[('is_hide_approve_group_head','=',True)]}"
+                    />
+                </xpath>
+
+                <xpath expr="//sheet/notebook/page/group" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_hide_amount_for_inventory', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="purchase_request_id" readonly="1"
+                           attrs="{'invisible':[('purchase_request_id', '=', False)]}"/>
+                    <field name="dest_department_id" readonly="1"
+                           attrs="{'invisible':[('dest_department_id', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='picking_type_id']" position="attributes">
+                    <attribute name="attrs">{'invisible':1}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_ref']" position="after">
+                    <field name="po_for"/>
+                    <field name="flock_id" attrs="{'invisible': [('po_for', '!=', 'flock')]}"/>
+                    <field name="remarks"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="before">
+                    <field name="mode_of_payment_id"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="picking_type_id"/>
+                    <field name="operating_unit_id" force_save="1"/>
+                    <field name="main_product_id" invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="rfq_name" readonly="1" string="RFQ Number" attrs="{'invisible': [('state','not in',('draft','sent'))]}"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('state','in',('draft','sent'))]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="operating_unit_id" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <field name="readonly">[('order_line','!=',False)]</field>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']"
+                       position="attributes">
+                    <attribute name="context">{'parent_partner_id': partner_id, 'parent_company_id': company_id,
+                        'operating_unit_id': operating_unit_id}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="replace">
+                    <field name="product_product_ids" invisible="1"/>
+                    <field name="product_id" domain="[('id','in',product_product_ids)]"/>
+                </xpath>
+                <xpath expr="//field[@name='taxes_id']" position="replace">
+                    <field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase')]"
+                           context="{'default_type_tax_use': 'purchase', 'search_view_ref': 'account.account_tax_view_search'}"
+                           options="{'no_create': True}" string="Tax"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="replace">
+                    <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"
+                           string="Amount"/>
+                </xpath>
+                <xpath expr="//field[@name='price_subtotal']" position="after">
+                    <field name="note"/>
+                    <field name="is_hide_for_inventory" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='product_qty']" position="after">
+                    <field name="available_qty" readonly="1" string="Available Qty"/>
+                </xpath>
+                <xpath expr="//field[@name='price_unit']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('is_hide_for_inventory', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='taxes_id']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_hide_for_inventory', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='price_subtotal']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_hide_for_inventory', '=', True)]}</attribute>
+                </xpath>
+
+                <!--<xpath expr="//field[@name='product_uom']" position="replace">-->
+                <!--<field name="product_uom_id" string="Satuan"/>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='product_uom']" position="before">-->
+                <!--<field name="color"/>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='analytic_tag_ids']" position="attributes">-->
+                <!--<attribute name="attrs">{'invisible':[('color','=','Biru')]}</attribute>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+
+
+        <record id="purchase_order_tree" model="ir.ui.view">
+            <field name="name">purchase.order.tree</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="rfq_name" string="RFQ Number"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('state','in',('draft','sent'))]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="dest_department_id" string="Dest Dept"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_order_pivot" model="ir.ui.view" >
+            <field name="name">purchase.order.view.pivot</field>
+            <field name="model">purchase.report</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_pivot"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='price_average']" position="after">
+                    <field name="amount_untaxed" type="measure"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--        Sementara di matikan-->
+        <!--        <record model="ir.ui.view" id="berdikari.view_backorder_confirmation_inherit">-->
+        <!--            <field name="name">	stock.view_backorder_confirmation.inherit</field>-->
+        <!--            <field name="model">stock.backorder.confirmation</field>-->
+        <!--            <field name="inherit_id" ref="stock.view_backorder_confirmation"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <xpath expr="//button[@name='process']" position="attributes">-->
+        <!--                    <attribute name="invisible">1</attribute>-->
+        <!--                </xpath>-->
+        <!--            </field>-->
+        <!--        </record>-->
+    </data>
+</odoo>

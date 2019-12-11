@@ -1,0 +1,11 @@
+.display-none {
+    display: none;
+    display: none!important!;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.btn {
+	border-radius:9px;
+}

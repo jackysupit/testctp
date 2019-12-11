@@ -1,0 +1,9 @@
+
+\.idea/
+
+addons/jekdoo/models/__pycache__/
+
+*.pyc
+
+db/
+/.project

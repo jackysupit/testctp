@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="mode_of_payment_form_view">
+            <field name="name">mode.of.payment.form</field>
+            <field name="model">berdikari.mode.of.payment</field>
+            <field name="arch" type="xml">
+                <form string="Mode Of Payment">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="toggle_active" class="oe_stat_button" icon="fa-archive" string="Active">
+                                <field name="active" widget="boolean_button"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="code" required="1"/>
+                                <field name="name" required="1"/>
+                                <field name="journal_type" required="1" widget="radio"/>
+                                <field name="is_credit"/>
+                                <field name="remarks"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="mode_of_payment_list_action">
+            <field name="name">Mode Of Payment</field>
+            <field name="res_model">berdikari.mode.of.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="payment.root_payment_menu"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+        <menuitem id="mode_of_payment_menu" name="Mode Of Payment" parent="payment.root_payment_menu"
+                  action="mode_of_payment_list_action"/>
+    </data>
+</odoo>

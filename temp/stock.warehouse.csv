@@ -1,0 +1,6 @@
+"id","name","partner_id/id","lot_stock_id/id"
+"stock.warehouse0","My Company","base.main_partner","stock.stock_location_stock"
+"__export__.stock_warehouse_2_484ab698","Warehouse 2","__export__.res_partner_7_f9c31c49","__export__.stock_location_25_6806d223"
+"__export__.stock_warehouse_3_bd536e8f","PT Andi Jaya Mandiri","__export__.res_partner_12_030e1dd5","__export__.stock_location_34_7733fa96"
+"__export__.stock_warehouse_4_a581e90a","Gudang","__export__.res_partner_13_48a5cc23","__export__.stock_location_43_40d80842"
+"__export__.stock_warehouse_5_7c5be029","Pasuruan","__export__.res_partner_14_6cda479b","__export__.stock_location_53_091379ba"

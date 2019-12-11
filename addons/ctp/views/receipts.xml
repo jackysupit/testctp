@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.view_picking_type_form">
+            <field name="name">stock.view_picking_type_form.inherit</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_location_dest_id']" position="after">
+                    <field name="dest_company_id" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="berdikari.inventory_receipts_form_inherit">
+            <field name="name">inventory.receipts.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="audit_period" required="1"/>
+                    <field name="company_id" attrs="{'readonly':1, 'invisible':[('id', '=', False)]}"/>
+                    <field name="operating_unit_id" invisible="1"/>
+                    <field name="flock_id" />
+                </xpath>
+                <xpath expr="//field[@name='location_id']" position="attributes" force_save="1">
+                    <attribute name="attrs">{'readonly':1}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='location_dest_id']" position="attributes" force_save="1">
+                    <attribute name="attrs">{'readonly':1}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='location_id']" position="after" force_save="1">
+                    <field name="location_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='location_dest_id']" position="after" force_save="1">
+                    <field name="location_dest_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='picking_type_id']" position="attributes">
+                    <attribute name="attrs">{'invisible':1}</attribute>
+                </xpath>
+<!--                <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="after">-->
+<!--                    <field name="lot_id"/>-->
+<!--                </xpath>-->
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="picking_type_id"
+                        domain="[('company_id','=','partner_id.company_id')]"
+                       attrs="{'readonly':[('partner_id','=',False)]}"
+                    />
+                    <field name="partner_company_id" invisible="1"/>
+                    <field name="dest_company_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

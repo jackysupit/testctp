@@ -1,0 +1,120 @@
+.oe_website_login_container .alert-success {
+    margin-top: 150px;
+    width: 400px;
+    margin-left: 50px;
+}
+
+footer #footer {
+    margin-left: 13px;
+    max-width: 835px;
+    padding-top: 10px;
+    padding-left: 0;
+}
+
+.oe_login_form {
+	margin: 111px 72px;
+}
+
+.oe_reset_password_form {
+	margin: 111px 72px;
+}
+
+footer {
+	background-color: #38404D;
+	mix-blend-mode: soft-light;
+	color: #ffffff;
+	font-size: 11px;
+}
+
+footer h4 {
+	color: #ffffff;
+}
+
+footer i.fa {
+	display: none;
+}
+
+@media screen and (min-width: 1200px) {
+	#wrapwrap {
+		background: url(/jekdoo/static/images/background-login2.png) no-repeat top right;
+		background-size: 70%;
+	}
+
+	.col-lg-3 {
+		width: 19%;
+	}
+
+	.navbar-default .navbar-nav > li > a {
+	    color: #fff;
+	}
+
+	.col-lg-offset-1 {
+		margin-left: unset;
+	}
+
+	.col-lg-5 {
+	    width: 58%;
+	}
+}
+
+.navbar-static-top {
+	background-color: transparent!important;
+    border-color: transparent!important; 
+}
+
+.container.mt16.mb8 {
+	display: none;
+}
+
+.btn {
+	border-radius: 9px;
+}
+
+header a.navbar-brand.logo img {
+	height: 150px!important;
+}
+
+.navbar-collapse {
+	margin-left: 161px!important;
+}
+
+.navbar-top-collapse ul#top_menu.nav li a:hover {
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.col-md-4, .col-lg-3 {
+	display: none;
+}
+
+#info {
+	display: block;
+}
+
+#info h4 {
+	display: none;
+}
+
+#info ul li a {
+	text-decoration: none;
+	font-size: x-large;
+	color: white;
+}
+
+body.o_connected_user {
+	padding-top: 0!important;
+}
+
+#oe_main_menu_navbar {
+	display: none!important;
+}
+
+#top_menu {
+	display: none;
+}
+
+/* custom jeki start */
+li.dropdown, li.divider {
+    display: none;
+}
+/* custom jeki end */

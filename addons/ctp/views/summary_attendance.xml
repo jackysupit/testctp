@@ -1,0 +1,89 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="summary_attendance_tree_view">
+            <field name="name">berdikari.summary.attendance.tree</field>
+            <field name="model">berdikari.summary.attendance.reporting</field>
+            <field name="arch" type="xml">
+                <tree create="false" limit="30">
+                    <field name="name" readonly="1"/>
+                    <field name="period_id" readonly="1" invisible="1"/>
+                    <field name="period_seq_id" readonly="1" invisible="1"/>
+                    <field name="nip" string="NIP" class="text-center" readonly="1"/>
+                    <field name="work_hour" class="text-center" string="Work Hour/day" readonly="1"/>
+                    <field name="work" class="text-center" readonly="1" sum="Total Work"/>
+                    <field name="off" class="text-center" readonly="1" sum="Total Off"/>
+                    <field name="leave" class="text-center" readonly="1" sum="Total Leave"/>
+                    <field name="sick" class="text-center" readonly="1" sum="Total Sick"/>
+                    <field name="permit" class="text-center" readonly="1" sum="Total Permit"/>
+                    <field name="absence" class="text-center" readonly="1" sum="Total Absence"/>
+                    <field name="transport_allowance" class="text-center" readonly="1" sum="Total Transport Allowance"/>
+                    <field name="meal_allowance" class="text-center" readonly="1" sum="Total Meal Allowance"/>
+                    <field name="ot_15" class="text-center" string='OT 1.5' readonly="1" sum="Total OT 1.5"/>
+                    <field name="ot_20_d" class="text-center" string="OT 2.0 D" readonly="1" sum="Total OT 2.0 D"/>
+                    <field name="ot_20_h" class="text-center" string="OT 2.0 H" readonly="1" sum="Total OT 2.0 H"/>
+                    <field name="ot_30" class="text-center" string="OT 3.0" readonly="1" sum="Total OT 3.0"/>
+                    <field name="ot_meal_allowance" class="text-center" readonly="1" sum="Total OT Meal Allowance"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="action_account_asset_report_graph">
+            <field name="name">summary.attendance.report.graph</field>
+            <field name="model">berdikari.summary.attendance.reporting</field>
+            <field name="arch" type="xml">
+                <graph string="Summary Attendance">
+                    <field name="name" type="row"/>
+                    <field name="work" type="measure"/>
+                    <field name="absence" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="action_account_asset_report_pivot">
+            <field name="name">summary.attendance.report.pivot</field>
+            <field name="model">berdikari.summary.attendance.reporting</field>
+            <field name="arch" type="xml">
+                <pivot string="Summary Attendance" disable_linking="True">
+                    <field name="name" type="row"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_summary_attendance_report_search" model="ir.ui.view">
+            <field name="name">summary.attendance.report.search</field>
+            <field name="model">berdikari.summary.attendance.reporting</field>
+            <field name="arch" type="xml">
+                <search string="Summary Attendance">
+                    <field name="department_id"/>
+                    <field name="period_id"/>
+                    <field name="period_seq_id"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Department" name="department_id" context="{'group_by':'department_id'}"/>
+                        <filter string="Period" name="period_id" context="{'group_by':'period_id'}"/>
+                        <filter string="Period Sequence" name="period_seq_id" context="{'group_by':'period_seq_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_summary_attendance_report">
+            <field name="name">Summary Attendance</field>
+            <field name="res_model">berdikari.summary.attendance.reporting</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_summary_attendance_report_search"/>
+            <!--            <field name="domain">[('asset_category_id.type', '=', 'purchase')]</field>-->
+            <field name="context">{'group_by':['period_id', 'period_seq_id']}</field>  <!-- force empty -->
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                    No content
+                </p>
+                <p>
+                    From this report, you can have an overview on all depreciations. The
+                    search bar can also be used to personalize your assets depreciation reporting.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

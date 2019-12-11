@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="backend.assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <!--<script type="text/javascript" src="/jekdoo/static/src/js/jekdoo.js"></script>-->
+            <!--<script type="text/javascript" src="/jekdoo/static/src/js/jquery.number.min.js"></script>-->
+
+            <!--#matikan, user jadi nggak terkontrol-->
+            <!--<script type="text/javascript" src="/jekdoo/static/src/js/dynamic_list.js"></script>-->
+
+            <!--<link rel="stylesheet" href="/jekdoo/static/3rd/jsTree/themes/default/style.css"/>-->
+            <!--<script type="text/javascript" src="/jekdoo/static/3rd/jsTree/jstree.js"></script>-->
+
+            <!--#matikan, user jadi nggak terkontrol-->
+            <!--<script type="text/javascript" src="/jekdoo/static/custom/custom_table_tree.js"></script>-->
+            <!--<script type="text/javascript" src="/jekdoo/static/src/js/jekdoo_char.js"></script>-->
+
+            <!--<link rel="stylesheet" href="/lunch/static/src/less/lunch.less"/>-->
+            <!--<link type="text/css" rel="stylesheet" href="/jekdoo/static/custom/custom.css"/>-->
+            <!--<script type="text/javascript" src="/jekdoo/static/custom/custom.js"></script>-->
+
+            <link rel="stylesheet" href="/jekdoo/static/src/css/odoo-custom.css"/>
+            <script type="text/javascript" src="/jekdoo/static/src/js/odoo-custom.js"></script>
+        </xpath>
+    </template>
+    <template id="assets_backend2" name="website.assets" inherit_id="website.layout">
+        <xpath expr="." position="inside">
+
+            <!--<script type="text/javascript" src="/jekdoo/static/src/js/jekdoo.js"></script>-->
+            <!--<script type="text/javascript" src="/jekdoo/static/src/js/jquery.number.min.js"></script>-->
+            <!--<script type="text/javascript" src="/jekdoo/static/src/js/jekdoo_char.js"></script>-->
+            <!--<link rel="stylesheet" href="/lunch/static/src/less/lunch.less"/>-->
+            <!--<link type="text/css" rel="stylesheet" href="/jekdoo/static/custom/custom.css"/>-->
+            <!--<script type="text/javascript" src="/jekdoo/static/custom/custom.js"></script>-->
+
+            <link rel="stylesheet" href="/jekdoo/static/src/css/odoo-custom.css"/>
+            <script type="text/javascript" src="/jekdoo/static/src/js/odoo-custom.js"></script>
+        </xpath>
+    </template>
+    <template id="ganti_title" name="ganti_title" inherit_id="web.layout">
+        <xpath expr="//title" position="replace">
+            <title t-esc="title or 'Berdikari'"/>
+        </xpath>
+    </template>
+    <template id="buang_blockui" name="buang_blockui" inherit_id="web.assets_common">
+        <xpath expr="//script[@src='/web/static/lib/jquery.blockUI/jquery.blockUI.js']" position="replace">
+            <script src="/jekdoo/static/override/js/jquery.blockUI.js"></script>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,89 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.view_account_payment_invoice_form">
+            <field name="name">view_account_payment_invoice_form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='communication']" position="after">
+
+                    <field name="partner_id" invisible="0" readonly="1"/>
+                    <field name="partner_type" invisible="1"  readonly="1"/>
+                    <field name="nego_rate"/>
+                    <field name="rate" attrs="{'readonly': [('nego_rate', '=', False)]}"/>
+
+                    <field name="total_ar" attrs="{'invisible':['|', ('partner_type','!=','supplier'), ('total_ar','=',0)]}"/>
+                    <field name="is_pay_with_ar" attrs="{'invisible':['|', ('partner_type','!=','supplier'), ('total_ar','=',0)]}"/>
+                    <field name="len_pay_invoice_ids" invisible="1"/>
+
+                    <field name="total_ap" attrs="{'invisible':['|', ('partner_type','!=','customer'), ('total_ap','=',0)]}"/>
+                    <field name="is_pay_with_ap" attrs="{'invisible':['|', ('partner_type','!=','customer'), ('total_ap','=',0)]}"/>
+                    <field name="len_pay_bill_ids" invisible="1"/>
+
+                    <separator string="Settlement"/>
+                    <field name="settle_type" widget="radio"/>
+                    <field name="for_settle_id"/>
+<!--                    <field name="amount"/>-->
+
+                </xpath>
+                <xpath expr="//field[@name='amount']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('settle_type','!=',False)]}</attribute>
+                </xpath>
+
+                <xpath expr="(//sheet)[last()]" position="inside">
+                    <group  string="Pay With Invoices"  attrs="{'invisible':[('is_pay_with_ar','=',False)]}">
+                        <field name="pay_invoice_ids" string="Pay With Invoices" nolabel="1">
+                            <tree editable="bottom" >
+                                <field name="account_payment_id" invisible="1" />
+                                <field name="partner_id" invisible="1" />
+                                <field name="invoice_id"  options="{'no_create': True, 'no_create_edit':True, 'no_open':False}"/>
+                                <field name="invoice_id_number" invisible="1" />
+                                <field name="invoice_id_date_invoice" />
+                                <field name="invoice_id_date_due" />
+                                <field name="invoice_id_amount" />
+                            </tree>
+                        </field>
+                    </group>
+                    <group  string="Pay With Bills"  attrs="{'invisible':[('is_pay_with_ap','=',False)]}">
+                        <field name="pay_bill_ids" string="Pay With Vendor Bills" nolabel="1">
+                            <tree editable="bottom" >
+                                <field name="account_payment_id" invisible="1" />
+                                <field name="partner_id" invisible="1" />
+                                <field name="bill_id" options="{'no_create': True, 'no_create_edit':True, 'no_open':False}"/>
+                                <field name="bill_id_number" invisible="1" />
+                                <field name="bill_id_date_invoice" />
+                                <field name="bill_id_date_due" />
+                                <field name="bill_id_amount" />
+                            </tree>
+                        </field>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_account_payment_search_inherit" model="ir.ui.view">
+            <field name="name">account.payment.search</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='journal']" position="after">
+                    <filter name="groupby_journal_type" string="Journal Type" context="{'group_by':'journal_type'}"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_account_payment_tree_inherit" model="ir.ui.view">
+            <field name="name">account.payment.tree</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="communication"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

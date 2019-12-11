@@ -1,0 +1,130 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="fms_hatchery_setter_form_view">
+            <field name="name">berdikari.fms.grading.setter.form</field>
+            <field name="model">berdikari.fms.grading.setter</field>
+            <field name="arch" type="xml">
+                <form string="Farm Management System Settery Form">
+                    <header>
+                        <button name="action_validate_setter" string="Validate Setter" type="object"
+                                class="oe_highlight oe_read_only"
+                            attrs="{'invisible':[('is_invisible_validate_button','=',True)]}"
+                        />
+                        <field name="state" widget="statusbar" readonly="1" />
+                        <field name="is_invisible_validate_button" invisible="1" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="is_invisible_validate_button" invisible="1" />
+                                <field name="is_validated" invisible="1"/>
+
+
+                                <field name="name" readonly="1" force_save="1"/>
+                                <field name="date" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                            </group>
+                            <group>
+                                <field name="company_id" attrs="{'readonly': [('state', '=', 'done')]}" readonly="1" force_save="1"/>
+                                <field name="operating_unit_id" attrs="{'readonly': [('state', '=', 'done')]}" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="work_order_id" attrs="{'readonly': [('state', '=', 'done')]}" readonly="1" force_save="1"/>
+                                <field name="product_product_id" attrs="{'readonly': [('state', '=', 'done')]}" readonly="1" force_save="1"/>
+                                <field name="product_product_id_setter" attrs="{'readonly': [('state', '=', 'done')]}" readonly="1" force_save="1"/>
+                                <field name="product_product_id_setter" attrs="{'readonly': [('state', '=', 'done')]}" readonly="1" force_save="1"/>
+                                <field name="flock_id" attrs="{'readonly': [('state', '=', 'done')]}" readonly="1" force_save="1"/>
+                                <field name="house_id" attrs="{'readonly': [('state', '=', 'done')]}" readonly="1" force_save="1"/>
+                            </group>
+                            <group>
+                                <field name="he_receive_qty" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                <field name="he_culling_qty" attrs="{'readonly': [('state', '=', 'done')]}" string="Damaged QTY"/>
+                                <field name="he_qty" readonly="1" force_save="1"/>
+                                <field name="he_qty_unused" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group></group>
+                            <group>
+                                <field name="total_setter_result" string="Setter Result" class="min-width-100" readonly="1" force_save="1"/>
+                                <field name="is_validated" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Setter">
+                                <group >
+                                    <field name="line_ids" nolabel="1"
+                                           attrs="{'readonly':[('is_validated','=',True)]}" context="{'default_date': date}"
+                                    >
+                                        <tree editable="bottom">
+<!--                                            <field name="name" attrs="{'readonly': [('state', '=', 'done')]}"/>-->
+                                            <field name="state" invisible="1"/>
+                                            <field name="setter_machine_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                            <field name="date" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                            <field name="capacity"/>
+                                            <field name="total_he_received" attrs="{'readonly': [('state', '=', 'done')]}"  string="QTY Di Proses"/>
+                                            <field name="total_he_culling" attrs="{'readonly': [('state', '=', 'done')]}" invisible="1"/>
+                                            <field name="total_he"  readonly="1" force_save="1"  invisible="1"/>
+                                            <field name="infertile" attrs="{'readonly': [('state', '=', 'done')]}"  invisible="1"/>
+                                            <field name="explode" attrs="{'readonly': [('state', '=', 'done')]}"  invisible="1"/>
+                                            <field name="fertile"  readonly="1" force_save="1"  invisible="1"/>
+                                            <field name="is_done" invisible="0" readonly="1" />
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group class="oe_subtotal_footer oe_right" invisible="1">
+                                    <field name="total_setter_result" string="Total Fertile" class="min-width-100" readonly="1" force_save="1"/>
+                                </group>
+
+                                <group string="Result">
+                                    <field name="line_byproduct_ids_setter" nolabel="1"
+                                        attrs="{'readonly':[('is_validated','=',True)]}"
+                                    >
+                                        <tree editable="bottom" create="true">
+                                            <field name="date" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                            <field name="state" invisible="1" />
+                                            <field name="product_product_id" required="1" attrs="{'readonly': [('state', '=', 'done')]}" />
+                                            <field name="product_template_id" invisible="1" readonly="1"  />
+                                            <field name="product_template_code" visibility="1"  readonly="1"  />
+                                            <field name="is_result" visibility="1"  readonly="1" force_save="1" />
+                                            <field name="qty" visibility="0"   attrs="{'readonly': [('state', '=', 'done')]}" />
+                                            <field name="uom_id" visibility="1" required="1" readonly="1"  />
+                                            <field name="is_done" invisible="0" readonly="1" />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fms_hatchery_setter_view_tree" model="ir.ui.view">
+            <field name="name">berdikari.fms.grading.setter.tree</field>
+            <field name="model">berdikari.fms.grading.setter</field>
+            <field name="arch" type="xml">
+                <tree string="tree" create="false">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="fms_hatchery_setter_list_action">
+            <field name="name">FMS Grading Setter</field>
+            <field name="res_model">berdikari.fms.grading.setter</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="mrp.menu_mrp_root"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+<!--        <menuitem id="fms_hatchery_submenu" name="FMS Settery" parent="fms_breeding_menu" sequence="3"-->
+<!--                  action="fms_hatchery_list_action"/>-->
+    </data>
+</odoo>

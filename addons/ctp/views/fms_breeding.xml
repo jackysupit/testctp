@@ -1,0 +1,151 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="fms_breeding_form_view">
+            <field name="name">fms.breeding.form</field>
+            <field name="model">berdikari.fms.breeding</field>
+            <field name="arch" type="xml">
+                <form string="Farm Management System Breeding Form">
+                    <header>
+                        <button name="action_fms_breeding_validate" string="Validate" type="object"
+                                class="oe_highlight"/>
+                        <button name="action_fms_breeding_released" string="Released" type="object"
+                                class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="number"/>
+                                <field name="date"/>
+                                <field name="file_name"/>
+                            </group>
+                            <group>
+                                <field name="src_company_id"/>
+                                <field name="notes"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Dateils">
+                                <group>
+                                    <field name="file1" filename="file1_name" nolabel="1"/>
+                                    <field name="file1_name" invisible="1"/>
+                                </group>
+                                <field name="fms_breeding_detail">
+                                    <tree string="Detail" editable="bottom">
+                                        <field name="finished_goods" visibility="1"/>
+                                        <field name="flock" visibility="1"/>
+                                        <field name="chicken_coop" visibility="1"/>
+                                        <field name="date" visibility="1"/>
+                                        <field name="age" visibility="1"/>
+                                        <field name="death" visibility="1"/>
+                                        <field name="by_product" visibility="1"/>
+                                        <field name="female" visibility="1"/>
+                                        <field name="male" visibility="1"/>
+                                        <field name="feed_code" visibility="1"/>
+                                        <field name="feed_name" visibility="1"/>
+                                        <field name="standard" visibility="1"/>
+                                        <field name="actual" visibility="1"/>
+                                        <field name="uom_id" visibility="1"/>
+                                        <field name="temperature" visibility="1"/>
+                                        <field name="humdity" visibility="1"/>
+                                        <field name="light" visibility="1"/>
+                                        <field name="medicine_code" visibility="1"/>
+                                        <field name="medicine_name" visibility="1"/>
+                                        <field name="qty" visibility="1"/>
+                                        <field name="med_uom_id" visibility="1"/>
+                                        <field name="vaccine_code" visibility="1"/>
+                                        <field name="vaccine_name" visibility="1"/>
+                                        <field name="vaccine_qty" visibility="1"/>
+                                        <field name="vaccine_uom_id" visibility="1"/>
+                                        <field name="chemical_code" visibility="1"/>
+                                        <field name="chemical_name" visibility="1"/>
+                                        <field name="chemical_qty" visibility="1"/>
+                                        <field name="chemical_uom_id" visibility="1"/>
+                                        <field name="weight" visibility="1"/>
+                                        <field name="weight_uom_id" visibility="1"/>
+                                        <field name="remark" visibility="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Material Use">
+                                <group>
+                                    <button type="object" name="btnLoadMaterial" string="Load Material Use" class="oe_highlight"/>
+                                </group>
+                                <field name="fms_breeding_line2">
+                                    <tree string="Material Use" editable="bottom">
+                                        <field name="manufacturing_order_id" visibility="1" required="1"/>
+                                        <field name="date" visibility="1" required="1"/>
+                                        <field name="age" visibility="1"/>
+                                        <field name="feed_code" visibility="1"/>
+                                        <field name="feed_name" visibility="1"/>
+                                        <field name="medicine_code" visibility="1"/>
+                                        <field name="medicine_name" visibility="1"/>
+                                        <field name="vaccine_code" visibility="1"/>
+                                        <field name="vaccine_name" visibility="1"/>
+                                        <field name="chemical_code" visibility="1"/>
+                                        <field name="chemical_name" visibility="1"/>
+                                        <field name="standard" visibility="1"/>
+                                        <field name="actual" visibility="1"/>
+                                        <field name="uom_id" visibility="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Death">
+                                <field name="fms_breeding_line3">
+                                    <tree string="Death" editable="bottom">
+                                        <field name="manufacturing_order_id" visibility="1" required="1"/>
+                                        <field name="date" visibility="1" required="1"/>
+                                        <field name="age" visibility="1"/>
+                                        <field name="biological_assets_code" visibility="1"/>
+                                        <field name="biological_assets_name" visibility="1"/>
+                                        <field name="biological_assets_qty" visibility="1"/>
+                                        <field name="biological_assets_uom_id" visibility="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="By Product">
+                                <field name="fms_breeding_line4">
+                                    <tree string="By Product" editable="bottom">
+                                        <field name="manufacturing_order_id" visibility="1" required="1"/>
+                                        <field name="date" visibility="1" required="1"/>
+                                        <field name="age" visibility="1"/>
+                                        <field name="biological_assets_code" visibility="1"/>
+                                        <field name="biological_assets_name" visibility="1"/>
+                                        <field name="biological_assets_qty" visibility="1"/>
+                                        <field name="biological_assets_uom_id" visibility="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fms_breeding_view_tree" model="ir.ui.view">
+            <field name="name">fms.breeding.tree</field>
+            <field name="model">berdikari.fms.breeding</field>
+            <field name="arch" type="xml">
+                <tree string="fms breeding tree">
+                    <field name="number"/>
+                    <field name="date"/>
+                    <field name="src_company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="fms_breeding_list_action">
+            <field name="name">FMS Breeding</field>
+            <field name="res_model">berdikari.fms.breeding</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="mrp.menu_mrp_root"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+<!--        <menuitem id="fms_breeding_menu" name="Farm Management System" parent="mrp.menu_mrp_root" sequence="26"/>-->
+<!--        <menuitem id="fms_breeding_submenu" name="FMS Breeding" parent="fms_breeding_menu" sequence="1"-->
+<!--                  action="fms_breeding_list_action"/>-->
+    </data>
+</odoo>

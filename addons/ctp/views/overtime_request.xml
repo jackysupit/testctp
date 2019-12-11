@@ -1,0 +1,98 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="overtime_request_form_view">
+            <field name="name">overtime.request.form</field>
+            <field name="model">berdikari.overtime.request</field>
+            <field name="arch" type="xml">
+                <form string="Overtime Request Form">
+                    <header>
+                        <field name="is_hide_confirm" invisible="1"/>
+                        <button name="action_confirm_overtime" string="Confirm" type="object"
+                                class="oe_highlight" attrs="{'invisible': [('is_hide_confirm', '=', True)]}"/>
+                        <field name="is_hide_approve_manager" invisible="1"/>
+                        <button name="action_approve_overtime" string="Approve" type="object"
+                                class="oe_highlight" attrs="{'invisible': [('is_hide_approve_manager', '=', True)]}"/>
+                        <field name="is_hide_approve_dept_manager" invisible="1"/>
+                        <button name="action_approve_department_overtime" string="Dept Approve" type="object"
+                                class="oe_highlight" attrs="{'invisible': [('is_hide_approve_dept_manager', '=', True)]}"/>
+                        <field name="state" widget="statusbar"
+                               readonly="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+<!--                                <field name="name"/>-->
+                                <field name="user_id" invisible="1"/>
+                                <field name="employee_id" force_save="1"/>
+                                <field name="company_id"/>
+                                <field name="department_id"/>
+                                <field name="category_id"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="day" force_save="1" invisible="1"/>
+                                <field name="date" force_save="1" invisible="1"/>
+                                <field name="numbers_of_hour" readonly="1" force_save="1"/>
+                                <field name="overtime_pay" invisible="1" force_save="1"/>
+                                <field name="meal" invisible="1" force_save="1"/>
+                                <field name="ot_15" invisible="1" force_save="1"/>
+                                <field name="ot_20_d" invisible="1" force_save="1"/>
+                                <field name="ot_20_h" invisible="1" force_save="1"/>
+                                <field name="ot_30" invisible="1" force_save="1"/>
+                            </group>
+                            <group>
+                                <field name="manager_id" string="Group" readonly="1"/>
+                                <field name="dept_manager_id" string="Director" readonly="1"/>
+                                <field name="director_id" readonly="1" invisible="1"/>
+                                <field name="approved_by" readonly="1"/>
+                                <field name="approved_date" readonly="1"/>
+                                <field name="dept_approved_by" readonly="1" invisible="1"/>
+                                <field name="dept_approved_date" readonly="1" invisible="1"/>
+                                <field name="overtime_multiple_request" invisible="1"/>
+                                <field name="include_in_payrol"/>
+                                <field name="meal_provided"/>
+                                <field name="week_end_overtime"/>
+                                <field name="job"/>
+                                <field name="job_purpose" attrs="{'invisible': [('week_end_overtime', '!=', True)]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Notes">
+                                <field name="notes">
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="overtime_tree_view">
+            <field name="name">overtime.tree</field>
+            <field name="model">berdikari.overtime.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="overtime_request_list_action">
+            <field name="name">Overtime Request</field>
+            <field name="res_model">berdikari.overtime.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="inherit_id" ref="hr.menu_hr_root"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+        <menuitem id="overtime_request_menu" name="Overtime Request" parent="hr.menu_hr_root" sequence="5"
+                  action="overtime_request_list_action"/>
+    </data>
+</odoo>

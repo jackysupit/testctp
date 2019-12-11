@@ -1,0 +1,360 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.employee_form_inherit">
+            <field name="name">employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='address_home_id']" position="after">
+                    <!--                    <field name="pr_name" attrs="{'readonly': [('address_home_id', '=', False)]}" context="{'default_partner_id': address_home_id, 'default_bank_id': 3}"/>-->
+                    <field name="bank_account_id" attrs="{'readonly': [('address_home_id', '=', False)]}"
+                           context="{'default_partner_id': address_home_id, 'default_bank_id': 3}"/>
+                </xpath>
+                <xpath expr="//field[@name='address_home_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='emergency_contact']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="attributes">
+                    <attribute name="string">Group Head</attribute>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="director_id"/>
+                </xpath>
+                <xpath expr="//field[@name='address_id']" position="before">
+                    <field name="barcode" string="Employee ID" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='country_id']" position="after">
+                    <field name="ethnic"/>
+                </xpath>
+                <xpath expr="//field[@name='job_title']" position="after">
+                    <field name="job_level_id" placeholder="Pangkat"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="partner_id"/>
+                    <field name="employee_status"/>
+                    <field name="employee_status_date" attrs="{'readonly': [('employee_status','=','quit')]}" force_save="1"/>
+                </xpath>
+                <xpath expr="//field[@name='employee_status_date']" position="after">
+                    <field name="operating_unit_id" attrs="{'readonly': [('employee_status','=','quit')]}" force_save="1"/>
+                    <field name="join_date" attrs="{'readonly': [('employee_status','=','quit')]}" force_save="1"/>
+                    <field name="termination_date" attrs="{'readonly': [('employee_status','=','quit')]}" force_save="1"/>
+                </xpath>
+                <xpath expr="//field[@name='medic_exam']" position="attributes">
+                    <attribute name="string">Lasted MCU</attribute>
+                </xpath>
+                <xpath expr="//field[@name='vehicle']" position="attributes">
+                    <attribute name="string">Provider</attribute>
+                </xpath>
+                <xpath expr="//field[@name='identification_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='hr_settings']/group" position="after">
+                    <group>
+                        <group string="Program">
+                            <field name="bpjs_ketenagakerjaan"/>
+                            <field name="kartu_jaminan_pensiun"/>
+                            <field name="bpjs_kesehatan"/>
+                            <field name="faskes_tingkat_1" string="Faskes"/>
+                            <field name="kelas_rawat"/>
+                            <field name="tanggungan_perusahaan"/>
+                            <field name="bni_life" string="Other Insurance"/>
+                        </group>
+                        <group string="HR Information">
+                            <field name="emp_notes_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="date" required="1"/>
+                                    <field name="notes" required="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//page[@name='personal_information']/group" position="after">
+                    <group>
+                        <group string="Address">
+                            <field name="address"/>
+                            <field name="residence_address"/>
+                            <field name="province"/>
+                            <field name="postal_code"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='children']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='birthday']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='place_of_birth']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='country_of_birth']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='birthday']" position="after">
+                    <field name="age" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='bank_account_id']" position="before">
+                    <field name="religion_id" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='bank_account_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+<!--                <xpath expr="//field[@name='expense_manager_id']" position="after">-->
+<!--                    <field name="expense_manager_id_1" string="Expense Manager 1"/>-->
+<!--                </xpath>-->
+                <xpath expr="//field[@name='bank_account_id']" position="after">
+                    <field name="id_no_expired_date"/>
+                    <field name="drive_licence_type"/>
+                    <field name="drive_licence_id"/>
+                    <field name="drive_licence_exp_date"/>
+                    <field name="passport_place_of_issued"/>
+                    <field name="passport_exp_date"/>
+                    <field name="npwp" required="1"/>
+                    <field name="npwp_address"/>
+                    <field name="bank_payroll_account"/>
+                    <field name="other_bank_account"/>
+                </xpath>
+                <xpath expr="//field[@name='marital']" position="before">
+                    <field name="tax_marital_status" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='km_home_work']" position="after">
+                    <field name="home_phone"/>
+                    <field name="mobile_phone" required="1"/>
+                    <field name="mobile_phone_2"/>
+                    <field name="personal_email" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='mobile_phone']" position="replace">
+                    <field name="mobile_phone"/>
+                </xpath>
+                <xpath expr="//field[@name='mobile_phone']" position="after">
+                    <field name="mobile_phone_2"/>
+                </xpath>
+                <xpath expr="//page[@name='personal_information']/group/group[6]" position="replace">
+                    <group string="Education">
+                        <field name="education_level_id"/>
+                        <field name="certificate"/>
+                        <field name="study_school"/>
+                        <field name="faculty"/>
+                        <field name="study_field"/>
+                        <field name="year_graduate"/>
+                        <field name="grade_point"/>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='appraisal_by_manager']" position="before">
+                    <field name="direksi_id"/>
+                    <field name="dept_head_id" string="1" invisible="1"/>
+                    <field name="dept_head_id"/>
+                    <field name="dept_head_id" string="2" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='appraisal_by_manager']" position="attributes">
+                    <attribute name="string">Group Head</attribute>
+                </xpath>
+                <xpath expr="//field[@name='appraisal_by_collaborators']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='periodic_appraisal']" position="after">
+                    <notebook>
+                        <page string="Historical">
+                            <field name="appraisal_ids">
+                                <tree editable="bottom">
+                                    <field name="appraisal_name"/>
+                                    <field name="competency_id"/>
+                                    <field name="date"/>
+                                    <field name="score"/>
+                                    <field name="grade"/>
+                                    <field name="weight"/>
+                                    <field name="final_score"/>
+                                    <field name="appraisal_doc"/>
+                                    <field name="appraisal_doc_name" invisible="1"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+                <xpath expr="//page[@name='hr_settings']" position="after">
+                    <page string="Education/Training" name="education">
+                        <notebook>
+                            <page string="Education">
+                                <field name="education_ids">
+                                    <tree editable="bottom">
+                                        <field name="education_level"/>
+                                        <field name="school_name"/>
+                                        <field name="year_entry"/>
+                                        <field name="year_graduate"/>
+                                        <field name="faculty"/>
+                                        <field name="study"/>
+                                        <field name="grade_point"/>
+                                        <field name="keep_date" invisible="1"/>
+                                        <field name="keep_qty" invisible="1"/>
+                                        <field name="release_date" invisible="1"/>
+                                        <field name="release_qty"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Training">
+                                <field name="training_ids">
+                                    <tree editable="bottom">
+                                        <field name="category_id"/>
+                                        <field name="training_type"/>
+                                        <field name="company"/>
+                                        <field name="result"/>
+                                        <field name="year"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </page>
+                    <page string="Family">
+                        <group>
+                            <group>
+                                <field name="no_kartu_keluarga"/>
+                                <field name="birth_mother_name"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Family Relation">
+                                <field name="family_ids">
+                                    <tree editable="bottom">
+                                        <field name="family_relation"/>
+                                        <field name="name"/>
+                                        <field name="birth_place"/>
+                                        <field name="birth_date"/>
+                                        <field name="age"/>
+                                        <field name="bpjs_kesehatan"/>
+                                        <field name="job"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <group>
+                            <group>
+                                <label for="fam_ref_name" string="Family Reference"/>
+                                <field name="fam_ref_name"/>
+                                <field name="fam_ref_relation"/>
+                                <field name="fam_ref_job"/>
+                                <field name="fam_ref_address"/>
+                                <field name="fam_ref_phone"/>
+                                <field name="fam_ref_mobile_phone"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Emergency Contact">
+                        <field name="emergency_contact_ids">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="family_relation"/>
+                                <field name="address"/>
+                                <field name="kecamatan"/>
+                                <field name="kabupaten"/>
+                                <field name="home_phone"/>
+                                <field name="mobile_phone"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Work History">
+                        <field name="work_ids">
+                            <tree editable="bottom">
+                                <field name="company_name"/>
+                                <field name="unit"/>
+                                <field name="department"/>
+                                <field name="last_position"/>
+                                <field name="employee_status"/>
+                                <field name="duration" string="Duration (year)"/>
+                                <field name="file_doc" filename="file_doc_name"/>
+                                <field name="file_doc_name" invisible="1"/>
+                                <field name="remarks"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Medical">
+                        <field name="medical_ids">
+                            <tree editable="bottom">
+                                <field name="medic"/>
+                                <field name="address"/>
+                                <field name="mobile_phone"/>
+                                <field name="blood_type"/>
+                                <field name="health_condition"/>
+                                <field name="allergy"/>
+                                <field name="medicine"/>
+                                <field name="remarks"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Reward/Punishment" name="page_reward_punishment">
+                        <notebook>
+                            <page string="Reward">
+                                <field name="reward_ids">
+                                    <tree editable="bottom">
+                                        <field name="reward_name"/>
+                                        <field name="date"/>
+                                        <field name="file_doc" filename="file_doc_name"/>
+                                        <field name="file_doc_name" invisible="1"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Punishment">
+                                <field name="punishment_ids">
+                                    <tree editable="bottom">
+                                        <field name="punishment_name"/>
+                                        <field name="punishment_type"/>
+                                        <field name="date"/>
+                                        <field name="file_doc" filename="file_doc_name"/>
+                                        <field name="file_doc_name" invisible="1"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </page>
+                    <page string="Paklaring" name="paklaring">
+                        <group>
+                            <field name="termination_date"/>
+                            <field name="paklaring_id"/>
+
+                            <!--                            <div class="oe_edit_only">-->
+                            <!--                            <div class="oe_read_only">-->
+                            <button name="action_create_paklaring" attrs="{'invisible':[('paklaring_id','!=',False)]}"
+                                    class="oe_stat_button"
+                                    type="object" icon="fa-file-word-o" string="Create Paklaring">
+                            </button>
+
+<!--                            <button name="action_view_paklaring" attrs="{'invisible':[('paklaring_id','=',False)]}"-->
+<!--                                    class="oe_stat_button"-->
+<!--                                    type="object" icon="fa-file-word-o" string="View Paklaring">-->
+<!--                            </button>-->
+                            <button name="%(report_paklaring)d" attrs="{'invisible':[('paklaring_id','=',False)]}"
+                                    class="oe_stat_button" type="action" icon="fa-file-word-o" string="View Paklaring">
+                            </button>
+                            <!--                            </div>-->
+                        </group>
+                    </page>
+                </xpath>
+                <!--                <xpath expr="//field[@name='attendance_state']" position="before">-->
+                <!--                    <button name="700"-->
+                <!--                        class="oe_stat_button"-->
+                <!--                        type="action" icon="fa-suitcase" string="Cash Advance">-->
+                <!--                    </button>-->
+                <!--                </xpath>-->
+                <xpath expr="//button[@name='toggle_active']" position="before">
+                    <button class="oe_stat_button" name="action_cash_advance"
+                            type="object" icon="fa-suitcase" string="Cash Advance">
+                    </button>
+                </xpath>
+                <xpath expr="//sheet/div/button[4]" position="after">
+                    <button name="action_leave_carry_over" type="object" class="oe_stat_button"
+                            icon="fa-forward"
+                    >
+                    <field string="Leaves Carry Over" name="count_leave_carry_over" widget="statinfo" modifiers="{'readonly':true}"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

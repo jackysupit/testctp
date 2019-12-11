@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.product_form_inherit">
+            <field name="name">product.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <header>
+                    <field name="approval_state" widget="statusbar" nolabel="1"
+                               statusbar_visible="draft,inventory_confirm,dh_inventory_approve,tax_validation,dh_tax_approve"/>
+                    <field name="is_hide_confirm" invisible="1"/>
+                    <button name="action_confirm_product" string="Confirm" type="object"
+                            class="oe_highlight" attrs="{'invisible': [('is_hide_confirm', '=', True)]}"/>
+                    <field name="is_hide_inventory" invisible="1"/>
+                    <button name="action_approve_dept_head" string="Dept Head Approve" type="object"
+                            class="oe_highlight" attrs="{'invisible': [('is_hide_inventory', '=', True)]}"/>
+                    <field name="is_hide_tax" invisible="1"/>
+                    <button name="action_tax_validate" string="Tax Validate" type="object"
+                            class="oe_highlight" attrs="{'invisible': [('is_hide_tax', '=', True)]}"/>
+                    <field name="is_hide_dh_tax" invisible="1"/>
+                    <button name="action_dh_tax_approve" string="DH Tax Approve" type="object"
+                            class="oe_highlight" attrs="{'invisible': [('is_hide_dh_tax', '=', True)]}"/>
+                </header>
+<!--                <xpath expr="//div[@name='button_box']" position="inside">-->
+<!--                    <div class="oe_button_box" name="button_box">-->
+<!--                        <button type="object" name="toggle_active" class="oe_stat_button" icon="fa-archive" string="Active">-->
+<!--                            <field name="active" widget="boolean_button"/>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </xpath>-->
+
+                <xpath expr="//field[@name='default_code']" position="after">
+                    <field name="is_flock_material"/>
+
+                    <field name="sex" attrs="{'required':[('is_flock_material', '!=', False)]}" />
+                    <field name="uom_id"/>
+                    <field name="asset_category_id" attrs="{'required':[('is_flock_material', '!=', False)]}" />
+                </xpath>
+                <xpath expr="//field[@name='tracking']" position="after">
+                    <field name="product_scrap" invisible="0"/>
+                </xpath>
+                <xpath expr="//button[@name='toggle_active']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!--Tree Inventory Report-->
+        <record id="view_stock_product_tree2" model="ir.ui.view">
+            <field name="name">product.stock.tree.2</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock_account.view_stock_product_tree2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='display_name']" position="after">
+                    <field name="lot_id"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="product_category_form_view" model="ir.ui.view">
+            <field name="name">product.category.form</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='property_valuation']" position="after">
+                    <field name="dest_department_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

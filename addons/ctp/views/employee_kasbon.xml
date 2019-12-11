@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="employee_kasbon_action">
+            <field name="name">Employee Cash Advance</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'is_employee_transaction': True, 'is_employee_cash_advance':True,'default_trans_type':'cash_advance', 'search_default_filter_trans_type_cash2':1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="employee_bill_action">
+            <field name="name">Employee Bill</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'is_employee_transaction': True, 'is_employee_bill':True,'default_trans_type':'bill', 'search_default_filter_trans_type_bill':1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_smiling_face">No Data</p>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,57 @@
+.database_expiration_panel {
+    display: none;
+    display: none !important;
+}
+
+.o_brand_promotion {
+	display: none;
+}
+
+body:not([class*="o_web_client"]) {
+	background: url(/web/image?model=res.company&id=1&field=background_image) no-repeat;
+    background-size: cover;
+}
+
+.o_footer {
+	background-color: rgba(255,255,255,0.5)!important;
+}
+
+.o_footer_copyright {
+	background-color: rgba(0,0,0,0.5)!important;
+	
+}
+
+.o_footer_copyright .text-muted {
+	color: #fff !important;
+}
+
+.o_footer a {
+	background-color: unset!important;
+}
+
+.oe_login_form:before {
+	content: ' ';
+	display: inline-block;
+	background: url("/berdikari/static/custom/images/logo_mybest.png") no-repeat;
+	background-size: contain;
+    height: 100px;
+    width: 300px;
+    top: -5px;
+    right: 22px;
+}
+
+.field-db {
+	display: none;
+}
+
+header {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.navbar-light {
+    background-color: transparent!important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(0, 0, 0, 1)!important;
+}

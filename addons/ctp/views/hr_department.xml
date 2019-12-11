@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="berdikari.department_form_inherit">
+            <field name="name">department.form.inherit</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="(//group)[last()]" position="after">
+                    <group name="group_approval" string="Approval Config">
+                        <field name="is_purchase_approval" />
+
+                        <field name="is_allow_input_breeding" />
+                        <field name="is_allow_input_setter" />
+                        <field name="is_allow_input_hatcher" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

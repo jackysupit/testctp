@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="berdikari.view_users_form">
+            <field name="name">view_users_form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_title')]//field[@name='partner_id']" position="after">
+                    <field name="employee_id" string="Related Employee"/>
+                    <field name="default_operating_unit_id"/>
+                    <field name="read_purchase_order_ids" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_users_view_form_inherit" model="ir.ui.view">
+            <field name="name">res.users.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='company_id']" position="after">
+                        <field name="default_operating_unit_id"/>
+                   </xpath>
+<!--                    <xpath expr="//group[@name='preferences']" position="after">-->
+<!--                        <group name="preferences2" string="Account Invoice In">-->
+<!--                            <field name="read_account_invoice_in_ids" nolabel="1"/>-->
+<!--                        </group>-->
+<!--                        <group name="preferences3" string="Purchase Order">-->
+<!--                            <field name="read_purchase_order_ids" nolabel="1"/>-->
+<!--                        </group>-->
+<!--                   </xpath>-->
+                </data>
+            </field>
+        </record>
+    </data>
+</odoo>
